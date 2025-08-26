@@ -1,0 +1,130 @@
+
+
+/* 
+   <?php
+// citizenPortal.php
+require_once __DIR__."/config.php";
+if (!isset($_SESSION['uid']) || ($_SESSION['role'] ?? 'citizen') !== 'citizen') {
+  header('Location: clientLogin.html'); exit;
+}
+$name = htmlspecialchars($_SESSION['name'] ?? 'Citizen');
+?> 
+*/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LCR — Citizen Portal</title>
+  <style>
+    :root{
+      --blue-100:#D0E1F5; --blue-200:#A8BCDA; --blue-700:#415D8A;
+      --white:#FFFFFF; --text:#1e293b;
+    }
+    *{box-sizing:border-box} html,body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; color:var(--text); background:var(--blue-100)}
+
+    /* Top bar */
+    .nav{position:sticky; top:0; z-index:40; background:linear-gradient(90deg,var(--blue-200),var(--blue-700)); color:#fff; box-shadow:0 4px 12px rgba(0,0,0,.15)}
+    .nav-inner{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 16px}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800}
+    .brand img{height:28px}
+    .nav-actions{display:flex; gap:10px}
+    .btn{display:inline-block; padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none}
+    .btn:hover{background:rgba(255,255,255,.12)}
+    .btn-logout{background:#ffffff1f; border:1px solid #ffffff36}
+    .btn-logout:hover{background:#ffffff2e}
+
+    header.hero{padding:28px 16px; text-align:center}
+    header.hero h1{margin:0; color:var(--blue-700)}
+    header.hero p{margin:6px 0 0; color:#3f506b}
+
+    main{max-width:1100px; margin:0 auto 40px; padding:0 16px; display:grid; gap:22px}
+    .card{background:var(--white); border-radius:16px; padding:22px; box-shadow:0 8px 24px rgba(65,93,138,.15); border:1px solid rgba(65,93,138,.1)}
+    .card h3{margin:0 0 10px; color:var(--blue-700)}
+    .muted{color:#5a6a86}
+
+    /* Services tiles (same as index, flat blue) */
+    #services h3{text-align:center; color:var(--blue-700); font-size:1.4rem; margin-top:0}
+    .service-grid{display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .service-card{
+      border-radius:28px; padding:22px 20px; background:#A8BCDA; color:#fff;
+      box-shadow:0 8px 18px rgba(65,93,138,.25); text-align:center;
+      transition:transform .3s, box-shadow .3s; border:1px solid rgba(65,93,138,.12)
+    }
+    .service-card:hover{transform:translateY(-6px) scale(1.01); box-shadow:0 18px 32px rgba(65,93,138,.4)}
+    .service-icon{width:90px;height:90px;border-radius:22px;margin:0 auto 10px;display:grid;place-items:center;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+    .service-icon span{font-size:46px;color:#0f172a}
+    .service-badge{background:#0f172a;color:#fff;font-weight:800;padding:8px 14px;border-radius:999px;display:inline-block;margin:4px 0 6px}
+    .service-card h4{margin:6px 0 8px;color:#fff}
+    .service-card .btn-apply{display:inline-block;margin-top:6px;padding:10px 16px;border-radius:12px;background:var(--blue-700);color:#fff;font-weight:800;text-decoration:none;box-shadow:0 8px 18px rgba(65,93,138,.35)}
+    .service-card .btn-apply:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(65,93,138,.45)}
+
+    /* Same entry animation as login cards */
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px) scale(.95)} to{opacity:1;transform:none}}
+    main .card, main .service-card{opacity:0; animation:fadeInUp .6s ease-out forwards}
+    /* small stagger */
+    #services .service-card:nth-of-type(1){animation-delay:.05s}
+    #services .service-card:nth-of-type(2){animation-delay:.1s}
+    #services .service-card:nth-of-type(3){animation-delay:.15s}
+
+    @media (max-width:640px){ header.hero h1{font-size:1.25rem} }
+  </style>
+</head>
+<body>
+  <!-- Top bar -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="/image/LCR.png" alt="LCR">
+        <span>LCR Buenavista — Citizen Portal</span>
+      </div>
+      <div class="nav-actions">
+        <a class="btn" href="index.html">Home</a>
+        <a class="btn btn-logout" href="/auth/logout.php">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Welcome, <?php echo $name; ?>!</h1>
+    <p class="muted">Please choose the type of registration you want to apply for.</p>
+  </header>
+
+  <main>
+    <section id="services" class="card">
+      <h3>Select Registration Type</h3>
+      <div class="service-grid">
+
+        <!-- Birth -->
+        <article class="service-card">
+          <div class="service-icon"><span>👶</span></div>
+          <div class="service-badge">On-Time | Late</div>
+          <h4>Birth Registration</h4>
+          <p class="muted">Register the birth of a new child or request a certified copy.</p>
+          <a class="btn-apply" href="birthCertificate.html">Select</a>
+        </article>
+
+        <!-- Marriage -->
+        <article class="service-card">
+          <div class="service-icon"><span>💍</span></div>
+          <div class="service-badge">On-Time | Late</div>
+          <h4>Marriage Registration</h4>
+          <p class="muted">Register your marriage or request a certified copy.</p>
+          <a class="btn-apply" href="marriageCertificate.html">Select</a>
+        </article>
+
+        <!-- Death -->
+        <article class="service-card">
+          <div class="service-icon"><span>✝️</span></div>
+          <div class="service-badge">On-Time | Late</div>
+          <h4>Death Registration</h4>
+          <p class="muted">Register a death or request a certified copy.</p>
+          <a class="btn-apply" href="deathCertificate.html">Select</a>
+        </article>
+
+      </div>
+    </section>
+  </main>
+</body>
+</html>

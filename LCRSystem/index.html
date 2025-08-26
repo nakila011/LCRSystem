@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LCR System — Home</title>
+  <style>
+    :root{
+      --blue-100:#D0E1F5; --blue-200:#A8BCDA; --blue-700:#415D8A;
+      --white:#FFFFFF; --text:#1e293b;
+    }
+    *,*::before,*::after{ box-sizing:border-box; }
+    html,body{ margin:0; padding:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; color:var(--text); background:var(--blue-100); }
+    a{ color:inherit; text-decoration:none; }
+
+    /* ===== Sticky Nav ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: linear-gradient(90deg,var(--blue-200),var(--blue-700));
+      color:#fff; box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 16px;
+    }
+    .brand-mini { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; }
+    .brand-mini img { height:28px; width:auto; object-fit:contain; }
+    .links { display:flex; gap:18px; align-items:center; }
+    .links a {
+      padding:8px 10px; border-radius:10px; font-weight:600; opacity:.95;
+    }
+    .links a:hover { background:rgba(255,255,255,.12); }
+
+    /* Mobile: wrap links under brand */
+    @media (max-width:640px){
+      .nav-inner { flex-direction:column; align-items:stretch; gap:8px; }
+      .links { justify-content:space-around; }
+    }
+
+    /* ===== Header Banner ===== */
+   .header-container {
+      background: #ffffffcc;          /* semi-white with transparency */
+      border-radius: 10px;            /* rounded corners */
+      padding: 18px 30px;             /* spacing around content */             /* space above/below */
+      max-width: 2000px;               /* don’t stretch too wide */
+      box-shadow: 0 6px 16px rgba(65,93,138,0.15); /* subtle shadow */
+      backdrop-filter: blur(4px);     /* glass effect if background supports */
+    }
+
+ .site-header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  padding:12px 16px;
+  margin-bottom:16px;
+  text-align:center;
+}
+.site-header .logo{
+  height:90px;
+  width:auto;
+  object-fit:contain;
+}
+.site-header h1{
+  margin:0;
+  color:var(--blue-700);
+  font-size:2rem;
+  font-weight:900;
+  line-height:1.3;
+}der h2{ margin:4px 0 0; font-size:1rem; font-weight:500; }
+
+   @media (max-width:480px){
+  .site-header{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "left right"
+      "title title";
+    gap:8px;
+    justify-items:center;
+  }
+  .site-header h1{
+    grid-area:title;
+    font-size:1.4rem;
+    margin-top:6px;
+    text-align:center;
+  }
+  .site-header .left{ 
+    grid-area:left; 
+    justify-self:start;   /* logo left side */ 
+  }
+  .site-header .right{ 
+    grid-area:right; 
+    justify-self:end;     /* logo right side */ 
+  }
+  .site-header .logo{ height:70px; }
+}
+  @keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+    main{ max-width:1000px; margin:30px auto; padding:0 20px; display:grid; gap:28px; }
+
+    .card{
+      background:var(--white); border-radius:16px; padding:24px;
+      box-shadow:0 8px 24px rgba(65,93,138,0.15);
+      transition:transform .3s, box-shadow .3s;
+    }
+    .card:hover{ transform:scale(1.02); box-shadow:0 16px 40px rgba(65,93,138,.25); }
+    .card h3{ margin-top:0; color:var(--blue-700); font-size:1.3rem; border-bottom:2px solid var(--blue-200); padding-bottom:6px; }
+
+    .datetime{ font-size:1.1rem; font-weight:600; color:#334155; margin-top:8px; }
+
+    footer{
+      margin-top:40px; padding:20px; text-align:center; background:var(--blue-200); color:#fff;
+    }
+    footer p{ color: black; margin:4px 0; }
+
+    html, body { overflow-x: hidden; }
+    
+   /* --- Our Online Services (blue tiles) --- */
+#services { padding: 0; }
+#services h3{
+  margin:0 0 14px; font-size:1.6rem; text-align:center;
+  color:var(--blue-700); font-weight:900; letter-spacing:.3px;
+}
+
+.service-grid{
+  display:grid; gap:22px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.service-card{
+  border-radius:28px;
+  padding:22px 20px;
+  background: #A8BCDA;   /* single flat blue */
+  box-shadow: 0 8px 18px rgba(65,93,138,.25);
+  color:#fff;
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.service-card:hover{
+  transform: translateY(-6px);
+  box-shadow:0 18px 32px rgba(65,93,138,.4);
+}
+
+.service-icon{
+  width:90px; height:90px; border-radius:22px;
+  display:grid; place-items:center;
+  background: rgba(255,255,255,.22);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.25);
+}
+.service-icon span{
+  font-size:46px; line-height:1; color:#0f172a; /* black icon look */
+}
+
+.service-badge{
+  background:#0f172a; color:#fff; font-weight:800; letter-spacing:.3px;
+  padding:8px 14px; border-radius:999px; font-size:.95rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+
+.service-card h4{
+  margin:2px 0 2px; font-weight:900; font-size:1.3rem; color:#fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+
+.service-card a.btn{
+  margin-top:10px;
+  display:inline-block; padding:10px 16px; border-radius:12px;
+  background: var(--blue-700); color:#fff; font-weight:800; text-decoration:none;
+  box-shadow: 0 8px 18px rgba(65,93,138,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.service-card a.btn:hover{
+  transform: translateY(-2px);
+  box-shadow:0 12px 24px rgba(65,93,138,.45);
+}
+
+      
+ /* === Floating Calendar + Time === */
+.calendar-fab{
+  position:fixed; right:18px; bottom:18px; z-index:60;
+  margin-left: 7px;
+  width:54px; height:54px; border-radius:14px; cursor:pointer;
+  display:grid; place-items:center; color:#fff; font-size:20px; font-weight:800;
+  background:linear-gradient(135deg,var(--blue-700),#f6f6f7);
+  box-shadow:0 12px 28px rgba(238, 239, 241, 0.35);
+  transition:transform .2s, box-shadow .2s, opacity .2s;
+  opacity:0; pointer-events:none;   /* shown after scroll */
+}
+.calendar-fab.show{ opacity:1; pointer-events:auto; }
+.calendar-fab:hover{ transform:translateY(-2px); box-shadow:0 16px 34px rgba(65,93,138,.45); }
+
+.fab-time{
+  position:absolute; right:62px; bottom:6px; z-index:60;
+  background:#fff; color:#0f172a; border:1px solid rgba(65,93,138,.12);
+  box-shadow:0 10px 22px rgba(65,93,138,.25);
+  padding:6px 10px; border-radius:10px; font-weight:700;
+  font-variant-numeric:tabular-nums; letter-spacing:.2px;
+  opacity:0; transform:translateY(6px); transition:.2s;
+}
+.calendar-fab.show + .fab-time{ opacity:1; transform:translateY(0); }
+
+.calendar-panel{
+  position:fixed; right:18px; bottom:84px; z-index:60; width:310px;
+  background:#fff; border:1px solid rgba(65,93,138,.12); border-radius:16px;
+  box-shadow:0 18px 42px rgba(65,93,138,.28); overflow:hidden;
+  transform:translateY(12px); opacity:0; pointer-events:none;
+  transition:transform .22s, opacity .22s;
+}
+.calendar-panel.open{ transform:translateY(0); opacity:1; pointer-events:auto; }
+
+.cal-head{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:10px 12px; background:linear-gradient(90deg,var(--blue-200),var(--blue-700)); color:#fff;
+}
+.cal-title{ font-weight:800; letter-spacing:.3px; }
+.cal-nav{ display:flex; gap:6px; }
+.cal-btn{ width:30px; height:30px; border-radius:8px; display:grid; place-items:center;
+  background:rgba(255,255,255,.18); color:#fff; border:none; cursor:pointer; font-weight:800; }
+.cal-btn:hover{ background:rgba(255,255,255,.28); }
+
+.cal-body{ padding:12px; }
+.cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; text-align:center; }
+.cal-grid .dow{ font-size:.78rem; color:#64748b; font-weight:700; }
+.cal-day{ padding:8px 0; border-radius:10px; font-weight:600; color:#334155; }
+.cal-day.today{ background:#eaf1fb; color:var(--blue-700); box-shadow:inset 0 0 0 2px var(--blue-200); }
+.cal-day.other{ color:#94a3b8; }
+
+.cal-foot{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:10px 12px; border-top:1px solid #e2e8f0; background:#f8fafc; color:#334155; font-size:.9rem;
+}
+.cal-foot strong{ color:var(--blue-700); }
+
+/* MOBILE: keep icon clear & panel above it */
+@media (max-width:480px){
+  .calendar-fab{
+    z-index:10001;
+    right:12px;
+    bottom: calc(env(safe-area-inset-bottom, 0) + 12px);
+    width:44px; height:44px; border-radius:10px;
+  }
+  .calendar-fab img{ width:22px; height:22px; margin-left: -6px; pointer-events:none; }
+
+  .fab-time{
+    z-index:10000;
+    right: calc(12px + 44px + 8px);
+    bottom: calc(env(safe-area-inset-bottom, 0) + 6px);
+    padding:4px 8px; font-size:.8rem;
+  }
+
+  .calendar-panel{
+    z-index:9999;
+    right:12px;
+    bottom: calc(env(safe-area-inset-bottom, 0) + 64px); /* sits above FAB */
+    width: 92vw; max-width: 320px;
+  }
+  .cal-head{ padding:8px 10px; }
+  .cal-title{ font-size:.95rem; }
+  .cal-btn{ width:26px; height:26px; font-size:.8rem; }
+  .cal-body{ padding:8px; }
+  .cal-grid .dow{ font-size:.7rem; }
+  .cal-day{ padding:6px 0; font-size:.85rem; }
+  .cal-foot{ font-size:.78rem; padding:8px 10px; }
+}
+
+
+
+/* ===== Contact "OS Dock" ===== */
+#contact .contact-dock{
+  margin: 8px 0 16px;
+  padding: 12px 14px;
+  display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+  background: rgba(168,188,218,.25);
+  border: 1px solid rgba(65,93,138,.15);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+}
+
+#contact .contact-dock li{ list-style: none; }
+
+#contact .contact-dock a{
+  text-decoration: none; color: var(--text);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#contact .dock-icon{
+  width: 56px; height: 56px; border-radius: 14px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg,var(--blue-200), var(--blue-700));
+  color: #fff; font-size: 28px;
+  box-shadow: 0 10px 24px rgba(65,93,138,.28);
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+  will-change: transform;
+}
+
+/* Label under each icon */
+#contact .dock-label{
+  font-size: .85rem; font-weight: 700; color: #334155;
+}
+
+/* Magnify on hover */
+#contact .contact-dock:has(li:hover) .dock-icon{ transform: scale(.94); }
+#contact .contact-dock li:hover .dock-icon{
+  transform: translateY(-10px) scale(1.25);
+  box-shadow: 0 16px 36px rgba(65,93,138,.38);
+  filter: saturate(1.05);
+}
+
+#contact .dock-icon img {
+  width: 28px;   /* adjust icon size */
+  height: 28px;
+  object-fit: contain;
+  pointer-events: none; /* prevent accidental drag */
+}
+@media (max-width:480px){
+  #contact .dock-icon img { width:22px; height:22px; }
+}
+
+
+/* Bounce animation on click */
+@keyframes dock-bounce {
+  0%   { transform: translateY(-10px) scale(1.25); }
+  25%  { transform: translateY(-22px) scale(1.18); }
+  50%  { transform: translateY(-8px)  scale(1.22); }
+  75%  { transform: translateY(-18px) scale(1.18); }
+  100% { transform: translateY(-10px) scale(1.25); }
+}
+#contact .contact-dock a:active .dock-icon{
+  animation: dock-bounce .6s cubic-bezier(.36,.07,.19,.97);
+}
+
+/* Mobile smaller */
+@media (max-width: 480px){
+  #contact .dock-icon { width:48px; height:48px; font-size:24px; border-radius:12px; }
+  #contact .dock-label { font-size:.8rem; }
+}
+
+/* Details links hover */
+#contact .contact-details a:hover {color: blue; text-decoration: underline; }
+
+
+
+
+
+ /* Layout for Info + Announcement side by side */
+.info-announcement {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Make cards responsive */
+@media (max-width: 768px) {
+  .info-announcement {
+    grid-template-columns: 1fr; /* stack on smaller screens */
+  }
+}
+
+/* Optional: highlight announcement */
+.announcement {
+  border-left: 5px solid var(--blue-700);
+  background: #f7fbff;
+}
+
+/* Commitment card styling */
+.commitment {
+  margin-top: 22px;
+  text-align: center;
+  font-weight: 500;
+}
+
+
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(30px) scale(.95); }
+  to { opacity:1; transform: translateY(0) scale(1); }
+}
+
+main .card,
+main .service-card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+main .card:hover,
+main .service-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 42px rgba(65,93,138,.28);
+}
+
+
+
+/* Stagger animation for service cards */
+#services .service-card:nth-of-type(1) { animation-delay: .10s; }
+#services .service-card:nth-of-type(2) { animation-delay: .3s; }
+#services .service-card:nth-of-type(3) { animation-delay: .20s; }
+
+
+  </style>
+</head>
+
+<button id="calFab" type="button" class="calendar-fab" aria-label="Open calendar">
+  <img src="/image/calendar.png" alt="Calendar Icon" style="width:40px;height:40px;pointer-events:none;">
+</button>
+
+<!-- Exact time chip -->
+<div class="fab-time">
+  <span id="fabTime">--:--:--</span> <span style="color:#415D8A">PHT</span>
+</div>
+
+<!-- Calendar Panel -->
+<div id="calPanel" class="calendar-panel" aria-live="polite">
+  <div class="cal-head">
+    <button class="cal-btn" id="prevM" aria-label="Previous month">‹</button>
+    <div class="cal-title" id="calTitle">Month YYYY</div>
+    <button class="cal-btn" id="nextM" aria-label="Next month">›</button>
+  </div>
+  <div class="cal-body">
+    <div class="cal-grid" id="calGrid"><!-- days injected by JS --></div>
+  </div>
+  <div class="cal-foot">
+    <span id="calNowDate"></span>
+    <span><strong id="calNowTime"></strong></span>
+  </div>
+</div>
+
+<body>
+
+  <!-- Sticky Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand-mini">
+        <img src="/image/LCR.png" alt="Buenavista Logo">
+        <span>LCR Buenavista</span>
+      </div>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="clientLogin.html">Login</a>
+        <a href="createAccount.html">Register</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+ 
+ <div class="header-container">
+  <header class="site-header" aria-label="Site header">
+    <img src="/image/buenavistalogo.png" class="logo left" alt="Municipality of Buenavista logo" />
+    <h1>Local Civil Registry Office of Buenavista</h1>
+    <img src="/image/FlagLogo.png" class="logo right" alt="Philippine flag" />
+  </header>
+</div>
+
+
+  <main>
+
+  <!-- Info & Announcement (side-by-side) -->
+  <section class="info-announcement">
+    <!-- 1) Information -->
+    <article class="card">
+      <h3>ℹ️ Information</h3>
+      <p>
+        The Buenavista <strong>eRehistro</strong> is designed to handle the civil registry needs of residents of Buenavista,
+        as well as Filipinos living outside the municipality whose Birth, Marriage, or Death Certificates are officially
+        registered in Buenavista.
+      </p>
+      <p>
+        Did you know that a Birth Certificate serves as a “gateway” to countless opportunities?
+        It is a vital document required when transacting with both government and private institutions such as the
+        <strong>Department of Education (DepEd)</strong>, <strong>Department of Foreign Affairs (DFA)</strong>,
+        <strong>Land Transportation Office (LTO)</strong>, <strong>PhilHealth</strong>, <strong>GSIS</strong>,
+        <strong>SSS</strong>, <strong>COMELEC</strong>, insurance providers, and many others.
+      </p>
+    </article>
+
+    <!-- 2) Announcement -->
+    <article class="card announcement">
+      <h3>📢 Announcement</h3>
+      <p>
+        The <strong>Philippine Statistics Authority (PSA)</strong> and the <strong>Local Government of Buenavista</strong>
+        have entered into a <strong>Memorandum of Agreement (MOA)</strong> to provide <strong>1,582 free late birth
+        registrations</strong> for qualified Buenavista residents—particularly members of Indigenous Peoples (IP), Muslim
+        Filipinos, and families from the most disadvantaged sectors—through the
+        <strong>Birth Registration Assistance Project (BRAP)</strong>.
+      </p>
+    </article>
+  </section>
+
+  <!-- 3) Commitment (below the two) -->
+  <section class="card commitment">
+    <h3>🏛️ Our Commitment</h3>
+    <p>
+      The Office of the Municipal Civil Registrar of Buenavista remains committed to providing efficient and excellent
+      civil registry services.
+    </p>
+  </section>
+
+  <br><br>
+
+  <!-- Services (this is the REAL services block; keep id here) -->
+  <section id="services">
+    <h3>OUR ONLINE SERVICES</h3>
+    <div class="service-grid">
+      <!-- Birth -->
+      <article class="service-card">
+        <div class="service-icon"><span>👶</span></div>
+        <div class="service-badge">On-Time | Late</div>
+        <h4>Registration of Birth</h4>
+        <a class="btn" href="clientLogin.html">Apply for Birth Certificate</a>
+      </article>
+
+      <!-- Death -->
+      <article class="service-card">
+        <div class="service-icon"><span>✝️</span></div>
+        <div class="service-badge">On-Time | Late</div>
+        <h4>Registration of Death</h4>
+        <a class="btn" href="clientLogin.html">Apply for Death Certificate</a>
+      </article>
+
+      <!-- Marriage -->
+      <article class="service-card">
+        <div class="service-icon"><span>💍</span></div>
+        <h4>Registration of Marriage</h4>
+        <a class="btn" href="clientLogin.html">Apply for Marriage Certificate</a>
+      </article>
+    </div>
+  </section>
+
+  <br><br>
+
+  <!-- Location -->
+  <section class="card">
+    <h3>Location</h3>
+    <p><strong>Municipality of Buenavista</strong><br>Agusan del Norte, Philippines</p>
+
+    <p style="margin-top:10px;">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=8.97694,125.40889"
+         target="_blank" rel="noopener"
+         style="display:inline-block;padding:10px 14px;border-radius:10px;background:#415D8A;color:#fff;text-decoration:none;font-weight:600;">
+        Get Directions in Google Maps
+      </a>
+    </p>
+
+    <iframe
+      src="https://www.google.com/maps?q=8.97694,125.40889&z=18&output=embed"
+      width="100%" height="320" style="border:0;border-radius:12px;" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    <div id="datetime" class="datetime"></div>
+  </section>
+
+  <br><br>
+
+  <!-- Vision & Mission -->
+  <section class="card">
+    <h3>Vision & Mission</h3>
+    <p><strong>Vision:</strong> To provide accurate, accessible, and efficient civil registration services to the people of Buenavista.</p>
+    <p><strong>Mission:</strong> To uphold integrity, transparency, and excellence in recording vital events and in delivering timely services to citizens and stakeholders.</p>
+  </section>
+
+  <br><br>
+
+  <!-- Achievements -->
+  <section class="card">
+    <h3>Achievements</h3>
+    <ul>
+      <li>ISO-certified processes for civil registration (2022)</li>
+      <li>100% digital archiving of birth, marriage, and death certificates (2021)</li>
+      <li>Recognized by PSA for Outstanding Civil Registry Service (2020)</li>
+    </ul>
+  </section>
+
+  <br><br>
+
+ <!-- Contact 
+  
+ 
+ -->
+<section id="contact" class="card">
+  <h3>Contact Information</h3>
+
+  <!-- OS Dock style quick actions -->
+  <ul class="contact-dock">
+    <li>
+  <a href="https://www.google.com/maps?q=8.97694,125.40889" target="_blank" rel="noopener">
+    <span class="dock-icon" aria-hidden="true">
+      <img src="/image/location.png" alt="Map Icon">
+    </span>
+    <span class="dock-label">Address</span>
+  </a>
+</li>
+
+<li>
+  <a href="https://www.facebook.com/share/1B9QFtU9br/" target="_blank" rel="noopener">
+    <span class="dock-icon" aria-hidden="true">
+      <img src="/image/fb.png" alt="Facebook Icon">
+    </span>
+    <span class="dock-label">Facebook</span>
+  </a>
+</li>
+
+<li>
+  <a href="mailto:lcr.bta.adn@gmail.com">
+    <span class="dock-icon" aria-hidden="true">
+      <img src="/image/gmail.png" alt="Email Icon">
+    </span>
+    <span class="dock-label">Email</span>
+  </a>
+</li>
+
+<li>
+  <a href="tel:09851741937">
+    <span class="dock-icon" aria-hidden="true">
+      <img src="/image/contact.png" alt="Phone Icon">
+    </span>
+    <span class="dock-label">Contact Number</span>
+  </a>
+</li>
+   
+  </ul>
+
+  <!-- Details remain visible for clarity/SEO -->
+  <div class="contact-details">
+    <p><strong>Address:</strong> Local Civil Registry Office, J.P. Rizal Avenue, Brgy 3, Buenavista, Agusan del Norte, Philippines</p>
+    <p><strong>Facebook Page:</strong> <a href="https://www.facebook.com/share/1B9QFtU9br/" target="_blank">LCR OFFICE OF BUENAVISTA</a></p>
+    <p><strong>Email:</strong> <a href="mailto:lcr.bta.adn@gmail.com">lcr.buenavista@gov.ph</a></p>
+    <p><strong>Phone:</strong> 0985-1741-937</p>
+    <p id="office-hours"><strong>Office Hours:</strong> Monday to Friday, 8:00 AM – 5:00 PM</p>
+  </div>
+</section>
+
+
+
+
+</main>
+
+   
+
+  <footer>
+    <p>© 2025 Local Civil Registry Office of Buenavista</p>
+  </footer>
+
+
+
+ <script>
+   (function(){
+  const fab = document.getElementById('calFab');
+  const panel = document.getElementById('calPanel');
+  const grid = document.getElementById('calGrid');
+  const title = document.getElementById('calTitle');
+  const prev = document.getElementById('prevM');
+  const next = document.getElementById('nextM');
+  const nowDate = document.getElementById('calNowDate');
+  const nowTime = document.getElementById('calNowTime');
+  const fabTime = document.getElementById('fabTime');
+
+ 
+  function onScroll(){
+    if (window.scrollY > 160) fab.classList.add('show');
+    else { fab.classList.remove('show'); panel.classList.remove('open'); }
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  fab.addEventListener('click', ()=> panel.classList.toggle('open'));
+  document.addEventListener('click', (e)=>{
+    if (!panel.contains(e.target) && e.target !== fab) panel.classList.remove('open');
+  });
+
+ 
+  let view = new Date(); view.setDate(1);
+  function render(){
+    const year = view.getFullYear(), month = view.getMonth();
+    title.textContent = new Intl.DateTimeFormat('en-PH', { month:'long', year:'numeric' }).format(view);
+
+    grid.innerHTML = '';
+    ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d=>{
+      const el = document.createElement('div'); el.className='dow'; el.textContent=d; grid.appendChild(el);
+    });
+
+    const startDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    const prevDays = new Date(year, month, 0).getDate();
+    const today = new Date(); const isThisMonth = today.getMonth()===month && today.getFullYear()===year;
+
+    for (let i=startDay; i>0; i--){ 
+      const el = document.createElement('div'); el.className='cal-day other'; el.textContent = prevDays - i + 1; grid.appendChild(el);
+    }
+    for (let d=1; d<=daysInMonth; d++){ 
+      const el = document.createElement('div'); el.className='cal-day'; el.textContent=d;
+      if (isThisMonth && d===today.getDate()) el.classList.add('today'); grid.appendChild(el);
+    }
+    const totalCells = startDay + daysInMonth, trailing = (7 - (totalCells % 7)) % 7;
+    for (let t=0; t<trailing; t++){ const el=document.createElement('div'); el.className='cal-day other'; el.textContent=t+1; grid.appendChild(el); }
+  }
+  prev.addEventListener('click', ()=>{ view.setMonth(view.getMonth()-1); render(); });
+  next.addEventListener('click', ()=>{ view.setMonth(view.getMonth()+1); render(); });
+
+  
+ function tick(){
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-PH', { 
+    weekday:'long', year:'numeric', month:'long', day:'numeric', 
+    timeZone:'Asia/Manila' 
+  });
+  const time12 = now.toLocaleTimeString('en-PH', { 
+    hour:'2-digit', minute:'2-digit', second:'2-digit', 
+    hour12:true, timeZone:'Asia/Manila' 
+  });
+
+  if (nowDate) nowDate.textContent = dateStr;
+  if (nowTime) nowTime.textContent = time12; // panel
+  if (fabTime) fabTime.textContent = time12; // floating chip (now 12h format)
+}
+
+  setInterval(tick, 1000); tick();
+
+  render();
+})();
+</script>
+  
+
+</body>
+
+</html>
