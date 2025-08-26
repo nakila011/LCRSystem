@@ -13,30 +13,106 @@
     html,body{ margin:0; padding:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; color:var(--text); background:var(--blue-100); }
     a{ color:inherit; text-decoration:none; }
 
-    /* ===== Sticky Nav ===== */
     .nav {
-      position: sticky; top: 0; z-index: 50;
-      background: linear-gradient(90deg,var(--blue-200),var(--blue-700));
-      color:#fff; box-shadow:0 4px 12px rgba(0,0,0,.15);
-    }
-    .nav-inner {
-      max-width: 1100px; margin: 0 auto;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:10px 16px;
-    }
-    .brand-mini { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; }
-    .brand-mini img { height:28px; width:auto; object-fit:contain; }
-    .links { display:flex; gap:18px; align-items:center; }
-    .links a {
-      padding:8px 10px; border-radius:10px; font-weight:600; opacity:.95;
-    }
-    .links a:hover { background:rgba(255,255,255,.12); }
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(90deg, var(--blue-200), var(--blue-700));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
 
-    /* Mobile: wrap links under brand */
-    @media (max-width:640px){
-      .nav-inner { flex-direction:column; align-items:stretch; gap:8px; }
-      .links { justify-content:space-around; }
-    }
+.nav-inner {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 32px;
+}
+
+.brand-mini {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+.brand-mini img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.links {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.links a {
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  opacity: .95;
+  color: #fff;
+  text-decoration: none;
+}
+.links a:hover {
+  background: rgba(255,255,255,.12);
+}
+
+/* Hamburger hidden by default */
+.hamburger {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .hamburger {
+    display: block;
+  }
+
+  .links {
+    display: none; /* hidden by default */
+    flex-direction: column;
+    gap: 8px;
+    background: #A8BCDA;   /* system blue */
+    padding: 8px;
+    border-radius: 10px;
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;   /* just below nav */
+    right: 16px;
+    width: 140px;   /* smaller width */
+    box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  }
+
+  .links.show {
+    display: flex;
+  }
+
+  .links a {
+    color: #fff;  /* white text */
+    text-align: center;
+    font-weight: 600;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background .2s, color .2s;
+  }
+
+  .links a:hover {
+    background: var(--blue-700); /* darker blue when hovered */
+    color: #fff;
+  }
+}
+
+
+
 
     /* ===== Header Banner ===== */
    .header-container {
@@ -48,64 +124,66 @@
       backdrop-filter: blur(4px);     /* glass effect if background supports */
     }
 
- .site-header{
-  display:flex;
+ 
+     /* Desktop & tablet: keep everything centered, logos close to the title */
+.site-header{
+  display:grid;
+  grid-template-columns: auto auto auto;  /* left logos | title | flag */
   align-items:center;
-  justify-content:center;
-  gap:16px;
+  justify-content:center;                  /* center the whole group */
+  column-gap:18px;
   padding:12px 16px;
-  margin-bottom:16px;
+  margin:0 auto 16px;
+  max-width:1100px;                        /* prevents stretching to edges */
   text-align:center;
 }
+
+.logo-group{
+  display:flex;
+  align-items:center;
+  gap:10px;                                /* spacing between the two left logos */
+}
+
 .site-header .logo{
   height:90px;
   width:auto;
   object-fit:contain;
 }
+
 .site-header h1{
   margin:0;
   color:var(--blue-700);
   font-size:2rem;
   font-weight:900;
   line-height:1.3;
-}der h2{ margin:4px 0 0; font-size:1rem; font-weight:500; }
+  white-space:normal;
+}
 
-   @media (max-width:480px){
+/* Mobile: same “left/right on top, title below” layout you liked */
+@media (max-width:480px){
   .site-header{
-    display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "left right"
       "title title";
-    gap:8px;
+    row-gap:8px;
     justify-items:center;
   }
+  .logo-group{ grid-area:left; justify-self:start; }
+  .site-header .right{ grid-area:right; justify-self:end; }
   .site-header h1{
     grid-area:title;
     font-size:1.4rem;
     margin-top:6px;
-    text-align:center;
-  }
-  .site-header .left{ 
-    grid-area:left; 
-    justify-self:start;   /* logo left side */ 
-  }
-  .site-header .right{ 
-    grid-area:right; 
-    justify-self:end;     /* logo right side */ 
   }
   .site-header .logo{ height:70px; }
 }
-  @keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+    
+   
+  
+
+  
+
 
 
     main{ max-width:1000px; margin:30px auto; padding:0 20px; display:grid; gap:28px; }
@@ -253,12 +331,6 @@
   }
   .calendar-fab img{ width:22px; height:22px; margin-left: -6px; pointer-events:none; }
 
-  .fab-time{
-    z-index:10000;
-    right: calc(12px + 44px + 8px);
-    bottom: calc(env(safe-area-inset-bottom, 0) + 6px);
-    padding:4px 8px; font-size:.8rem;
-  }
 
   .calendar-panel{
     z-index:9999;
@@ -296,19 +368,24 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-#contact .dock-icon{
-  width: 56px; height: 56px; border-radius: 14px;
-  display: grid; place-items: center;
-  background: linear-gradient(135deg,var(--blue-200), var(--blue-700));
-  color: #fff; font-size: 28px;
+#contact .dock-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: #FCFCFC;   /* changed background */
+  color: #fff;
+  font-size: 28px;
   box-shadow: 0 10px 24px rgba(65,93,138,.28);
   transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
   will-change: transform;
 }
 
+
 /* Label under each icon */
 #contact .dock-label{
-  font-size: .85rem; font-weight: 700; color: #334155;
+  font-size: .85rem; font-weight: 700; color: #000000;
 }
 
 /* Magnify on hover */
@@ -350,8 +427,6 @@
 
 /* Details links hover */
 #contact .contact-details a:hover {color: blue; text-decoration: underline; }
-
-
 
 
 
@@ -410,6 +485,30 @@ main .service-card:hover {
 #services .service-card:nth-of-type(3) { animation-delay: .20s; }
 
 
+.main-container {
+  max-width: 1900px;         /* keep it neat */
+  margin: 20px auto;         /* center in page */
+  padding: 20px 24px;
+  background: rgba(208, 225, 245, 0.9); /* #D0E1F5 with transparency */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(65,93,138,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.main-container:hover {
+  transform: scale(1.01);  /* slight zoom on hover */
+  box-shadow: 0 16px 40px rgba(65,93,138,0.25);
+  background: rgba(208, 225, 245, 0.95); /* less transparent on hover */
+}
+
+/* reuse your fadeInUp animation */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
   </style>
 </head>
 
@@ -417,10 +516,6 @@ main .service-card:hover {
   <img src="/LCRSystem/image/calendar.png" alt="Calendar Icon" style="width:40px;height:40px;pointer-events:none;">
 </button>
 
-<!-- Exact time chip -->
-<div class="fab-time">
-  <span id="fabTime">--:--:--</span> <span style="color:#415D8A">PHT</span>
-</div>
 
 <!-- Calendar Panel -->
 <div id="calPanel" class="calendar-panel" aria-live="polite">
@@ -440,33 +535,76 @@ main .service-card:hover {
 
 <body>
 
-  <!-- Sticky Nav -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="brand-mini">
-        <img src="/LCRSystem/image/buenavistalogo.png" alt="Buenavista Logo">
-        <span>LCR Buenavista</span>
-      </div>
-      <div class="links">
-        <a href="index.html">Home</a>
-        <a href="clientLogin.html">Login</a>
-        <a href="createAccount.html">Register</a>
-        <a href="#contact">Contact</a>
-      </div>
+ <nav class="nav">
+  <div class="nav-inner">
+    <div class="brand-mini">
+      <img src="/LCRSystem/image/LCR.png" alt="Buenavista Logo">
+      <span>LCR Buenavista</span>
     </div>
-  </nav>
+
+    <!-- Hamburger button -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      ☰
+    </button>
+
+    <!-- Links -->
+    <div class="links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="clientLogin.html">Login</a>
+      <a href="createAccount.html">Register</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
 
  
  <div class="header-container">
   <header class="site-header" aria-label="Site header">
-    <img src="/LCRSystem/image/buenavistalogo.png" class="logo left" alt="Municipality of Buenavista logo" />
+    <div class="logo-group">
+      <img src="/LCRSystem/image/buenavistalogo.png" class="logo" alt="Municipality of Buenavista logo" />
+      <img src="/LCRSystem/image/LCRlogo.png" class="logo" alt="LCR Buenavista logo"/>
+    </div>
     <h1>Local Civil Registry Office of Buenavista</h1>
     <img src="/LCRSystem/image/FlagLogo.png" class="logo right" alt="Philippine flag" />
   </header>
 </div>
 
 
+<div class="main-container">
   <main>
+
+
+     <section id="services">
+    <h3>OUR ONLINE SERVICES</h3>
+    <div class="service-grid">
+      <!-- Birth -->
+      <article class="service-card">
+        <div class="service-icon"><span>👶</span></div>
+        <div class="service-badge">On-Time | Late</div>
+        <h4>Registration of Birth</h4>
+        <a class="btn" href="clientLogin.html">Apply for Birth Certificate</a>
+      </article>
+
+      <!-- Death -->
+      <article class="service-card">
+        <div class="service-icon"><span>✝️</span></div>
+        <div class="service-badge">On-Time | Late</div>
+        <h4>Registration of Death</h4>
+        <a class="btn" href="clientLogin.html">Apply for Death Certificate</a>
+      </article>
+
+      <!-- Marriage -->
+      <article class="service-card">
+        <div class="service-icon"><span>💍</span></div>
+        <h4>Registration of Marriage</h4>
+        <a class="btn" href="clientLogin.html">Apply for Marriage Certificate</a>
+      </article>
+    </div>
+  </section>
+
+  <br><br>
+
 
   <!-- Info & Announcement (side-by-side) -->
   <section class="info-announcement">
@@ -507,37 +645,6 @@ main .service-card:hover {
       The Office of the Municipal Civil Registrar of Buenavista remains committed to providing efficient and excellent
       civil registry services.
     </p>
-  </section>
-
-  <br><br>
-
-  <!-- Services (this is the REAL services block; keep id here) -->
-  <section id="services">
-    <h3>OUR ONLINE SERVICES</h3>
-    <div class="service-grid">
-      <!-- Birth -->
-      <article class="service-card">
-        <div class="service-icon"><span>👶</span></div>
-        <div class="service-badge">On-Time | Late</div>
-        <h4>Registration of Birth</h4>
-        <a class="btn" href="clientLogin.html">Apply for Birth Certificate</a>
-      </article>
-
-      <!-- Death -->
-      <article class="service-card">
-        <div class="service-icon"><span>✝️</span></div>
-        <div class="service-badge">On-Time | Late</div>
-        <h4>Registration of Death</h4>
-        <a class="btn" href="clientLogin.html">Apply for Death Certificate</a>
-      </article>
-
-      <!-- Marriage -->
-      <article class="service-card">
-        <div class="service-icon"><span>💍</span></div>
-        <h4>Registration of Marriage</h4>
-        <a class="btn" href="clientLogin.html">Apply for Marriage Certificate</a>
-      </article>
-    </div>
   </section>
 
   <br><br>
@@ -627,7 +734,7 @@ main .service-card:hover {
     <span class="dock-icon" aria-hidden="true">
       <img src="/LCRSystem/image/contact.png" alt="Phone Icon">
     </span>
-    <span class="dock-label">Contact Number</span>
+    <span class="dock-label">Contact</span>
   </a>
 </li>
    
@@ -648,6 +755,7 @@ main .service-card:hover {
 
 </main>
 
+</div>
    
 
   <footer>
@@ -735,5 +843,12 @@ main .service-card:hover {
   
 
 </body>
+
+<script>
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('nav-links').classList.toggle('show');
+});
+</script>
+
 
 </html>
