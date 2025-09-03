@@ -112,79 +112,89 @@
 }
 
 
+.header-container{
+
+  background: rgba(255,255,255,0.85);     
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  /* size & positioning */
+  max-width: 2000px;
+  margin: 0 auto 8px;
+  padding: 18px 30px;
+
+  /* card look */
+  box-shadow: 0 6px 16px rgba(65,93,138,0.15);
+  border: 1px solid rgba(65,93,138,0.08);
+
+  /* prevent inner overflow artifacts */
+  overflow: hidden;
+}
+
+@media (max-width: 480px){
+  .header-container{
+    padding: 12px 14px;
+  }
+}
 
 
-    /* ===== Header Banner ===== */
-   .header-container {
-      background: #ffffffcc;          /* semi-white with transparency */
-      border-radius: 10px;            /* rounded corners */
-      padding: 18px 30px;             /* spacing around content */             /* space above/below */
-      max-width: 2000px;               /* don’t stretch too wide */
-      box-shadow: 0 6px 16px rgba(65,93,138,0.15); /* subtle shadow */
-      backdrop-filter: blur(4px);     /* glass effect if background supports */
-    }
-
- 
-     /* Desktop & tablet: keep everything centered, logos close to the title */
+/* --- Header: keep one row on all screens --- */
 .site-header{
-  display:grid;
-  grid-template-columns: auto auto auto;  /* left logos | title | flag */
+  display:flex;
   align-items:center;
-  justify-content:center;                  /* center the whole group */
-  column-gap:18px;
-  padding:12px 16px;
+  justify-content:center;
+  gap:clamp(10px, 2.2vw, 18px);
+  padding:12px clamp(8px, 2vw, 16px);
   margin:0 auto 16px;
-  max-width:1100px;                        /* prevents stretching to edges */
+  max-width:1100px;
+  flex-wrap:nowrap; /* never wrap the logos/title row */
   text-align:center;
 }
 
-.logo-group{
-  display:flex;
-  align-items:center;
-  gap:10px;                                /* spacing between the two left logos */
-}
+.logo-group{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+.site-header .right{ flex:0 0 auto; }
 
+/* Logos can shrink a bit on narrow screens to give the title room */
 .site-header .logo{
-  height:90px;
-  width:auto;
-  object-fit:contain;
+  height:clamp(50px, 12vw, 90px);
+  width:auto; object-fit:contain;
+  flex-shrink:1;
 }
 
+/* Title must be allowed to shrink; cap to 2 lines without clipping */
 .site-header h1{
   margin:0;
   color:var(--blue-700);
-  font-size:2rem;
   font-weight:900;
-  line-height:1.3;
-  white-space:normal;
+  line-height:1.15;
+  text-align:center;
+
+  white-space: normal;           /* ✅ allow wrapping */
+  overflow: visible;             /* ✅ no clipping/ellipsis */
+  text-overflow: unset;          /* ✅ no ... */
+
+  flex:1 1 auto;
+  min-width:0;
+
+  font-size:clamp(14px, 4.6vw, 32px);
+  max-width:60vw;
+
+  /* Max 2 lines, auto wrap */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-/* Mobile: same “left/right on top, title below” layout you liked */
-@media (max-width:480px){
-  .site-header{
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "left right"
-      "title title";
-    row-gap:8px;
-    justify-items:center;
-  }
-  .logo-group{ grid-area:left; justify-self:start; }
-  .site-header .right{ grid-area:right; justify-self:end; }
-  .site-header h1{
-    grid-area:title;
-    font-size:1.4rem;
-    margin-top:6px;
-  }
-  .site-header .logo{ height:70px; }
+/* Extra squeeze for very tiny phones */
+@media (max-width:380px){
+  .site-header{ gap:10px; }
+  .site-header .logo{ height:clamp(46px, 14vw, 64px); }
+  .site-header h1{ font-size:clamp(13px, 5vw, 26px); max-width:58vw; }
 }
-    
-   
-  
+
+
 
   
-
-
 
     main{ max-width:1000px; margin:30px auto; padding:0 20px; display:grid; gap:28px; }
 
@@ -489,17 +499,11 @@ main .service-card:hover {
   max-width: 1900px;         /* keep it neat */
   margin: 20px auto;         /* center in page */
   padding: 20px 24px;
-  background: rgba(208, 225, 245, 0.9); /* #D0E1F5 with transparency */
+  background: #F7F7F7; /* #D0E1F5 with transparency */
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(65,93,138,0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.main-container:hover {
-  transform: scale(1.01);  /* slight zoom on hover */
-  box-shadow: 0 16px 40px rgba(65,93,138,0.25);
-  background: rgba(208, 225, 245, 0.95); /* less transparent on hover */
 }
 
 /* reuse your fadeInUp animation */
@@ -565,7 +569,12 @@ main .service-card:hover {
       <img src="/LCRSystem/image/buenavistalogo.png" class="logo" alt="Municipality of Buenavista logo" />
       <img src="/LCRSystem/image/LCRlogo.png" class="logo" alt="LCR Buenavista logo"/>
     </div>
-    <h1>Local Civil Registry Office of Buenavista</h1>
+    
+    <h1>
+  <span class="h-top">Local Civil Registry</span>
+  <span class="h-bottom">Office of Buenavista</span>
+    </h1>
+ 
     <img src="/LCRSystem/image/FlagLogo.png" class="logo right" alt="Philippine flag" />
   </header>
 </div>
@@ -848,6 +857,7 @@ main .service-card:hover {
 document.getElementById('hamburger').addEventListener('click', function() {
   document.getElementById('nav-links').classList.toggle('show');
 });
+
 </script>
 
 
