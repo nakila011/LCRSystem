@@ -3,187 +3,291 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Early Registration – Requirements</title>
+<title>Birth Certificate Registration – Requirements</title>
 <style>
   :root{
-    --blue-100:#D0E1F5; --blue-200:#A8BCDA; --blue-700:#415D8A;
-    --white:#FFFFFF; --text:#1e293b;
+    --blue-50:#eef6ff; --blue-100:#dbeafe; --blue-200:#bfdbfe; --blue-400:#60a5fa; --blue-700:#1d4ed8;
+    --slate-50:#f8fafc; --slate-200:#e2e8f0; --slate-400:#94a3b8; --slate-600:#475569; --slate-700:#334155;
+    --white:#fff; --text:#0f172a;
     --bar-h:66px;
   }
-
-  /* Base / layout */
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  html,body{margin:0;padding:0;color:var(--text);font:14px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#f3f6fb}
+  html,body{margin:0;padding:0;background:#f3f6fb;color:var(--text);font:14px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   .container{max-width:900px;margin:28px auto;padding:20px}
-  .sheet{
-    background:var(--white);
-    border:1px solid var(--blue-200);
-    border-radius:12px;
-    box-shadow:0 6px 22px rgba(65,93,138,.12);
-    overflow:hidden;
-  }
-
-  /* Header */
-  .header{
-    background:var(--blue-100);
-    border-bottom:1px solid var(--blue-200);
-    padding:18px 22px;
-    display:flex;align-items:center;gap:14px;flex-wrap:wrap
-  }
+  .sheet{background:var(--white);border:1px solid var(--blue-200);border-radius:12px;box-shadow:0 6px 22px rgba(65,93,138,.12);overflow:hidden}
+  .header{background:var(--blue-100);border-bottom:1px solid var(--blue-200);padding:18px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
   .header h1{margin:0;font-size:18px;letter-spacing:.2px;color:var(--blue-700);font-weight:800;flex:1}
   .badge{padding:6px 10px;border:1px solid var(--blue-200);border-radius:999px;font-size:12px;color:var(--blue-700);background:#fff}
-
-  /* Sections + fields */
   .section{padding:18px 22px;border-bottom:1px dashed #c9d5ea}
   .section:last-child{border-bottom:0}
-  .section h2{margin:0 0 10px 0;font-size:15px;color:var(--blue-700);text-transform:uppercase;letter-spacing:.6px}
-
+  .section h2{margin:0 0 10px;font-size:15px;color:var(--blue-700);text-transform:uppercase;letter-spacing:.6px}
   .grid{display:grid;gap:12px}
   .grid.cols-3{grid-template-columns:repeat(3,1fr)}
   .grid.cols-2{grid-template-columns:repeat(2,1fr)}
   label.small{font-size:11px;letter-spacing:.3px;color:#3b4a63;text-transform:uppercase}
-  input[type="text"], select, textarea, input[type="date"]{
-    width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;outline:none
-  }
+  input[type="text"], select, textarea, input[type="date"]{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;outline:none}
+  
 
-  /* Checklist */
-  .checklist{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #cbd5e1;border-radius:10px;overflow:hidden}
-  .checklist thead th{
-    background:var(--blue-100);border-bottom:1px solid var(--blue-200);
-    font-size:12px;color:#2d3e5c;text-transform:uppercase;letter-spacing:.4px;padding:10px
-  }
-  .checklist tbody tr:nth-child(even){background:#f8fafc}
-  .checklist td{padding:10px;border-bottom:1px dashed #e2e8f0;vertical-align:top}
-  .checklist td:first-child{width:32px;text-align:center}
-  .req-title{font-weight:600}
-  .subtext{font-size:12px;color:#475569;margin-top:2px}
-  .file-wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .file-wrap input[type="file"]{border:1px dashed #cbd5e1;border-radius:8px;padding:7px;background:#fff;max-width:330px}
-  .file-note{font-size:12px;color:#64748b}
 
-  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;         /* allow multiple lines */
+  justify-content: center; /* center whole block */
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.pills {
+  display: inline-flex;
+  align-items: center;     
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  background: #fff;
+  color: #333;
+  transition: all 0.3s ease;
+  text-align: center;
+  white-space: normal;     
+  word-break: break-word;   
+  max-width: 220px;         
+  line-height: 1.4;
+}
+
+/* Hover states */
+.pills:hover {
+  cursor: pointer;
+  background: #f0f4ff;
+  color: #0a0eca;
+  border-color: #0a0eca;
+}
+
+  
+  
+  
+  
   .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #cbd5e1;border-radius:999px;font-size:12px;color:#0f172a;background:#fff}
 
-  /* Spacer so content isn't hidden under the fixed bar */
-.page-bottom-spacer{
-  height:calc(var(--bar-h,66px) + constant(safe-area-inset-bottom,0px) + env(safe-area-inset-bottom,0px) + 10px);
+  /* ---------- TABLE ---------- */
+  .checklist{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #cbd5e1;border-radius:10px;overflow:hidden}
+  .checklist thead th{background:var(--blue-100);border-bottom:1px solid var(--blue-200);font-size:12px;color:#2d3e5c;text-transform:uppercase;letter-spacing:.4px;padding:10px}
+  .checklist tbody tr:nth-child(even){background:var(--slate-50)}
+  .checklist td{padding:10px;border-bottom:1px dashed #e2e8f0;vertical-align:top}
+  .checklist td:first-child{width:32px;text-align:center}
+  .req-title{font-weight:700}
+  .subtext{font-size:12px;color:var(--slate-600);margin-top:2px}
+
+  .sheet-actions{display:flex; gap:10px; align-items:center;padding:10px 22px; border-top:1px dashed #c9d5ea}
+  .action-btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:#0f172a;padding:10px 14px;text-decoration:none;font-weight:700;box-shadow:0 6px 18px rgba(15,23,42,.08)}
+  .action-btn.primary{background:var(--blue-700);color:#fff;border-color:#2c476e}
+  .action-btn.is-disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
+
+   @media (max-width: 760px) {
+  .checklist thead { display: none; }
+
+  .checklist {
+    border: 0;            /* the card will have its own border */
+    border-radius: 0;
+  }
+
+  .checklist tbody,
+  .checklist tr,
+  .checklist td {
+    display: block;
+    width: 100%;
+  }
+
+  .checklist tbody tr {
+    margin: 12px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(15,23,42,.05);
+    overflow: hidden;
+  }
+
+  .checklist tbody tr:nth-child(even){ background:#fff; } /* disable zebra in card mode */
+
+  .checklist td {
+    border: 0;
+    padding: 12px 14px;
+    border-bottom: 1px dashed #e2e8f0;
+  }
+  .checklist td:last-child { border-bottom: 0; }
+
+  /* First cell (Done) left aligned */
+  .checklist td:first-child {
+    width: auto;
+    text-align: left;
+  }
+
+  /* Add mini labels for each stacked cell */
+  .checklist td[data-label]::before{
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    color: var(--slate-600);
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    margin-bottom: 6px;
+  }
+
+  /* Make the uploader breathe on mobile */
+  .uploader { padding: 14px; }
+  .uploader .top { min-height: auto; }
+  .uploader .progress { width: 100%; min-width: 0; }
 }
 
-/* Bottom bar */
-.bottom-bar{
-  position:fixed;left:0;right:0;bottom:0;height:var(--bar-h,66px);
-  background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(8px);
-  border-top:1px solid #e2e8f0;display:flex;align-items:center;z-index:50;
-  padding:8px 10px calc(8px + constant(safe-area-inset-bottom,0px) + env(safe-area-inset-bottom,0px));
+
+  /* ---------- NEW UPLOADER (matches 2nd image) ---------- */
+  .uploader{
+    width:100%;
+    border:2px dashed var(--slate-400);
+    border-radius:12px;
+    padding:16px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    text-align:center;
+    position:relative;
+  }
+  .uploader.dragover{background:var(--blue-50);border-color:var(--blue-400)}
+  .uploader .top{
+    width:100%;
+    min-height:120px;
+    border:2px dashed transparent; /* purely for spacing similarity */
+    border-radius:10px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:8px;
+  }
+  .uploader .title{font-weight:700;font-size:18px}
+  .uploader .sub{color:var(--slate-600)}
+  .uploader .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center}
+  .uploader input[type="file"]{display:inline-block}
+  .uploader .filename{font-size:12px;color:var(--slate-700)}
+  .uploader .progress{
+    width:60%;max-width:460px;min-width:220px;height:14px;border-radius:999px;background:#e5e7eb;position:relative;overflow:hidden
+  }
+  .uploader .bar{position:absolute;left:0;top:0;bottom:0;width:0%;background:var(--blue-700)}
+  .uploader .pct{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
+  .uploader .upload-btn{display:inline-flex;align-items:center;gap:8px;border-radius:8px;border:1px solid #1e40af;background:var(--blue-700);color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}
+  .uploader .upload-btn[disabled]{opacity:.6;cursor:not-allowed}
+  .uploader .hint{font-size:12px;color:var(--slate-600)}
+  .status-badge{font-size:12px;border:1px solid #cbd5e1;border-radius:999px;padding:4px 8px;background:#fff;color:#0f172a}
+  .status-badge.ok{border-color:#16a34a;color:#065f46}
+  .status-badge.warn{border-color:#f59e0b;color:#92400e}
+
+  @media (max-width:820px){ .container{padding:14px} .grid.cols-3{grid-template-columns:1fr 1fr} }
+  @media (max-width:640px){
+    .uploader .progress{width:100%}
+    .uploader .row{flex-direction:column}
+  }
+
+  .mini-btn{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border-radius:999px; font-size:12px;
+  background:#fff; border:1px solid #cbd5e1; color:#0f172a; cursor:pointer;
+}
+.mini-btn:disabled{opacity:.6; cursor:not-allowed}
+.mini-btn.reupload{border-color:#1e40af; color:#1e40af}
+.mini-btn.view{border-color:#16a34a; color:#065f46}
+.mini-btn + .mini-btn{margin-left:6px}
+
+.mini-btn.reupload:hover {
+  background: #e6ecff;      /* light blue background (optional) */
+  color: #0a0eca;           /* blue text on hover */
+  border-color: #0a0eca;
 }
 
-/* Scrollable button strip */
-.bottom-bar .strip{
-  overflow-x:auto;overflow-y:hidden;white-space:nowrap;
-  display:flex;gap:10px;align-items:center;width:100%;padding:4px;
-  -webkit-overflow-scrolling:touch;scroll-behavior:smooth;touch-action:pan-x;
-  scroll-snap-type:x proximity;   /* optional snap */
-}
-/* Hide scrollbar visuals */
-.bottom-bar .strip::-webkit-scrollbar{height:0}
-.bottom-bar .strip{scrollbar-width:none}
-.bottom-bar .strip::-webkit-scrollbar-thumb{background:transparent}
-
-
-.bottom-bar::before,.bottom-bar::after{
-  content:"";position:absolute;top:0;bottom:0;width:34px;pointer-events:none;
-  transition:opacity .2s ease;opacity:0
-}
-.bottom-bar::before{left:0;background:linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,0))}
-.bottom-bar::after{right:0;background:linear-gradient(270deg,rgba(255,255,255,1),rgba(255,255,255,0))}
-.bottom-bar.can-left::before{opacity:1}
-.bottom-bar.can-right::after{opacity:1}
-
-/* ---------- Responsiveness ---------- */
-@media (max-width:820px){
-  .container{padding:14px}
-  .grid.cols-3{grid-template-columns:1fr 1fr}
-}
-@media (max-width:640px){
-  .grid.cols-3,.grid.cols-2{grid-template-columns:1fr}
-  .header{padding:14px 16px}
-  .header h1{font-size:16px}
-  .section{padding:16px}
-
-  .action-btn{padding:12px 16px}
-  /* make the primary CTA easier to tap on narrow screens */
-  .action-btn.primary{min-width:220px}
-  /* Optional: table -> stacked cards */
-  .checklist{border:none}
-  .checklist thead{display:none}
-  .checklist, .checklist tbody, .checklist tr, .checklist td{display:block;width:100%}
-  .checklist tr{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin:0 0 12px 0;box-shadow:0 2px 8px rgba(15,23,42,.05)}
-  .checklist td{border-bottom:none;padding:6px}
-  .checklist td:first-child input{transform:scale(1.2)}
-  .file-wrap input[type="file"]{max-width:100%}
+.mini-btn.view:hover {
+  background: #e8f8ee;      /* light green background (optional) */
+  color: #16a34a;           /* green text on hover */
+  border-color: #16a34a;
 }
 
-/* Reduced-motion users: avoid forced smooth scroll */
-@media (prefers-reduced-motion: reduce){
-  .bottom-bar .strip{scroll-behavior:auto}
+/* universal hover pointer */
+.mini-btn:hover {
+  cursor: pointer;
 }
 
-/* Print */
-@media print{
-  .bottom-bar,.page-bottom-spacer{display:none}
+
+
+
+
+ /* one-line actions: Uploaded | Reupload | View */
+.upload-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:nowrap;
+  justify-content:center; /* or flex-start if you prefer left aligned */
+  margin-top:4px;
+}
+.upload-actions .status-badge{display:inline-flex}
+
+
+.sheet-actions {
+  display: flex;
+  justify-content: center;     /* center group */
+  align-items: center;
+  gap: 20px;                   /* spacing between buttons */
+  padding: 12px 22px;
+  flex-wrap: nowrap;           /* force them on one line */
 }
 
-.sheet-actions{
-  display:flex; gap:10px; align-items:center;
-  padding:10px 22px; border-bottom:1px dashed #c9d5ea;
-  overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;
+/* base button look */
+.sheet-actions .action-btn {
+  flex: 0 0 auto;
+  text-align: center;
+  white-space: nowrap;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 999px;
+  font-weight: 600;
 }
 
-/* Buttons (reuseable) */
-.action-btn{
-  flex:0 0 auto; display:inline-flex; align-items:center; gap:8px;
-  border-radius:999px; border:1px solid #cbd5e1; background:#fff; color:#0f172a;
-  padding:10px 14px; text-decoration:none; font-weight:700;
-  box-shadow:0 6px 18px rgba(15,23,42,.08);
-}
-.action-btn.primary {
-  background: var(--blue-700);
+/* make Submit green */
+#submitAll {
+  background: #16a34a;      /* green */
   color: #fff;
-  border-color: #2c476e;
-  text-align: center; /* center ang text */
+  border: 1px solid #15803d;
 }
-/* Mobile tweaks */
-@media (max-width:640px){
-  .sheet-actions{ padding:10px 16px; }
-  .action-btn{ padding:12px 16px; }
-  .action-btn.primary{ min-width:220px; }
+#submitAll.is-disabled {
+  background: #e2e8f0;      /* light gray when disabled */
+  border-color: #cbd5e1;
+  color: #64748b;
 }
 
-.note-label{
-  display:flex; align-items:center; gap:10px;
-  margin:12px 22px 0; padding:10px 12px;
-  background:var(--blue-100); color:#334155;
-  border:1px solid var(--blue-200); border-left:4px solid var(--blue-700);
-  border-radius:10px; font-weight:600;
+/* already have .primary for Proceed (blue) */
+
+/* responsive sizing */
+@media (max-width: 520px) {
+  .sheet-actions {
+    gap: 12px;
+  }
+  .sheet-actions .action-btn {
+    font-size: 12px;
+    padding: 8px 14px;   /* smaller buttons on mobile */
+  }
 }
 
-/* Disable state for Proceed button */
-.action-btn.is-disabled{
-  opacity:.55; cursor:not-allowed; pointer-events:none;
-}
+
 </style>
 </head>
 <body>
+
   <div class="container">
-    <!-- Sheet 1: Header + Owner -->
+    <!-- Sheet 1 -->
     <div class="sheet">
       <div class="header">
         <h1>Birth Certificate Registration – Requirements Checklist</h1>
         <span class="badge">Digital Form with Uploads</span>
       </div>
 
-      <!-- Document Owner / Case Details -->
       <div class="section" id="owner-section">
         <h2>Document Owner</h2>
         <div class="grid cols-3">
@@ -206,9 +310,9 @@
             <label class="small" for="status">Status</label>
             <select id="status" name="status">
               <option value="">— Select —</option>
-              <option>Marital</option>
-              <option>Non-marital</option>
-              <option>Not Applicable</option>
+              <option value="marital">Marital</option>
+              <option value="nonmarital">Non-marital</option>
+              <option value="na">Not Applicable</option>
             </select>
           </div>
           <div>
@@ -217,194 +321,490 @@
           </div>
         </div>
 
-        <div class="legend">
-          <span class="pill">☑ Tick items you have</span>
-          <span class="pill">⬆ Upload a clear photo/scan per item</span>
-          <span class="pill">PDF/JPG/PNG · Max 10 MB each</span>
-        </div>
-      </div>
+        
     </div>
 
-    <!-- Sheet 2: Timely (Regular) Registration -->
+    <!-- Sheet 2 -->
     <div class="sheet" id="timely-section" style="margin-top:20px">
-  <div class="header">
-    <h1>Timely (Regular) Registration of Birth</h1>
-  </div>
+      <div class="header"><h1>Timely (Regular) Registration of Birth</h1></div>
 
-    <label class="note-label" id="submission-note" role="note">
-    <span>Note: You must check the box before submitting your requirements. If no item is selected (or a checked item has no upload), you cannot proceed.</span>
-     </label>
+      <label class="pill" style="margin:12px 22px 0;border-left:4px solid var(--blue-700)">
+        Note: Upload the required documents (in any order). Each item is marked complete after a successful upload. The Proceed button is enabled only when all required uploads for your case are complete.
+      </label>
 
-  <div class="section">
-    <table class="checklist" aria-describedby="regular-desc">
-      <thead>
-        <tr>
-          <th style="width:32px">Have</th>
-          <th>Requirement</th>
-          <th>Upload</th>
-        </tr>
-      </thead>
-      <tbody id="timelyBody">
-        <tr data-req="colb">
-          <td><input type="checkbox" aria-label="Have this document"></td>
-          <td>
-            <div class="req-title">Certificate of Live Birth (Form 102)</div>
-            <div class="subtext">Issued by the hospital/midwife, properly accomplished and signed.</div>
-          </td>
-          <td>
-            <div class="file-wrap">
-              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
-              <span class="file-note">PDF/JPG/PNG</span>
-            </div>
-          </td>
-        </tr>
-        <tr data-req="parentIDs">
-          <td><input type="checkbox" aria-label="Have this document"></td>
-          <td>
-            <div class="req-title">Valid ID(s) of Parent/s</div>
-            <div class="subtext">Any government-issued ID of mother and/or father.</div>
-          </td>
-          <td>
-            <div class="file-wrap">
-              <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple disabled>
-              <span class="file-note">Upload front/back if applicable</span>
-            </div>
-          </td>
-        </tr>
-        <tr data-req="marriageCert">
-          <td><input type="checkbox" aria-label="Have this document"></td>
-          <td>
-            <div class="req-title">Marriage Certificate of Parents</div>
-            <div class="subtext">If married. Skip if not applicable.</div>
-          </td>
-          <td>
-            <div class="file-wrap">
-              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
-            </div>
-          </td>
-        </tr>
-        <tr data-req="admissionPaternity">
-          <td><input type="checkbox" aria-label="Have this document"></td>
-          <td>
-            <div class="req-title">Affidavit/Admission of Paternity</div>
-            <div class="subtext">For non-marital cases, if to acknowledge the father.</div>
-          </td>
-          <td>
-            <div class="file-wrap">
-              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
-            </div>
-          </td>
-        </tr>
-        <tr data-req="barangayCert">
-          <td><input type="checkbox" aria-label="Have this document"></td>
-          <td>
-            <div class="req-title">Barangay Certification</div>
-            <div class="subtext">Residence/birth attestation as required by the LGU.</div>
-          </td>
-          <td>
-            <div class="file-wrap">
-              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-    <!-- NEW: actions row inside the sheet -->
+      <div class="legend">
+         
+          <span class="pills">Click Reuplod to change the File/Image</span>
+          <span class="pills">Click View to see what you uploaded</span>
+          <span class="pills">PDF/JPG/PNG · Max 10 MB each</span>
+          <span class="pills">Click Upload to confirm or drag & drop to auto-upload</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <table class="checklist">
+          <thead>
+          <tr><th style="width:32px">Done</th><th>Requirement</th><th>Upload</th></tr>
+          </thead>
+          <tbody id="timelyBody">
+
+              
+            <!-- 1 -->
+            <tr data-req="marriageCert" data-required-when="marital">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">1.Parent's Certificate of Marriage  </div>
+                <div class="subtext">Required only if parents are married.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                    <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                      <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                </div>
+              </td>
+            </tr>
+
+
+
+             <!-- 2 -->
+            <tr data-req="barangayCert" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">2.Barangay Certificate</div>
+                <div class="subtext">Residence/birth attestation as required by the LGU.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                    <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                      <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                </div>
+              </td>
+            </tr>
+
+
+            <!-- 3 -->
+            <tr data-req="parentIDs" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">3.Valid ID(s) of Parent/s</div>
+                <div class="subtext">Any government-issued ID of mother and/or father.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                    <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple aria-label="Choose files">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                      <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload front & back if applicable</div>
+                </div>
+              </td>
+            </tr>
+
+
+            <!-- 4 -->
+            <tr data-req="admissionPaternity" data-required-when="nonmarital">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">4.Affidavit/Admission of Paternity</div>
+                <div class="subtext">Required for non-marital cases if acknowledging the father.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                     <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                </div>
+              </td>
+            </tr>
+
+           
+            <!-- 5 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">5.Affidavit to Use the Surname of the Father</div>
+                <div class="subtext">Issued by the hospital/midwife, properly accomplished and signed.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">PDF / JPG / PNG · Max 10 MB</div>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
   <nav class="sheet-actions" aria-label="Timely actions">
-    <a class="action-btn primary" id="proceedAction" href="birthRegistration.html">
-      Proceed to Birth Registration
-    </a>
-  </nav>
-</div>
+  <button id="submitAll" class="action-btn is-disabled" disabled>
+    Submit Requirements
+  </button>
 
+  <a class="action-btn primary is-disabled" id="proceedAction"
+     href="birthRegistration.html" aria-disabled="true" tabindex="-1">
+    Proceed to Birth Registration
+  </a>
+</nav>
 
+    </div>
   </div>
-
 
 <script>
-   
-  // Enable/disable file input based on checkbox; require upload if checked.
-  function wireChecklist(tableBodyId){
-    const body = document.getElementById(tableBodyId);
-    if(!body) return;
-    body.querySelectorAll('tr').forEach(row=>{
-      const cb = row.querySelector('input[type="checkbox"]');
-      const file = row.querySelector('input[type="file"]');
-      const toggle = () => {
-        const on = cb.checked;
-        file.disabled = !on;
-        file.required = on;
-        row.style.outline = on ? '2px solid var(--blue-100)' : 'none';
+  const MAX_MB = 10;
+  const tooBig = (file) => file.size > MAX_MB*1024*1024;
+
+  function annotateChecklistLabels(){
+  const table = document.querySelector('.checklist');
+  if(!table) return;
+  const heads = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(tr => {
+    const tds = tr.querySelectorAll('td');
+    tds.forEach((td, i) => {
+      if (heads[i]) td.setAttribute('data-label', heads[i]);
+    });
+  });
+}
+
+// call it early so CSS has labels available on small screens
+annotateChecklistLabels();
+ 
+
+  function setRowFiles(row, files){
+  // Revoke old URLs if any
+  if (row._blobUrls && Array.isArray(row._blobUrls)) {
+    row._blobUrls.forEach(u => { try { URL.revokeObjectURL(u); } catch(e){} });
+  }
+  row._uploadedFiles = Array.from(files || []);
+  row._blobUrls = row._uploadedFiles.map(f => URL.createObjectURL(f));
+}
+
+function ensureActionButtons(row){
+  const dz = row.querySelector('[data-dropzone]');
+  const uploadedBadge = dz.querySelector('.status-badge.ok');
+  if(!uploadedBadge) return;
+
+  // Ensure a horizontal actions container exists
+  let actions = dz.querySelector('.upload-actions');
+  if(!actions){
+    actions = document.createElement('div');
+    actions.className = 'upload-actions';
+
+    // Insert the container right after the hint/status area
+    // and move the existing 'Uploaded' badge into it.
+    uploadedBadge.insertAdjacentElement('afterend', actions);
+    actions.appendChild(uploadedBadge);
+  }
+
+  // Reuse if already created
+  let reBtn = row.querySelector('.mini-btn.reupload');
+  let viewBtn = row.querySelector('.mini-btn.view');
+
+  if(!reBtn){
+    reBtn = document.createElement('button');
+    reBtn.type = 'button';
+    reBtn.className = 'mini-btn reupload';
+    reBtn.textContent = 'Reupload';
+    actions.appendChild(reBtn);
+
+    reBtn.addEventListener('click', () => {
+      const input = dz.querySelector('input[type="file"]');
+      const fnEl  = dz.querySelector('[data-fn]');
+      input.disabled = false;
+      input.value = ''; // force 'change' even if same file chosen
+      const oneShot = () => {
+        if(input.files && input.files.length){
+          fnEl.textContent = Array.from(input.files).map(f=>f.name).join(', ');
+          simulateUpload(row, input.files);
+        }
       };
-      cb.addEventListener('change', toggle);
-      toggle();
-      file.addEventListener('change', () => {
-        file.title = (file.files && file.files.length)
-          ? Array.from(file.files).map(f=>f.name).join(', ')
-          : '';
+      input.addEventListener('change', oneShot, { once: true });
+      input.click();
+    });
+  }
+
+  if(!viewBtn){
+    viewBtn = document.createElement('button');
+    viewBtn.type = 'button';
+    viewBtn.className = 'mini-btn view';
+    viewBtn.textContent = 'View';
+    actions.appendChild(viewBtn);
+
+    viewBtn.addEventListener('click', () => {
+      if(!row._blobUrls || !row._blobUrls.length){
+        alert('No file available to view.');
+        return;
+      }
+      window.open(row._blobUrls[0], '_blank');
+    });
+  }
+}
+
+  function isRowRequired(row){
+    const status = document.getElementById('status').value;
+    if(row.dataset.alwaysRequired === 'true') return true;
+    const need = row.dataset.requiredWhen;
+    if(!need) return false;
+    return status === need;
+  }
+
+  function updateRowVisualRequiredness(){
+    document.querySelectorAll('#timelyBody tr').forEach(row=>{
+      const t = row.querySelector('.req-title');
+      if(isRowRequired(row)){
+        t.style.textDecoration = 'none';
+        t.title = 'Required for this case';
+      }else{
+        t.style.textDecoration = 'underline dotted';
+        t.title = 'Not required for this case';
+      }
+    });
+  }
+
+  function updateProceedState(){
+  const rows = Array.from(document.querySelectorAll('#timelyBody tr'));
+  const allRequiredCompleted = rows.every(row => !isRowRequired(row) || row.dataset.completed === 'true');
+
+  const proceed = document.getElementById('proceedAction');
+  const submitBtn = document.getElementById('submitAll');
+
+  if(allRequiredCompleted){
+    // enable Proceed link
+    proceed.classList.remove('is-disabled');
+    proceed.removeAttribute('aria-disabled');
+    proceed.removeAttribute('tabindex');
+
+    // enable Submit button
+    submitBtn.classList.remove('is-disabled');
+    submitBtn.disabled = false;
+  }else{
+    // disable Proceed link
+    proceed.classList.add('is-disabled');
+    proceed.setAttribute('aria-disabled','true');
+    proceed.setAttribute('tabindex','-1');
+
+    // disable Submit button
+    submitBtn.classList.add('is-disabled');
+    submitBtn.disabled = true;
+  }
+}
+
+  // progress animation to mimic the 2nd screenshot
+  function animateProgress(container, doneCb){
+    const prog = container.querySelector('.progress');
+    const bar  = container.querySelector('.bar');
+    const pct  = container.querySelector('[data-pct]');
+    prog.hidden = false;
+    let p = 0;
+    const tick = () => {
+      p = Math.min(100, p + Math.random()*22);
+      bar.style.width = p + '%';
+      pct.textContent = Math.round(p) + '%';
+      if(p < 100) {
+        requestAnimationFrame(tick);
+      } else {
+        setTimeout(()=>{ prog.hidden = true; doneCb && doneCb(); }, 200);
+      }
+    };
+    tick();
+  }
+   function simulateUpload(row, files){
+  if(!files || !files.length) return;
+
+  for(const f of files){
+    if(tooBig(f)){
+      alert(`"${f.name}" exceeds ${MAX_MB} MB. Please upload a smaller file.`);
+      return;
+    }
+  }
+
+  const dz = row.querySelector('[data-dropzone]');
+  const input = dz.querySelector('input[type="file"]');
+  const uploadBtn = dz.querySelector('.upload-btn');
+  const uploading = dz.querySelector('.status-badge.warn');
+  const uploaded  = dz.querySelector('.status-badge.ok');
+
+  uploading.hidden = false;
+  uploadBtn.disabled = true;
+
+  animateProgress(dz, ()=>{
+    // Mark row as complete
+    row.dataset.completed = 'true';
+    row.querySelector('input[type="checkbox"]').checked = true;
+
+    // Store files & preview URLs for View action
+    setRowFiles(row, files);
+
+    // Lock the "Upload" button; keep input disabled until "Reupload"
+    input.disabled = true;
+    uploadBtn.hidden = true;
+
+    uploading.hidden = true;
+    uploaded.hidden = false;
+
+    // Inject/ensure the action buttons beside the Uploaded badge
+    ensureActionButtons(row);
+
+    updateProceedState();
+  });
+}
+
+  function wireRows(){
+    document.querySelectorAll('#timelyBody tr').forEach(row=>{
+      const dz = row.querySelector('[data-dropzone]');
+      const input = dz.querySelector('input[type="file"]');
+      const fnEl = dz.querySelector('[data-fn]');
+      const uploadBtn = dz.querySelector('.upload-btn');
+
+      // show chosen filename(s)
+      input.addEventListener('change', ()=>{
+        if(input.files && input.files.length){
+          const files = Array.from(input.files).map(f=>f.name).join(', ');
+          fnEl.textContent = files;
+          uploadBtn.hidden = false;
+          uploadBtn.disabled = false;
+        }else{
+          fnEl.textContent = 'None chosen';
+          uploadBtn.hidden = true;
+        }
+      });
+
+      uploadBtn.addEventListener('click', ()=>{
+        if(input.files && input.files.length){
+          simulateUpload(row, input.files);
+        }
+      });
+
+      ['dragenter','dragover'].forEach(ev=>{
+        dz.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); dz.classList.add('dragover'); });
+      });
+      ['dragleave','drop'].forEach(ev=>{
+        dz.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); dz.classList.remove('dragover'); });
+      });
+      
+      
+  dz.addEventListener('drop', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  dz.classList.remove('dragover');
+
+  const dt = e.dataTransfer;
+  if (!dt || !dt.files || !dt.files.length) return;
+
+  // For single-file inputs, take only the first file; for multiple, take all.
+  const picked = input.multiple ? Array.from(dt.files) : [dt.files[0]];
+
+  // Show names in the UI (no programmatic assignment to input.files)
+  fnEl.textContent = picked.map(f => f.name).join(', ');
+
+  // Auto-upload on drop
+      simulateUpload(row, picked);
       });
     });
   }
-  wireChecklist('timelyBody');
 
-  // Print & Clear actions
-  document.getElementById('printAction').addEventListener('click', ()=>window.print());
-  document.getElementById('clearAction').addEventListener('click', ()=>{
-    // Uncheck all + clear files
-    document.querySelectorAll('tbody input[type="checkbox"]').forEach(cb=>{
-      cb.checked = false; cb.dispatchEvent(new Event('change'));
-    });
-    document.querySelectorAll('tbody input[type="file"]').forEach(f=>{
-      f.value = ''; f.title = '';
-    });
-    // Clear misc fields
-    ['lastName','firstName','middleName','caseNo'].forEach(id=>{
-      const el = document.getElementById(id); if(el) el.value='';
-    });
-    document.getElementById('status').selectedIndex = 0;
+   // Submit click: collect uploaded files per row and "submit"
+  document.getElementById('proceedAction').addEventListener('click', (e)=>{
+    const a = e.currentTarget;
+    if(a.classList.contains('is-disabled')) e.preventDefault();
   });
 
-  // Optional: simple size guard (10 MB per file)
-  const MAX_MB = 10;
-  document.querySelectorAll('input[type="file"]').forEach(input=>{
-    input.addEventListener('change', ()=>{
-      for(const f of input.files){
-        if(f.size > MAX_MB*1024*1024){
-          alert(`"${f.name}" exceeds ${MAX_MB} MB. Please upload a smaller file.`);
-          input.value=''; input.title=''; break;
-        }
-      }
-    });
+  document.getElementById('status').addEventListener('change', ()=>{
+    updateRowVisualRequiredness();
+    updateProceedState();
   });
 
-  const bar = document.querySelector('.bottom-bar');
-  const strip = document.getElementById('actionStrip');
+  updateRowVisualRequiredness();
+  updateProceedState();
+  wireRows();
 
-  // Wheel-to-horizontal scroll (desktop trackpads/mice)
-  strip.addEventListener('wheel', (e)=>{
-    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-      strip.scrollLeft += e.deltaY;
-      e.preventDefault();
-    }
-  }, {passive:false});
+  document.getElementById('submitAll').addEventListener('click', () => {
+  const rows = Array.from(document.querySelectorAll('#timelyBody tr'));
+  const payload = rows
+    .filter(r => r.dataset.completed === 'true')
+    .map(r => ({
+      requirement: r.dataset.req,
+      files: (r._uploadedFiles || []).map(f => ({
+        name: f.name, size: f.size, type: f.type
+      }))
+    }));
 
-  // Click-drag scrolling (desktop)
-  let down=false, startX=0, startLeft=0;
-  strip.addEventListener('pointerdown', (e)=>{ down=true; startX=e.clientX; startLeft=strip.scrollLeft; strip.setPointerCapture(e.pointerId); });
-  strip.addEventListener('pointermove', (e)=>{ if(!down) return; strip.scrollLeft = startLeft - (e.clientX - startX); });
-  strip.addEventListener('pointerup', ()=>{ down=false; });
+  // TODO: replace with real POST (e.g., fetch('/api/submit', {method:'POST', body:…}))
+  console.log('Submitting payload:', payload);
+  alert('Submitted! We received ' + payload.reduce((n, r) => n + r.files.length, 0) + ' file(s).');
+});
 
-  // Edge fade indicators
-  function updateFades(){
-    const max = strip.scrollWidth - strip.clientWidth - 1;
-    const L = strip.scrollLeft;
-    bar.classList.toggle('can-left', L > 0);
-    bar.classList.toggle('can-right', L < max);
-  }
-  strip.addEventListener('scroll', updateFades, {passive:true});
-  window.addEventListener('resize', updateFades);
-  updateFades();
+
 </script>
 </body>
 </html>
