@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Birth Registration – Requirements</title>
+<style>
+  :root{
+    --blue-100:#D0E1F5; --blue-200:#A8BCDA; --blue-700:#415D8A;
+    --white:#FFFFFF; --text:#1e293b;
+  }
+  /* Base */
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font:16px/1.45 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;color:var(--text);background:linear-gradient(180deg,#eef3fb,#e3ecfb)}
+  .container{max-width:1100px;margin:40px auto;padding:0 20px}
+
+  /* Card grid to match screenshot */
+  .grid2{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-bottom:36px
+  }
+  @media (max-width:860px){ .grid2{grid-template-columns:1fr} }
+
+  .card{
+    background:rgba(168,188,218,.35);
+    border:1px solid var(--blue-200);
+    border-radius:24px;
+    padding:28px 26px;
+    position:relative;
+    box-shadow:0 18px 40px rgba(65,93,138,.25);
+    display:flex;flex-direction:column;align-items:center;text-align:center;min-height:300px
+  }
+  .card .icon{
+    width:84px;height:84px;border-radius:18px;background:var(--white);
+    display:grid;place-items:center;box-shadow:0 10px 24px rgba(65,93,138,.18);margin-bottom:12px
+  }
+  .card .pill{
+    display:inline-block;
+    margin:10px 0 14px;
+    background:#0b1324; color:#fff; font-weight:700;
+    padding:8px 14px;border-radius:999px;font-size:13px;letter-spacing:.3px;
+    box-shadow:0 8px 20px rgba(11,19,36,.35)
+  }
+  .card h3{
+    margin:8px 0 18px;font-size:26px;line-height:1.15;color:#f8fafc;
+    text-shadow:0 2px 0 rgba(0,0,0,.15);
+  }
+  .cta{
+    margin-top:auto;
+    background:#27456f; color:#fff; font-weight:800;
+    padding:12px 18px;border-radius:14px;border:1px solid #1e3a63;
+    text-decoration:none; display:inline-block;
+    box-shadow:0 10px 26px rgba(39,69,111,.4)
+  }
+  .cta:hover{filter:brightness(.98)}
+
+  /* Section sheets */
+  .sheet{
+    background:var(--white);border:1px solid var(--blue-200);border-radius:16px;
+    box-shadow:0 10px 30px rgba(65,93,138,.18);overflow:hidden;margin-bottom:26px
+  }
+  .sheet .header{
+    background:var(--blue-100);
+    border-bottom:1px solid var(--blue-200);
+    padding:16px 20px;color:var(--blue-700);font-weight:800;letter-spacing:.3px
+  }
+  .sheet .body{padding:18px 20px}
+  .req-list{margin:0;padding-left:18px}
+  .req-list li{margin:8px 0}
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Top cards (match screenshot layout) -->
+    <div class="grid2">
+      <!-- Early -->
+      <div class="card" style="background:rgba(168,188,218,.45)">
+        <div class="icon">
+          <!-- cute baby emoji as placeholder; swap with your SVG if you prefer -->
+          <span style="font-size:44px">👶</span>
+        </div>
+        <span class="pill">Early/On-Time Birth Registration</span>
+        <h3>Early Registration Requirements</h3>
+        <a class="cta" href="earlyRequirements.html">Apply Early Requirements</a>
+      </div>
+
+      <!-- Delayed -->
+      <div class="card" style="background:rgba(168,188,218,.45)">
+        <div class="icon">
+          <!-- document icon placeholder -->
+          <span style="font-size:44px">📝</span>
+        </div>
+        <span class="pill">Late/Delayed Birth Registration</span>
+        <h3>Delayed Registration Requirements</h3>
+        <a class="cta" href="#delayed">Apply Delayed Requirements</a>
+      </div>
+    </div>
+
+    <div id="delayed" class="sheet">
+      <div class="header">Delayed Registration Requirements</div>
+      <div class="body">
+        <ul class="req-list">
+          <li>Affidavit for Delayed Registration (reason for delay)</li>
+          <li>Any two (2) supporting documents (baptismal, school, medical, voter’s, employment, etc.)</li>
+          <li>PSA Negative Certification / No Record (if required)</li>
+          <li>Valid ID(s) of Parent/s or Registrant</li>
+          <li>Accomplished Certificate of Live Birth (Form 102)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

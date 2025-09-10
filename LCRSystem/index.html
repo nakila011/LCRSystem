@@ -240,12 +240,10 @@
   transform: translateY(-6px);
   box-shadow:0 18px 32px rgba(65,93,138,.4);
 }
-
-.service-icon{
-  width:90px; height:90px; border-radius:22px;
-  display:grid; place-items:center;
-  background: rgba(255,255,255,.22);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.25);
+.service-icon img {
+  width: 150px;   /* adjust as needed */
+  height: 110px;
+  object-fit: contain;
 }
 .service-icon span{
   font-size:46px; line-height:1; color:#0f172a; /* black icon look */
@@ -546,7 +544,7 @@ main .service-card:hover {
       <span>LCR Buenavista</span>
     </div>
 
-    <!-- Hamburger button -->
+  
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       ☰
     </button>
@@ -583,34 +581,45 @@ main .service-card:hover {
 <div class="main-container">
   <main>
 
+<section id="services">
+  <h3>OUR ONLINE SERVICES</h3>
+  <div class="service-grid">
 
-     <section id="services">
-    <h3>OUR ONLINE SERVICES</h3>
-    <div class="service-grid">
-      <!-- Birth -->
-      <article class="service-card">
-        <div class="service-icon"><span>👶</span></div>
-        <div class="service-badge">On-Time | Late</div>
-        <h4>Registration of Birth</h4>
-        <a class="btn" href="clientLogin.html">Apply for Birth Certificate</a>
-      </article>
+    <!-- Birth -->
+    <article class="service-card">
+      <div class="service-icon">
+        <img src="/LCRSystem/image/baby.png" alt="Birth Icon" />
+      </div>
+      <div class="service-badge">On-Time | Late</div>
+      <h4>Registration of Birth</h4>
+      <a class="btn" href="clientLogin.html">Apply for Birth Certificate</a>
+    </article>
 
-      <!-- Death -->
-      <article class="service-card">
-        <div class="service-icon"><span>✝️</span></div>
-        <div class="service-badge">On-Time | Late</div>
-        <h4>Registration of Death</h4>
-        <a class="btn" href="clientLogin.html">Apply for Death Certificate</a>
-      </article>
+    <!-- Death -->
+    <article class="service-card">
+      <div class="service-icon">
+        <img src="/LCRSystem/image/death.jpg" alt="Death Icon" />
+      </div>
+      <div class="service-badge">On-Time | Late</div>
+      <h4>Registration of Death</h4>
+      <a class="btn" href="clientLogin.html">Apply for Death Certificate</a>
+    </article>
 
-      <!-- Marriage -->
-      <article class="service-card">
-        <div class="service-icon"><span>💍</span></div>
-        <h4>Registration of Marriage</h4>
-        <a class="btn" href="clientLogin.html">Apply for Marriage Certificate</a>
-      </article>
-    </div>
-  </section>
+    <!-- Marriage -->
+    <article class="service-card">
+      <div class="service-icon">
+        <br>
+        <br>
+        <img src="/LCRSystem/image/marriage.png" alt="Marriage Icon" />
+      </div>
+     
+      <h4>Registration of Marriage</h4>
+      <a class="btn" href="clientLogin.html">Apply Marriage Certificate</a>
+    </article>
+
+  </div>
+</section>
+
 
   <br><br>
 

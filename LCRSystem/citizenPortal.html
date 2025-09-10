@@ -44,31 +44,62 @@ $name = htmlspecialchars($_SESSION['name'] ?? 'Citizen');
     .card h3{margin:0 0 10px; color:var(--blue-700)}
     .muted{color:#5a6a86}
 
-    /* Services tiles (same as index, flat blue) */
-    #services h3{text-align:center; color:var(--blue-700); font-size:1.4rem; margin-top:0}
-    .service-grid{display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .service-card{
-      border-radius:28px; padding:22px 20px; background:#A8BCDA; color:#fff;
-      box-shadow:0 8px 18px rgba(65,93,138,.25); text-align:center;
-      transition:transform .3s, box-shadow .3s; border:1px solid rgba(65,93,138,.12)
-    }
-    .service-card:hover{transform:translateY(-6px) scale(1.01); box-shadow:0 18px 32px rgba(65,93,138,.4)}
-    .service-icon{width:90px;height:90px;border-radius:22px;margin:0 auto 10px;display:grid;place-items:center;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
-    .service-icon span{font-size:46px;color:#0f172a}
-    .service-badge{background:#0f172a;color:#fff;font-weight:800;padding:8px 14px;border-radius:999px;display:inline-block;margin:4px 0 6px}
-    .service-card h4{margin:6px 0 8px;color:#fff}
-    .service-card .btn-apply{display:inline-block;margin-top:6px;padding:10px 16px;border-radius:12px;background:var(--blue-700);color:#fff;font-weight:800;text-decoration:none;box-shadow:0 8px 18px rgba(65,93,138,.35)}
-    .service-card .btn-apply:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(65,93,138,.45)}
+    #services { padding: 0; }
+#services h3{
+  margin:0 0 14px; font-size:1.6rem; text-align:center;
+  color:var(--blue-700); font-weight:900; letter-spacing:.3px;
+}
 
-    /* Same entry animation as login cards */
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px) scale(.95)} to{opacity:1;transform:none}}
-    main .card, main .service-card{opacity:0; animation:fadeInUp .6s ease-out forwards}
-    /* small stagger */
-    #services .service-card:nth-of-type(1){animation-delay:.05s}
-    #services .service-card:nth-of-type(2){animation-delay:.1s}
-    #services .service-card:nth-of-type(3){animation-delay:.15s}
+.service-grid{
+  display:grid; gap:22px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
 
-    @media (max-width:640px){ header.hero h1{font-size:1.25rem} }
+.service-card{
+  border-radius:28px;
+  padding:22px 20px;
+  background: #A8BCDA;   /* single flat blue */
+  box-shadow: 0 8px 18px rgba(65,93,138,.25);
+  color:#fff;
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.service-card:hover{
+  transform: translateY(-6px);
+  box-shadow:0 18px 32px rgba(65,93,138,.4);
+}
+.service-icon img {
+  width: 150px;   /* adjust as needed */
+  height: 110px;
+  object-fit: contain;
+}
+.service-icon span{
+  font-size:46px; line-height:1; color:#0f172a; /* black icon look */
+}
+
+.service-badge{
+  background:#0f172a; color:#fff; font-weight:800; letter-spacing:.3px;
+  padding:8px 14px; border-radius:999px; font-size:.95rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+
+.service-card h4{
+  margin:2px 0 2px; font-weight:900; font-size:1.3rem; color:#fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+
+.service-card a.btn{
+  margin-top:10px;
+  display:inline-block; padding:10px 16px; border-radius:12px;
+  background: var(--blue-700); color:#fff; font-weight:800; text-decoration:none;
+  box-shadow: 0 8px 18px rgba(65,93,138,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.service-card a.btn:hover{
+  transform: translateY(-2px);
+  box-shadow:0 12px 24px rgba(65,93,138,.45);
+}
+
   </style>
 </head>
 <body>
@@ -92,39 +123,45 @@ $name = htmlspecialchars($_SESSION['name'] ?? 'Citizen');
   </header>
 
   <main>
-    <section id="services" class="card">
-      <h3>Select Registration Type</h3>
-      <div class="service-grid">
+   <section id="services">
+  <h3>OUR ONLINE SERVICES</h3>
+  <div class="service-grid">
 
-        <!-- Birth -->
-        <article class="service-card">
-          <div class="service-icon"><span></span></div>
-          <div class="service-badge">On-Time | Late</div>
-          <h4>Birth Registration</h4>
-          <p class="muted">Register the birth of a new child or request a certified copy.</p>
-          <a class="btn-apply" href="birthCertificate.html">Select</a>
-        </article>
-
-        <!-- Marriage -->
-        <article class="service-card">
-          <div class="service-icon"><span></span></div>
-          <div class="service-badge">On-Time | Late</div>
-          <h4>Marriage Registration</h4>
-          <p class="muted">Register your marriage or request a certified copy.</p>
-          <a class="btn-apply" href="marriageCertificate.html">Select</a>
-        </article>
-
-        <!-- Death -->
-        <article class="service-card">
-          <div class="service-icon"><span></span></div>
-          <div class="service-badge">On-Time | Late</div>
-          <h4>Death Registration</h4>
-          <p class="muted">Register a death or request a certified copy.</p>
-          <a class="btn-apply" href="deathCertificate.html">Select</a>
-        </article>
-
+    <!-- Birth -->
+    <article class="service-card">
+      <div class="service-icon">
+        <img src="/LCRSystem/image/baby.png" alt="Birth Icon" />
       </div>
-    </section>
+      <div class="service-badge">On-Time | Late</div>
+      <h4>Registration of Birth</h4>
+      <a class="btn" href="birthRequirements.html">Apply for Birth Certificate</a>
+    </article>
+
+    <!-- Death -->
+    <article class="service-card">
+      <div class="service-icon">
+        <img src="/LCRSystem/image/death.jpg" alt="Death Icon" />
+      </div>
+      <div class="service-badge">On-Time | Late</div>
+      <h4>Registration of Death</h4>
+      <a class="btn" href="deathCertificate.html">Apply for Death Certificate</a>
+    </article>
+
+    <!-- Marriage -->
+    <article class="service-card">
+      <div class="service-icon">
+        <br>
+        <br>
+        <img src="/LCRSystem/image/marriage.png" alt="Marriage Icon" />
+      </div>
+     
+      <h4>Registration of Marriage</h4>
+      <a class="btn" href="marriageCertificate.html">Apply Marriage Certificate</a>
+    </article>
+
+  </div>
+</section>
+
   </main>
 </body>
 </html>

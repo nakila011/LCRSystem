@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Early Registration – Requirements</title>
+<style>
+  :root{
+    --blue-100:#D0E1F5; --blue-200:#A8BCDA; --blue-700:#415D8A;
+    --white:#FFFFFF; --text:#1e293b;
+    --bar-h:66px;
+  }
+
+  /* Base / layout */
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0;padding:0;color:var(--text);font:14px/1.45 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#f3f6fb}
+  .container{max-width:900px;margin:28px auto;padding:20px}
+  .sheet{
+    background:var(--white);
+    border:1px solid var(--blue-200);
+    border-radius:12px;
+    box-shadow:0 6px 22px rgba(65,93,138,.12);
+    overflow:hidden;
+  }
+
+  /* Header */
+  .header{
+    background:var(--blue-100);
+    border-bottom:1px solid var(--blue-200);
+    padding:18px 22px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap
+  }
+  .header h1{margin:0;font-size:18px;letter-spacing:.2px;color:var(--blue-700);font-weight:800;flex:1}
+  .badge{padding:6px 10px;border:1px solid var(--blue-200);border-radius:999px;font-size:12px;color:var(--blue-700);background:#fff}
+
+  /* Sections + fields */
+  .section{padding:18px 22px;border-bottom:1px dashed #c9d5ea}
+  .section:last-child{border-bottom:0}
+  .section h2{margin:0 0 10px 0;font-size:15px;color:var(--blue-700);text-transform:uppercase;letter-spacing:.6px}
+
+  .grid{display:grid;gap:12px}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+  label.small{font-size:11px;letter-spacing:.3px;color:#3b4a63;text-transform:uppercase}
+  input[type="text"], select, textarea, input[type="date"]{
+    width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;outline:none
+  }
+
+  /* Checklist */
+  .checklist{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #cbd5e1;border-radius:10px;overflow:hidden}
+  .checklist thead th{
+    background:var(--blue-100);border-bottom:1px solid var(--blue-200);
+    font-size:12px;color:#2d3e5c;text-transform:uppercase;letter-spacing:.4px;padding:10px
+  }
+  .checklist tbody tr:nth-child(even){background:#f8fafc}
+  .checklist td{padding:10px;border-bottom:1px dashed #e2e8f0;vertical-align:top}
+  .checklist td:first-child{width:32px;text-align:center}
+  .req-title{font-weight:600}
+  .subtext{font-size:12px;color:#475569;margin-top:2px}
+  .file-wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .file-wrap input[type="file"]{border:1px dashed #cbd5e1;border-radius:8px;padding:7px;background:#fff;max-width:330px}
+  .file-note{font-size:12px;color:#64748b}
+
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #cbd5e1;border-radius:999px;font-size:12px;color:#0f172a;background:#fff}
+
+  /* Spacer so content isn't hidden under the fixed bar */
+.page-bottom-spacer{
+  height:calc(var(--bar-h,66px) + constant(safe-area-inset-bottom,0px) + env(safe-area-inset-bottom,0px) + 10px);
+}
+
+/* Bottom bar */
+.bottom-bar{
+  position:fixed;left:0;right:0;bottom:0;height:var(--bar-h,66px);
+  background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(8px);
+  border-top:1px solid #e2e8f0;display:flex;align-items:center;z-index:50;
+  padding:8px 10px calc(8px + constant(safe-area-inset-bottom,0px) + env(safe-area-inset-bottom,0px));
+}
+
+/* Scrollable button strip */
+.bottom-bar .strip{
+  overflow-x:auto;overflow-y:hidden;white-space:nowrap;
+  display:flex;gap:10px;align-items:center;width:100%;padding:4px;
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth;touch-action:pan-x;
+  scroll-snap-type:x proximity;   /* optional snap */
+}
+/* Hide scrollbar visuals */
+.bottom-bar .strip::-webkit-scrollbar{height:0}
+.bottom-bar .strip{scrollbar-width:none}
+.bottom-bar .strip::-webkit-scrollbar-thumb{background:transparent}
+
+
+.bottom-bar::before,.bottom-bar::after{
+  content:"";position:absolute;top:0;bottom:0;width:34px;pointer-events:none;
+  transition:opacity .2s ease;opacity:0
+}
+.bottom-bar::before{left:0;background:linear-gradient(90deg,rgba(255,255,255,1),rgba(255,255,255,0))}
+.bottom-bar::after{right:0;background:linear-gradient(270deg,rgba(255,255,255,1),rgba(255,255,255,0))}
+.bottom-bar.can-left::before{opacity:1}
+.bottom-bar.can-right::after{opacity:1}
+
+/* ---------- Responsiveness ---------- */
+@media (max-width:820px){
+  .container{padding:14px}
+  .grid.cols-3{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .grid.cols-3,.grid.cols-2{grid-template-columns:1fr}
+  .header{padding:14px 16px}
+  .header h1{font-size:16px}
+  .section{padding:16px}
+
+  .action-btn{padding:12px 16px}
+  /* make the primary CTA easier to tap on narrow screens */
+  .action-btn.primary{min-width:220px}
+  /* Optional: table -> stacked cards */
+  .checklist{border:none}
+  .checklist thead{display:none}
+  .checklist, .checklist tbody, .checklist tr, .checklist td{display:block;width:100%}
+  .checklist tr{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin:0 0 12px 0;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+  .checklist td{border-bottom:none;padding:6px}
+  .checklist td:first-child input{transform:scale(1.2)}
+  .file-wrap input[type="file"]{max-width:100%}
+}
+
+/* Reduced-motion users: avoid forced smooth scroll */
+@media (prefers-reduced-motion: reduce){
+  .bottom-bar .strip{scroll-behavior:auto}
+}
+
+/* Print */
+@media print{
+  .bottom-bar,.page-bottom-spacer{display:none}
+}
+
+.sheet-actions{
+  display:flex; gap:10px; align-items:center;
+  padding:10px 22px; border-bottom:1px dashed #c9d5ea;
+  overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;
+}
+
+/* Buttons (reuseable) */
+.action-btn{
+  flex:0 0 auto; display:inline-flex; align-items:center; gap:8px;
+  border-radius:999px; border:1px solid #cbd5e1; background:#fff; color:#0f172a;
+  padding:10px 14px; text-decoration:none; font-weight:700;
+  box-shadow:0 6px 18px rgba(15,23,42,.08);
+}
+.action-btn.primary {
+  background: var(--blue-700);
+  color: #fff;
+  border-color: #2c476e;
+  text-align: center; /* center ang text */
+}
+/* Mobile tweaks */
+@media (max-width:640px){
+  .sheet-actions{ padding:10px 16px; }
+  .action-btn{ padding:12px 16px; }
+  .action-btn.primary{ min-width:220px; }
+}
+
+.note-label{
+  display:flex; align-items:center; gap:10px;
+  margin:12px 22px 0; padding:10px 12px;
+  background:var(--blue-100); color:#334155;
+  border:1px solid var(--blue-200); border-left:4px solid var(--blue-700);
+  border-radius:10px; font-weight:600;
+}
+
+/* Disable state for Proceed button */
+.action-btn.is-disabled{
+  opacity:.55; cursor:not-allowed; pointer-events:none;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sheet 1: Header + Owner -->
+    <div class="sheet">
+      <div class="header">
+        <h1>Birth Certificate Registration – Requirements Checklist</h1>
+        <span class="badge">Digital Form with Uploads</span>
+      </div>
+
+      <!-- Document Owner / Case Details -->
+      <div class="section" id="owner-section">
+        <h2>Document Owner</h2>
+        <div class="grid cols-3">
+          <div>
+            <label class="small" for="lastName">Last Name</label>
+            <input id="lastName" name="lastName" type="text" autocomplete="family-name" />
+          </div>
+          <div>
+            <label class="small" for="firstName">First Name</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" />
+          </div>
+          <div>
+            <label class="small" for="middleName">Middle Name</label>
+            <input id="middleName" name="middleName" type="text" />
+          </div>
+        </div>
+
+        <div class="grid cols-2" style="margin-top:12px">
+          <div>
+            <label class="small" for="status">Status</label>
+            <select id="status" name="status">
+              <option value="">— Select —</option>
+              <option>Marital</option>
+              <option>Non-marital</option>
+              <option>Not Applicable</option>
+            </select>
+          </div>
+          <div>
+            <label class="small" for="caseNo">Reference / Registry No. (if any)</label>
+            <input id="caseNo" name="caseNo" type="text" />
+          </div>
+        </div>
+
+        <div class="legend">
+          <span class="pill">☑ Tick items you have</span>
+          <span class="pill">⬆ Upload a clear photo/scan per item</span>
+          <span class="pill">PDF/JPG/PNG · Max 10 MB each</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sheet 2: Timely (Regular) Registration -->
+    <div class="sheet" id="timely-section" style="margin-top:20px">
+  <div class="header">
+    <h1>Timely (Regular) Registration of Birth</h1>
+  </div>
+
+    <label class="note-label" id="submission-note" role="note">
+    <span>Note: You must check the box before submitting your requirements. If no item is selected (or a checked item has no upload), you cannot proceed.</span>
+     </label>
+
+  <div class="section">
+    <table class="checklist" aria-describedby="regular-desc">
+      <thead>
+        <tr>
+          <th style="width:32px">Have</th>
+          <th>Requirement</th>
+          <th>Upload</th>
+        </tr>
+      </thead>
+      <tbody id="timelyBody">
+        <tr data-req="colb">
+          <td><input type="checkbox" aria-label="Have this document"></td>
+          <td>
+            <div class="req-title">Certificate of Live Birth (Form 102)</div>
+            <div class="subtext">Issued by the hospital/midwife, properly accomplished and signed.</div>
+          </td>
+          <td>
+            <div class="file-wrap">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
+              <span class="file-note">PDF/JPG/PNG</span>
+            </div>
+          </td>
+        </tr>
+        <tr data-req="parentIDs">
+          <td><input type="checkbox" aria-label="Have this document"></td>
+          <td>
+            <div class="req-title">Valid ID(s) of Parent/s</div>
+            <div class="subtext">Any government-issued ID of mother and/or father.</div>
+          </td>
+          <td>
+            <div class="file-wrap">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple disabled>
+              <span class="file-note">Upload front/back if applicable</span>
+            </div>
+          </td>
+        </tr>
+        <tr data-req="marriageCert">
+          <td><input type="checkbox" aria-label="Have this document"></td>
+          <td>
+            <div class="req-title">Marriage Certificate of Parents</div>
+            <div class="subtext">If married. Skip if not applicable.</div>
+          </td>
+          <td>
+            <div class="file-wrap">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
+            </div>
+          </td>
+        </tr>
+        <tr data-req="admissionPaternity">
+          <td><input type="checkbox" aria-label="Have this document"></td>
+          <td>
+            <div class="req-title">Affidavit/Admission of Paternity</div>
+            <div class="subtext">For non-marital cases, if to acknowledge the father.</div>
+          </td>
+          <td>
+            <div class="file-wrap">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
+            </div>
+          </td>
+        </tr>
+        <tr data-req="barangayCert">
+          <td><input type="checkbox" aria-label="Have this document"></td>
+          <td>
+            <div class="req-title">Barangay Certification</div>
+            <div class="subtext">Residence/birth attestation as required by the LGU.</div>
+          </td>
+          <td>
+            <div class="file-wrap">
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" disabled>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <!-- NEW: actions row inside the sheet -->
+  <nav class="sheet-actions" aria-label="Timely actions">
+    <a class="action-btn primary" id="proceedAction" href="birthRegistration.html">
+      Proceed to Birth Registration
+    </a>
+  </nav>
+</div>
+
+
+  </div>
+
+
+<script>
+   
+  // Enable/disable file input based on checkbox; require upload if checked.
+  function wireChecklist(tableBodyId){
+    const body = document.getElementById(tableBodyId);
+    if(!body) return;
+    body.querySelectorAll('tr').forEach(row=>{
+      const cb = row.querySelector('input[type="checkbox"]');
+      const file = row.querySelector('input[type="file"]');
+      const toggle = () => {
+        const on = cb.checked;
+        file.disabled = !on;
+        file.required = on;
+        row.style.outline = on ? '2px solid var(--blue-100)' : 'none';
+      };
+      cb.addEventListener('change', toggle);
+      toggle();
+      file.addEventListener('change', () => {
+        file.title = (file.files && file.files.length)
+          ? Array.from(file.files).map(f=>f.name).join(', ')
+          : '';
+      });
+    });
+  }
+  wireChecklist('timelyBody');
+
+  // Print & Clear actions
+  document.getElementById('printAction').addEventListener('click', ()=>window.print());
+  document.getElementById('clearAction').addEventListener('click', ()=>{
+    // Uncheck all + clear files
+    document.querySelectorAll('tbody input[type="checkbox"]').forEach(cb=>{
+      cb.checked = false; cb.dispatchEvent(new Event('change'));
+    });
+    document.querySelectorAll('tbody input[type="file"]').forEach(f=>{
+      f.value = ''; f.title = '';
+    });
+    // Clear misc fields
+    ['lastName','firstName','middleName','caseNo'].forEach(id=>{
+      const el = document.getElementById(id); if(el) el.value='';
+    });
+    document.getElementById('status').selectedIndex = 0;
+  });
+
+  // Optional: simple size guard (10 MB per file)
+  const MAX_MB = 10;
+  document.querySelectorAll('input[type="file"]').forEach(input=>{
+    input.addEventListener('change', ()=>{
+      for(const f of input.files){
+        if(f.size > MAX_MB*1024*1024){
+          alert(`"${f.name}" exceeds ${MAX_MB} MB. Please upload a smaller file.`);
+          input.value=''; input.title=''; break;
+        }
+      }
+    });
+  });
+
+  const bar = document.querySelector('.bottom-bar');
+  const strip = document.getElementById('actionStrip');
+
+  // Wheel-to-horizontal scroll (desktop trackpads/mice)
+  strip.addEventListener('wheel', (e)=>{
+    if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+      strip.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }
+  }, {passive:false});
+
+  // Click-drag scrolling (desktop)
+  let down=false, startX=0, startLeft=0;
+  strip.addEventListener('pointerdown', (e)=>{ down=true; startX=e.clientX; startLeft=strip.scrollLeft; strip.setPointerCapture(e.pointerId); });
+  strip.addEventListener('pointermove', (e)=>{ if(!down) return; strip.scrollLeft = startLeft - (e.clientX - startX); });
+  strip.addEventListener('pointerup', ()=>{ down=false; });
+
+  // Edge fade indicators
+  function updateFades(){
+    const max = strip.scrollWidth - strip.clientWidth - 1;
+    const L = strip.scrollLeft;
+    bar.classList.toggle('can-left', L > 0);
+    bar.classList.toggle('can-right', L < max);
+  }
+  strip.addEventListener('scroll', updateFades, {passive:true});
+  window.addEventListener('resize', updateFades);
+  updateFades();
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Municipal Form No. 102 — Certificate of Live Birth (Web Replica)</title>
+<style>
+  :root{
+    --form-green:#2f7a3a;        /* primary accent like the photo */
+    --form-green-200:#bfe5c6;    /* pale green bands */
+    --ink:#111827;               /* black-ish text */
+    --paper:#ffffff;             /* white paper */
+    --grid-gap:8px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    color:var(--ink);
+    background:var(--paper);
+    font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+  }
+  .sheet{
+    max-width:990px;
+    margin:20px auto 40px;
+    padding:18px;
+    border:2px solid var(--form-green);
+    background:var(--paper);
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+  }
+  .sheet header{
+    text-align:center;
+    border-bottom:3px solid var(--form-green);
+    padding-bottom:8px;
+    margin-bottom:8px;
+  }
+  .minor{font-size:.82rem;color:#334155}
+  h1{font-size:1.4rem;margin:.2rem 0;letter-spacing:.5px}
+  .sub{font-weight:700;letter-spacing:1px}
+
+  /* Top meta row */
+  .meta{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:var(--grid-gap);
+    margin:6px 0 10px;
+  }
+  .field{
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--form-green);
+    padding:6px 8px;
+    border-radius:4px;
+  }
+  .field > label{
+    font-size:.72rem;
+    color:#0f5132;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.3px;
+    margin-bottom:4px;
+  }
+  .field input[type="text"],
+  .field input[type="date"],
+  .field input[type="number"],
+  .field input[type="tel"],
+  .field select,
+  .field textarea{
+    border:1px solid #9ca3af;
+    border-radius:4px;
+    padding:6px 8px;
+    font-size:.95rem;
+  }
+  .field textarea{min-height:60px;resize:vertical}
+  .grid-2{grid-column:span 2}
+  .grid-3{grid-column:span 3}
+  .grid-4{grid-column:span 4}
+
+  .band{
+    background:var(--form-green-200);
+    color:#084c2f;
+    font-weight:800;
+    padding:6px 10px;
+    border:1px solid var(--form-green);
+    border-left:0;border-right:0;
+    margin:14px -8px 8px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+
+  .section{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:var(--grid-gap);
+  }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:var(--grid-gap);
+  }
+
+  .actions{
+    display:flex;gap:10px;justify-content:flex-end;margin-top:16px
+  }
+  button{
+    border:0;border-radius:6px;padding:.7rem 1rem;font-weight:700;cursor:pointer
+  }
+  .btn-primary{background:var(--form-green);color:#fff}
+  .btn-reset{background:#e2e8f0}
+
+  /* print */
+  @media print{
+    body{background:#fff;box-shadow:none}
+    .sheet{box-shadow:none;margin:0;border:2px solid var(--form-green)}
+    .actions{display:none !important}
+  }
+</style>
+</head>
+<body>
+  <!-- Remove 'novalidate' so native HTML5 required validation runs -->
+  <form class="sheet" id="liveBirthForm">
+    <header>
+      <div class="minor">Municipal Form No. 102 (Revised August 2016)</div>
+      <div class="minor">Republic of the Philippines</div>
+      <div class="minor">(To be accomplished in quadruplicate using black ink)</div>
+      <h1>OFFICE OF THE CIVIL REGISTRAR GENERAL</h1>
+      <div class="sub">CERTIFICATE OF LIVE BIRTH</div>
+    </header>
+
+    <div class="meta">
+      <div class="field grid-2">
+        <label>Province</label>
+        <input type="text" name="province" required>
+      </div>
+      <div class="field grid-2">
+        <label>City/Municipality</label>
+        <input type="text" name="city" required>
+      </div>
+      <div class="field grid-3">
+        <label>1. Name (First, Middle, Last)</label>
+        <input type="text" name="child_name" required>
+      </div>
+      <div class="field">
+        <label>Registry No.</label>
+        <input type="text" name="registry_no" required>
+      </div>
+    </div>
+
+    <div class="band">Child</div>
+    <div class="section">
+      <div class="field">
+        <label>2. Sex</label>
+        <select name="sex" required>
+          <option value="">Select…</option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>3. Date of Birth</label>
+        <input type="date" name="dob" required>
+      </div>
+      <div class="field grid-2">
+        <label>4. Place of Birth (City/Municipality, Province)</label>
+        <input type="text" name="pob" required>
+      </div>
+      <div class="field">
+        <label>5a. Type of Birth</label>
+        <select name="type_of_birth" required>
+          <option value="">Select…</option>
+          <option>Single</option>
+          <option>Twin</option>
+          <option>Triplet</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>5b. If Multiple Birth, Child Was</label>
+        <input type="text" name="multiple_birth_order" placeholder="e.g., First, Second" required>
+      </div>
+      <div class="field">
+        <label>5c. Birth Order</label>
+        <input type="number" min="1" name="birth_order" required>
+      </div>
+      <div class="field">
+        <label>6. Weight at Birth (grams)</label>
+        <input type="number" min="0" name="weight" required>
+      </div>
+    </div>
+
+    <div class="band">Mother</div>
+    <div class="section">
+      <div class="field grid-2">
+        <label>7. Maiden Name (First, Middle, Last)</label>
+        <input type="text" name="mother_maiden" required>
+      </div>
+      <div class="field">
+        <label>8. Citizenship</label>
+        <input type="text" name="mother_citizenship" required>
+      </div>
+      <div class="field">
+        <label>9. Religion / Religious Sect</label>
+        <input type="text" name="mother_religion" required>
+      </div>
+      <div class="field">
+        <label>10a. Total No. of Children Born Alive</label>
+        <input type="number" min="0" name="children_alive_total" required>
+      </div>
+      <div class="field">
+        <label>10b. No. of Children Still Living</label>
+        <input type="number" min="0" name="children_still_living" required>
+      </div>
+      <div class="field">
+        <label>10c. No. Born Alive but Now Dead</label>
+        <input type="number" min="0" name="children_now_dead" required>
+      </div>
+      <div class="field">
+        <label>11. Occupation</label>
+        <input type="text" name="mother_occupation" required>
+      </div>
+      <div class="field">
+        <label>12. Age at the Time of this Birth</label>
+        <input type="number" min="10" name="mother_age" required>
+      </div>
+      <div class="field grid-4">
+        <label>13. Residence (House No., St., Barangay, City/Municipality, Province, Country)</label>
+        <input type="text" name="mother_residence" required>
+      </div>
+    </div>
+
+    <div class="band">Father</div>
+    <div class="section">
+      <div class="field grid-2">
+        <label>14. Name (First, Middle, Last)</label>
+        <input type="text" name="father_name" required>
+      </div>
+      <div class="field">
+        <label>15. Citizenship</label>
+        <input type="text" name="father_citizenship" required>
+      </div>
+      <div class="field">
+        <label>16. Religion / Religious Sect</label>
+        <input type="text" name="father_religion" required>
+      </div>
+      <div class="field">
+        <label>17. Occupation</label>
+        <input type="text" name="father_occupation" required>
+      </div>
+      <div class="field">
+        <label>18. Age at the Time of this Birth</label>
+        <input type="number" min="10" name="father_age" required>
+      </div>
+      <div class="field grid-4">
+        <label>19. Residence (House No., St., Barangay, City/Municipality, Province, Country)</label>
+        <input type="text" name="father_residence" required>
+      </div>
+    </div>
+
+    <div class="band">Marriage of Parents</div>
+    <div class="section">
+      <div class="field">
+        <label>20a. Date</label>
+        <input type="date" name="marriage_date" required>
+      </div>
+      <div class="field grid-3">
+        <label>20b. Place (City/Municipality, Province, Country)</label>
+        <input type="text" name="marriage_place" required>
+      </div>
+    </div>
+
+    <div class="band">Attendant</div>
+    <div class="section">
+      <div class="field">
+        <label>21. Attendant</label>
+        <select name="attendant" required>
+          <option value="">Select…</option>
+          <option>Physician</option>
+          <option>Nurse</option>
+          <option>Midwife</option>
+          <option>Hilot (Traditional Birth Attendant)</option>
+          <option>Others</option>
+        </select>
+      </div>
+      <div class="field grid-3">
+        <label>21b. Certification of Attendant at Birth</label>
+        <input type="text" name="attendant_cert" placeholder="Name, Title/Position" required>
+      </div>
+    </div>
+
+    <div class="band">Certification & Registration</div>
+    <div class="footer-grid">
+      <div class="field">
+        <label>22. Certification of Informant — Signature / Name in Print</label>
+        <input type="text" name="informant_name" required>
+        <label style="margin-top:6px">Relationship to the Child / Address / Date</label>
+        <input type="text" name="informant_rel" required>
+      </div>
+      <div class="field">
+        <label>23. Prepared By — Signature / Name in Print / Title / Date</label>
+        <textarea name="prepared_by" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label>24. Received By — Signature / Name in Print / Title / Date</label>
+        <textarea name="received_by" rows="4" required></textarea>
+      </div>
+      <div class="field">
+        <label>25. Registered at the Office of the Civil Registrar — Signature / Name in Print / Title / Date</label>
+        <textarea name="registered_by" rows="4" required></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-reset" type="reset">Clear</button>
+      <button class="btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
+
+<script>
+  // Extra JS to highlight missing fields (native 'required' also prevents submission)
+  const form = document.getElementById('liveBirthForm');
+  form.addEventListener('submit', (e) => {
+    // Let the browser validate first; if any invalid, stop and highlight.
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      [...form.elements].forEach(el => {
+        if (el.willValidate && !el.checkValidity()) el.style.outline = '2px solid crimson';
+        else el.style.outline = '';
+      });
+    } else {
+      e.preventDefault();
+      alert('Form captured successfully (demo).');
+    }
+  });
+  form.addEventListener('input', (e) => {
+    const el = e.target;
+    if (el.willValidate) {
+      if (el.checkValidity()) el.style.outline='';
+    }
+  });
+  form.addEventListener('reset', () => {
+    [...form.elements].forEach(el => el.style.outline='');
+  });
+</script>
+
+</body>
+</html>
