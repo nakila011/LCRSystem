@@ -27,11 +27,18 @@
     padding:28px 26px;
     position:relative;
     box-shadow:0 18px 40px rgba(65,93,138,.25);
-    display:flex;flex-direction:column;align-items:center;text-align:center;min-height:300px
+    display:flex;flex-direction:column;align-items:center;text-align:center;min-height:300px;
+    opacity:0;
+    animation: fadeInUp 0.5s ease-out forwards;
+  
   }
   .card .icon{
     width:84px;height:84px;border-radius:18px;background:var(--white);
     display:grid;place-items:center;box-shadow:0 10px 24px rgba(65,93,138,.18);margin-bottom:12px
+  }
+  /* Ensure icon images fit nicely */
+  .card .icon img{
+    width:70px;height:70px;object-fit:contain;display:block
   }
   .card .pill{
     display:inline-block;
@@ -66,18 +73,116 @@
   .sheet .body{padding:18px 20px}
   .req-list{margin:0;padding-left:18px}
   .req-list li{margin:8px 0}
+
+  @keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* starts slightly lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* moves into place */
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.9s ease-out forwards;
+}
+
+.grid2 .card:nth-child(1) { animation-delay: 0.1s; }
+.grid2 .card:nth-child(2) { animation-delay: 0.3s; }
+
+
+
+.table-card {
+  display: flex;
+  justify-content: center; /* ensures content inside is centered */
+}
+
+.table-card .sheet {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.table-card table {
+  width: 100%;        /* take full width of the parent */
+  max-width: 900px;   /* limit width for readability */
+  margin: 0 auto;     /* keep centered */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(65,93,138,.15);
+}
+
+@media (min-width: 861px) {
+  .card.table-card {
+    align-items: flex-start;
+  }
+}
+
+/* Center the whole card content */
+.table-card {
+  display: flex;
+  justify-content: center;
+}
+
+/* Make the sheet a block, center it, and control width */
+.table-card .sheet {
+  display: block;         /* was flex */
+  width: 100%;
+  max-width: 900px;       /* controls final width of header + table */
+  margin: 0 auto;         /* centers within the page */
+}
+
+/* Table sizing/alignment */
+.table-card table {
+  width: 100%;
+  margin: 0;              /* let it fill the sheet exactly */
+  border-radius: 8px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(65,93,138,.15);
+}
+
+/* Optional: remove side padding so table lines up with header edges */
+.sheet .body {
+  padding: 0;             /* was 18px 20px */
+}
+.sheet .header {
+  text-align: center;
+}
+
+/* Column headers centered (override the inline style on <tr>) */
+.table-card thead th {
+  text-align: center !important;
+  vertical-align: middle;
+  font-weight: 800;
+}
+
+/* Body cells left-aligned */
+.table-card tbody td {
+  text-align: left !important;
+  vertical-align: middle;
+}
+
+/* Optional: tidy cell padding so bullets align neatly */
+.table-card th,
+.table-card td {
+  padding: 12px 14px !important;
+}
+
+
 </style>
 </head>
 <body>
   <div class="container">
 
-    <!-- Top cards (match screenshot layout) -->
     <div class="grid2">
       <!-- Early -->
       <div class="card" style="background:rgba(168,188,218,.45)">
         <div class="icon">
-          <!-- cute baby emoji as placeholder; swap with your SVG if you prefer -->
-          <span style="font-size:44px">👶</span>
+          <img src="image/ontime.png" alt="On-Time Registration Icon" loading="lazy">
         </div>
         <span class="pill">Early/On-Time Birth Registration</span>
         <h3>Early Registration Requirements</h3>
@@ -87,28 +192,76 @@
       <!-- Delayed -->
       <div class="card" style="background:rgba(168,188,218,.45)">
         <div class="icon">
-          <!-- document icon placeholder -->
-          <span style="font-size:44px">📝</span>
+          <img src="image/late.png" alt="Delayed Registration Icon" loading="lazy">
         </div>
         <span class="pill">Late/Delayed Birth Registration</span>
         <h3>Delayed Registration Requirements</h3>
-        <a class="cta" href="#delayed">Apply Delayed Requirements</a>
+        <a class="cta" href="delyRequirements.html">Apply Delayed Requirements</a>
       </div>
     </div>
-
-    <div id="delayed" class="sheet">
-      <div class="header">Delayed Registration Requirements</div>
-      <div class="body">
-        <ul class="req-list">
-          <li>Affidavit for Delayed Registration (reason for delay)</li>
-          <li>Any two (2) supporting documents (baptismal, school, medical, voter’s, employment, etc.)</li>
-          <li>PSA Negative Certification / No Record (if required)</li>
-          <li>Valid ID(s) of Parent/s or Registrant</li>
-          <li>Accomplished Certificate of Live Birth (Form 102)</li>
-        </ul>
-      </div>
+     <br>
+    
+     <div class="card table-card">
+  <div class="sheet">
+    <div class="header">Lists of Requirements for Birth Registration</div>
+    <div class="body">
+      <table>
+        <thead>
+            <tr style="background:var(--blue-100); color:var(--blue-700); text-align:left;">
+            <th style="padding:12px; border:1px solid var(--blue-200);">Early/On-Time Birth Requirements</th>
+            <th style="padding:12px; border:1px solid var(--blue-200);">Delayed (Filed after 10 days)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Parent's Certificate of Marriage</td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• PSA Negative Result</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Barangay Certificate</td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• National ID/Printable ID/Digital ID</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Valid ID of parents</td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Baptismal Certificate</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Affidavit to Use the Surname of the Father</td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Voter's Registration Record</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Barangay Certification issued by the Punong Barangay</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Government-issued ID (Senior Citizen ID, PhilHealth ID, Voter's/COMELEC ID)</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• 2x2 Front facing photo of the Registrant</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Marriage Certificate of the Parents</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Death Certificate for the Deceased Parents</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Affidavit of Delayed Registration of Birth</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border:1px solid var(--blue-200);"></td>
+            <td style="padding:10px; border:1px solid var(--blue-200);">• Affidavit of Out-of-Town Delayed Registration of Birth</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
+  </div>
+</div>
   </div>
 </body>
 </html>

@@ -1,385 +1,371 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Municipal Form No. 102 — Certificate of Live Birth (Web Replica)</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Municipal Form No. 102 — Certificate of Live Birth (Exact Replica – Fillable)</title>
 <style>
-  :root{
-    --form-green:#2f7a3a;        /* primary accent like the photo */
-    --form-green-200:#bfe5c6;    /* pale green bands */
-    --ink:#111827;               /* black-ish text */
-    --paper:#ffffff;             /* white paper */
-    --grid-gap:8px;
-    --sheet-pad:18px;            /* lets us adjust padding per breakpoint */
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    color:var(--ink);
-    background:var(--paper);
-    -webkit-tap-highlight-color: transparent;
-    font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-  }
+  :root{ --green:#2f7a3a; --ink:#000; --paper:#fff; }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.25 Arial, Helvetica, sans-serif}
 
-  .sheet{
-    max-width:990px;
-    margin:20px auto 40px;
-    padding:var(--sheet-pad);
-    border:2px solid var(--form-green);
-    background:var(--paper);
-    box-shadow:0 10px 30px rgba(0,0,0,.06);
-    overflow:hidden; /* prevents slight horizontal scroll from full-bleed bands */
-  }
-  .sheet header{
-    text-align:center;
-    border-bottom:3px solid var(--form-green);
-    padding-bottom:8px;
-    margin-bottom:8px;
-  }
-  .minor{font-size:.82rem;color:#334155}
-  h1{font-size:1.4rem;margin:.2rem 0;letter-spacing:.5px}
-  .sub{font-weight:700;letter-spacing:1px}
 
-  /* Top meta row */
-  .meta{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:var(--grid-gap);
-    margin:6px 0 10px;
-  }
+@page{ size:A4; margin:10mm }
+.page, .table, .tr, .td{ page-break-inside: avoid; }
 
-  .field{
-    display:flex;
-    flex-direction:column;
-    border:1px solid var(--form-green);
-    padding:6px 8px;
-    border-radius:4px;
-    min-width:0; /* allow shrinking without overflow */
-  }
-  .field > label{
-    font-size:.72rem;
-    color:#0f5132;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.3px;
-    margin-bottom:4px;
-  }
-  .field input[type="text"],
-  .field input[type="date"],
-  .field input[type="number"],
-  .field input[type="tel"],
-  .field select,
-  .field textarea{
-    border:1px solid #9ca3af;
-    border-radius:4px;
-    padding:6px 8px;
-    font-size:.95rem;
-    width:100%;
-  }
-  .field textarea{min-height:60px;resize:vertical}
-  .grid-2{grid-column:span 2}
-  .grid-3{grid-column:span 3}
-  .grid-4{grid-column:span 4}
 
-  /* Full-bleed green band that adapts to padding via var */
-  .band{
-    background:var(--form-green-200);
-    color:#084c2f;
-    font-weight:800;
-    padding:6px 10px;
-    border:1px solid var(--form-green);
-    border-left:0;border-right:0;
-    margin:14px calc(-1 * var(--sheet-pad)) 8px; /* full-bleed inside sheet */
-    text-transform:uppercase;
-    letter-spacing:.5px;
-  }
+.page{ width:980px; margin:18px auto; border:2px solid var(--green); background:#fff; padding:14px 16px; position:relative }
 
-  .section{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:var(--grid-gap);
-  }
 
-  .footer-grid{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap:var(--grid-gap);
-  }
+.header-top{ display:grid; grid-template-columns:1fr 1fr 1fr; align-items:start }
+.header-top .left{font-size:12px}
+.header-top .center{justify-self:center;font-size:12px}
+.header-top .right{justify-self:end;font-size:11px}
 
-  .actions{
-    display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap
-  }
-  button{
-    border:0;border-radius:6px;padding:.7rem 1rem;font-weight:700;cursor:pointer
-  }
-  .btn-primary{background:var(--form-green);color:#fff}
-  .btn-reset{background:#e2e8f0}
 
-  /* Accessible focus */
-  :focus-visible{
-    outline:2px solid #2563eb;
-    outline-offset:2px;
-  }
+.title{ text-align:center; border-top:2px solid var(--green); border-bottom:2px solid var(--green); padding:8px 0 10px; margin:8px 0 10px }
+.title .rl{font-size:13px;margin-bottom:4px}
+.title .main{font-size:26px;font-weight:700;margin-top:6px;letter-spacing:1px}
 
-  /* ---------- Responsiveness ---------- */
 
-  /* Large tablets: 4→2 cols to keep layout readable */
-  @media (max-width: 980px){
-    .meta{ grid-template-columns: repeat(2, 1fr); }
-    .section{ grid-template-columns: repeat(2, 1fr); }
-    .grid-3{ grid-column: span 2; }
-    .grid-4{ grid-column: span 2; }
-  }
+.row{display:grid; gap:6px; margin-bottom:6px}
+.meta{grid-template-columns:1fr 1.2fr .9fr}
+.label{font-size:12px}
+.box{border:1.8px solid var(--green); padding:6px; min-height:32px; display:flex; flex-direction:column; justify-content:space-between}
 
-  /* Phones: 1 column, tighter padding, bigger tap targets */
-  @media (max-width: 600px){
-    .sheet{ --sheet-pad:12px; margin:12px auto 24px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
-    .minor{ font-size:.78rem }
-    h1{ font-size:1.2rem }
-    .meta, .section{ grid-template-columns: 1fr; }
-    .footer-grid{ grid-template-columns: 1fr; }
-    .grid-2, .grid-3, .grid-4{ grid-column: span 1; }
-    .field > label{ font-size:.74rem }
-    .field input, .field select, .field textarea{ padding:10px 12px; font-size:1rem; }
-    .actions{ justify-content:stretch }
-    .actions button{ flex:1 1 100% } /* full-width buttons on mobile */
-  }
 
-  /* print */
-  @media print{
-    body{background:#fff;box-shadow:none}
-    .sheet{box-shadow:none;margin:0;border:2px solid var(--form-green)}
-    .actions{display:none !important}
-  }
+.line{ width:100%; border:none; border-bottom:1px solid #0d4b2b; background:transparent; font:inherit; padding:2px 0; outline:none }
+.line::placeholder{color:#7f8b84}
+
+
+.table{border:1.8px solid var(--green); margin-left:36px; width:calc(100% - 36px);}
+.table.join{ margin-top:-1.8px; border-top:0; }
+.table .tr{display:grid; border-top:1.8px solid var(--green)}
+.table .tr:first-child{border-top:0}
+.table .td{border-left:1.8px solid var(--green); padding:6px 8px; min-height:40px; display:flex; flex-direction:column; gap:4px}
+.table .td:first-child{border-left:0}
+
+
+.small{font-size:12px; font-weight:700}
+.tiny{font-size:11px}
+
+
+.band{ position:absolute; left:10px; display:flex; flex-direction:column; align-items:center; gap:3px; color:#1f4f2a; font-weight:700; letter-spacing:1px }
+.band .cell{ border:1.6px solid var(--green); width:26px; height:26px; display:flex; align-items:center; justify-content:center }
+.band.child{top:232px}
+.band.mother{top:510px}
+.band.father{top:742px}
+
+
+.remarks{border:1.8px solid var(--green);margin-top:8px;padding:6px;font-size:12px}
+.ocr{border:1.8px solid var(--green);margin-top:0;padding:6px}
+.ocr .boxes{display:grid;grid-template-columns:repeat(16, 1fr);gap:6px;margin-top:6px}
+.ocr .bx{border:1.6px solid var(--green);height:22px}
+
+
+.actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px }
+button{ border:0; background:var(--green); color:#fff; padding:.55rem .9rem; font-weight:700; border-radius:4px; cursor:pointer }
+
+
+@media print{ .page{margin:0} .actions{display:none} }
+
 </style>
 </head>
 <body>
-  <!-- Remove 'novalidate' so native HTML5 required validation runs -->
-  <form class="sheet" id="liveBirthForm">
-    <header>
-      <div class="minor">Municipal Form No. 102 (Revised August 2016)</div>
-      <div class="minor">Republic of the Philippines</div>
-      <div class="minor">(To be accomplished in quadruplicate using black ink)</div>
-      <h1>OFFICE OF THE CIVIL REGISTRAR GENERAL</h1>
-      <div class="sub">CERTIFICATE OF LIVE BIRTH</div>
-    </header>
+  <form id="liveBirth" novalidate>
+  <div class="page" role="document" aria-label="Municipal Form No. 102 – Certificate of Live Birth">
+    <div class="header-top">
+      <div class="left">Municipal Form No. 102<br/>(Revised August 2016)</div>
+      <div class="center">Republic of the Philippines</div>
+      <div class="right">(To be accomplished in quadruplicate using black ink)</div>
+    </div>
+    <div class="title" aria-hidden="true">
+      <div class="rl">OFFICE OF THE CIVIL REGISTRAR GENERAL</div>
+      <div class="main">CERTIFICATE OF LIVE BIRTH</div>
+    </div>
 
-    <div class="meta">
-      <div class="field grid-2">
-        <label>Province</label>
-        <input type="text" name="province" required>
+    <!-- Province / City / Registry No. -->
+    <div class="row meta">
+      <div class="box">
+        <span class="label">Province</span>
+        <input class="line" name="province" required>
       </div>
-      <div class="field grid-2">
-        <label>City/Municipality</label>
-        <input type="text" name="city" required>
+      <div class="box">
+        <span class="label">City/Municipality</span>
+        <input class="line" name="city" required>
       </div>
-      <div class="field grid-3">
-        <label>1. Name (First, Middle, Last)</label>
-        <input type="text" name="child_name" required>
-      </div>
-      <div class="field">
-        <label>Registry No.</label>
-        <input type="text" name="registry_no" required>
+      <div class="box">
+        <span class="label">Registry No.</span>
+        <input class="line" name="registry" required>
       </div>
     </div>
 
-    <div class="band">Child</div>
-    <div class="section">
-      <div class="field">
-        <label>2. Sex</label>
-        <select name="sex" required>
-          <option value="">Select…</option>
-          <option>Male</option>
-          <option>Female</option>
-        </select>
+    <!-- CHILD band -->
+    <div class="band child" aria-hidden="true"><div class="cell">C</div><div class="cell">H</div><div class="cell">I</div><div class="cell">L</div><div class="cell">D</div></div>
+
+    <!-- CHILD TABLE -->
+    <div class="table">
+      <div class="tr" style="grid-template-columns:1.3fr 1fr 1fr 1fr;">
+        <div class="td">
+          <div class="small">1. NAME</div>
+          <div class="tiny">(First)</div>
+          <input class="line" name="child_first" required>
+        </div>
+        <div class="td"><div class="tiny">(Middle)</div><input class="line" name="child_middle" required></div>
+        <div class="td"><div class="tiny">(Last)</div><input class="line" name="child_last" required></div>
+        <div class="td"></div>
       </div>
-      <div class="field">
-        <label>3. Date of Birth</label>
-        <input type="date" name="dob" required>
+      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr;">
+        <div class="td"><span class="small">2. SEX</span> <span class="tiny">(Male / Female)</span>
+          <select class="line" name="sex" required>
+            <option value=""> </option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div class="td"><span class="small">3. DATE OF<br/>BIRTH</span><div class="tiny">(Day)</div>
+          <input class="line" name="dob_day" required>
+        </div>
+        <div class="td"><div class="tiny">(Month)</div><input class="line" name="dob_month" required></div>
+        <div class="td"><div class="tiny">(Year)</div><input class="line" name="dob_year" required></div>
       </div>
-      <div class="field grid-2">
-        <label>4. Place of Birth (City/Municipality, Province)</label>
-        <input type="text" name="pob" required>
+      <div class="tr" style="grid-template-columns:1.6fr 1.1fr 1.1fr;">
+        <div class="td"><span class="small">4. PLACE OF<br/>BIRTH</span> <span class="tiny">(Name of Hospital/Clinic/Institution/ House No., St., Barangay)</span>
+          <input class="line" name="pob_detail" required>
+        </div>
+        <div class="td"><span class="tiny">(City/Municipality)</span><input class="line" name="pob_city" required></div>
+        <div class="td"><span class="tiny">(Province)</span><input class="line" name="pob_province" required></div>
       </div>
-      <div class="field">
-        <label>5a. Type of Birth</label>
-        <select name="type_of_birth" required>
-          <option value="">Select…</option>
-          <option>Single</option>
-          <option>Twin</option>
-          <option>Triplet</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>5b. If Multiple Birth, Child Was</label>
-        <input type="text" name="multiple_birth_order" placeholder="e.g., First, Second" required>
-      </div>
-      <div class="field">
-        <label>5c. Birth Order</label>
-        <input type="number" min="1" name="birth_order" required>
-      </div>
-      <div class="field">
-        <label>6. Weight at Birth (grams)</label>
-        <input type="number" min="0" name="weight" required>
+      <div class="tr" style="grid-template-columns:1fr 1.2fr 1fr 1fr;">
+        <div class="td"><span class="small">5a. TYPE OF BIRTH</span> <span class="tiny">(Single,Twin,Triplet, etc.)</span>
+          <select class="line" name="birth_type" required>
+            <option value=""> </option>
+            <option>Single</option><option>Twin</option><option>Triplet</option><option>Others</option>
+          </select>
+        </div>
+        <div class="td"><span class="small">5b. IF MULTIPLE BIRTH, CHILD WAS</span> <span class="tiny">(First, Second, Third, etc.)</span>
+          <input class="line" name="multiple_seq" required>
+        </div>
+        <div class="td"><span class="small">5c. BIRTH ORDER</span> <span class="tiny">(Order of this birth to previous live births including fetal death)</span> <span class="tiny">(First, Second, Third, etc.)</span>
+          <input class="line" name="birth_order" required>
+        </div>
+        <div class="td"><span class="small">6. WEIGHT AT BIRTH</span> <span class="right tiny">grams</span>
+          <input class="line" name="weight" required>
+        </div>
       </div>
     </div>
 
-    <div class="band">Mother</div>
-    <div class="section">
-      <div class="field grid-2">
-        <label>7. Maiden Name (First, Middle, Last)</label>
-        <input type="text" name="mother_maiden" required>
+    <!-- MOTHER band -->
+    <div class="band mother" aria-hidden="true"><div class="cell">M</div><div class="cell">O</div><div class="cell">T</div><div class="cell">H</div><div class="cell">E</div><div class="cell">R</div></div>
+
+    <!-- MOTHER TABLE -->
+    <div class="table join" style="margin-top:6px">
+      <div class="tr" style="grid-template-columns:1.5fr 1.5fr 1.2fr;">
+        <div class="td"><div class="small">7. MAIDEN<br/>NAME</div><div class="tiny">(First)</div><input class="line" name="m_first" required></div>
+        <div class="td"><div class="tiny">(Middle)</div><input class="line" name="m_middle" required></div>
+        <div class="td"><div class="tiny">(Last)</div><input class="line" name="m_last" required></div>
       </div>
-      <div class="field">
-        <label>8. Citizenship</label>
-        <input type="text" name="mother_citizenship" required>
+      <div class="tr" style="grid-template-columns:1fr 1.3fr 1.1fr;">
+        <div class="td"><span class="small">8.CITIZENSHIP</span><input class="line" name="m_cit" required></div>
+        <div class="td"><span class="small">9. RELIGION/RELIGIOUS SECT</span><input class="line" name="m_rel" required></div>
+        <div class="td"><span class="small">11. OCCUPATION</span><input class="line" name="m_occ" required></div>
       </div>
-      <div class="field">
-        <label>9. Religion / Religious Sect</label>
-        <input type="text" name="mother_religion" required>
+      <div class="tr" style="grid-template-columns:1.1fr 1.1fr 1.2fr 1fr;">
+        <div class="td"><span class="small">10a. Total number of children born alive</span><input class="line" name="m_10a" required></div>
+        <div class="td"><span class="small">10b. No. of children still living including this birth</span><input class="line" name="m_10b" required></div>
+        <div class="td"><span class="small">10c. No. of children born alive but are now dead</span><input class="line" name="m_10c" required></div>
+        <div class="td"><span class="small">12. AGE at the time of this birth</span> <span class="tiny">(completed years)</span><input class="line" name="m_age" required></div>
       </div>
-      <div class="field">
-        <label>10a. Total No. of Children Born Alive</label>
-        <input type="number" min="0" name="children_alive_total" required>
-      </div>
-      <div class="field">
-        <label>10b. No. of Children Still Living</label>
-        <input type="number" min="0" name="children_still_living" required>
-      </div>
-      <div class="field">
-        <label>10c. No. Born Alive but Now Dead</label>
-        <input type="number" min="0" name="children_now_dead" required>
-      </div>
-      <div class="field">
-        <label>11. Occupation</label>
-        <input type="text" name="mother_occupation" required>
-      </div>
-      <div class="field">
-        <label>12. Age at the Time of this Birth</label>
-        <input type="number" min="10" name="mother_age" required>
-      </div>
-      <div class="field grid-4">
-        <label>13. Residence (House No., St., Barangay, City/Municipality, Province, Country)</label>
-        <input type="text" name="mother_residence" required>
+      <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+        <div class="td"><span class="small">13. RESIDENCE</span> <span class="tiny">(House No., St., Barangay)</span><input class="line" name="m_addr" required></div>
+        <div class="td"><span class="tiny">(City/Municipality)</span><input class="line" name="m_addr_city" required></div>
+        <div class="td"><span class="tiny">(Province)</span><input class="line" name="m_addr_prov" required></div>
+        <div class="td"><span class="tiny">(Country)</span><input class="line" name="m_addr_country" required></div>
       </div>
     </div>
 
-    <div class="band">Father</div>
-    <div class="section">
-      <div class="field grid-2">
-        <label>14. Name (First, Middle, Last)</label>
-        <input type="text" name="father_name" required>
+    <!-- FATHER band -->
+    <div class="band father" aria-hidden="true"><div class="cell">F</div><div class="cell">A</div><div class="cell">T</div><div class="cell">H</div><div class="cell">E</div><div class="cell">R</div></div>
+
+    <!-- FATHER TABLE -->
+    <div class="table join" style="margin-top:6px">
+      <div class="tr" style="grid-template-columns:1.5fr 1.5fr 1.2fr;">
+        <div class="td"><div class="small">14. NAME</div><div class="tiny">(First)</div><input class="line" name="f_first" required></div>
+        <div class="td"><div class="tiny">(Middle)</div><input class="line" name="f_middle" required></div>
+        <div class="td"><div class="tiny">(Last)</div><input class="line" name="f_last" required></div>
       </div>
-      <div class="field">
-        <label>15. Citizenship</label>
-        <input type="text" name="father_citizenship" required>
+      <div class="tr" style="grid-template-columns:1fr 1.3fr 1fr 1fr;">
+        <div class="td"><span class="small">15. CITIZENSHIP</span><input class="line" name="f_cit" required></div>
+        <div class="td"><span class="small">16. RELIGION/RELIGIOUS SECT</span><input class="line" name="f_rel" required></div>
+        <div class="td"><span class="small">17. OCCUPATION</span><input class="line" name="f_occ" required></div>
+        <div class="td"><span class="small">18. AGE at the time of this birth</span> <span class="tiny">(completed years)</span><input class="line" name="f_age" required></div>
       </div>
-      <div class="field">
-        <label>16. Religion / Religious Sect</label>
-        <input type="text" name="father_religion" required>
-      </div>
-      <div class="field">
-        <label>17. Occupation</label>
-        <input type="text" name="father_occupation" required>
-      </div>
-      <div class="field">
-        <label>18. Age at the Time of this Birth</label>
-        <input type="number" min="10" name="father_age" required>
-      </div>
-      <div class="field grid-4">
-        <label>19. Residence (House No., St., Barangay, City/Municipality, Province, Country)</label>
-        <input type="text" name="father_residence" required>
+      <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+        <div class="td"><span class="small">19. RESIDENCE</span> <span class="tiny">(House No., St., Barangay)</span><input class="line" name="f_addr" required></div>
+        <div class="td"><span class="tiny">(City/Municipality)</span><input class="line" name="f_addr_city" required></div>
+        <div class="td"><span class="tiny">(Province)</span><input class="line" name="f_addr_prov" required></div>
+        <div class="td"><span class="tiny">(Country)</span><input class="line" name="f_addr_country" required></div>
       </div>
     </div>
 
-    <div class="band">Marriage of Parents</div>
-    <div class="section">
-      <div class="field">
-        <label>20a. Date</label>
-        <input type="date" name="marriage_date" required>
+    <!-- MARRIAGE OF PARENTS -->
+    <div class="table join" style="margin-left:0;margin-top:8px">
+      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
+        <div class="td" style="grid-column:1/span 5">
+          <span class="small">MARRIAGE OF PARENTS</span> <span class="tiny">(If not married, accomplish Affidavit of Acknowledgement/Admission of Paternity at the back.)</span>
+        </div>
       </div>
-      <div class="field grid-3">
-        <label>20b. Place (City/Municipality, Province, Country)</label>
-        <input type="text" name="marriage_place" required>
-      </div>
-    </div>
-
-    <div class="band">Attendant</div>
-    <div class="section">
-      <div class="field">
-        <label>21. Attendant</label>
-        <select name="attendant" required>
-          <option value="">Select…</option>
-          <option>Physician</option>
-          <option>Nurse</option>
-          <option>Midwife</option>
-          <option>Hilot (Traditional Birth Attendant)</option>
-          <option>Others</option>
-        </select>
-      </div>
-      <div class="field grid-3">
-        <label>21b. Certification of Attendant at Birth</label>
-        <input type="text" name="attendant_cert" placeholder="Name, Title/Position" required>
+      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
+        <div class="td" style="grid-column:1/span 2"><span class="small">20a. DATE</span> <span class="tiny">(Month)</span> <span class="tiny">(Day)</span> <span class="tiny">(Year)</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px"><input class="line" name="mar_month" required><input class="line" name="mar_day" required><input class="line" name="mar_year" required></div>
+        </div>
+        <div class="td" style="grid-column:3/span 3"><span class="small">20b. PLACE</span> <span class="tiny">(City / Municipality)</span> <span class="tiny">(Province)</span> <span class="tiny">(Country)</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px"><input class="line" name="mar_city" required><input class="line" name="mar_prov" required><input class="line" name="mar_ctry" required></div>
+        </div>
       </div>
     </div>
 
-    <div class="band">Certification & Registration</div>
-    <div class="footer-grid">
-      <div class="field">
-        <label>22. Certification of Informant — Signature / Name in Print</label>
-        <input type="text" name="informant_name" required>
-        <label style="margin-top:6px">Relationship to the Child / Address / Date</label>
-        <input type="text" name="informant_rel" required>
+    <!-- ATTENDANT / CERTIFICATION -->
+    <div class="table join" style="margin-top:6px">
+      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
+        <div class="td" style="grid-column:1/span 5"><span class="small">21a. ATTENDANT</span> <span class="tiny">1 Physician</span> &nbsp; <span class="tiny">2 Nurse</span> &nbsp; <span class="tiny">3 Midwife</span> &nbsp; <span class="tiny">4 Hilot (Traditional Birth Attendant)</span> &nbsp; <span class="tiny">5 Others (Specify)</span>
+          <select class="line" name="attendant" required>
+            <option value=""> </option>
+            <option>Physician</option><option>Nurse</option><option>Midwife</option><option>Hilot (Traditional Birth Attendant)</option><option>Others</option>
+          </select>
+        </div>
       </div>
-      <div class="field">
-        <label>23. Prepared By — Signature / Name in Print / Title / Date</label>
-        <textarea name="prepared_by" rows="4" required></textarea>
+      <div class="tr" style="grid-template-columns:1fr;">
+        <div class="td">
+          <span class="small">21b. CERTIFICATION OF ATTENDANT AT BIRTH</span> <span class="tiny">(Physician, Nurse, Midwife, Traditional Birth Attendant/Hilot, etc.)</span><br/>
+          <span class="tiny">I hereby certify that I attended the birth of the child who was born alive at ______ am/pm on the date of birth specified above.</span>
+          <div style="display:grid;grid-template-columns:1.4fr 1fr .8fr;gap:8px;margin-top:12px">
+            <input class="line" name="att_sig" required>
+            <input class="line" name="att_addr" required>
+            <input class="line" name="att_date" required>
+            <div class="tiny">Signature</div>
+            <div class="tiny">Address</div>
+            <div class="tiny">Date</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:8px;margin-top:10px">
+            <input class="line" name="att_name" required>
+            <input class="line" name="att_title" required>
+            <div class="tiny">Name in Print</div>
+            <div class="tiny">Title or Position</div>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>24. Received By — Signature / Name in Print / Title / Date</label>
-        <textarea name="received_by" rows="4" required></textarea>
+    </div>
+
+    <!-- 22 / 23 / 24 / 25 blocks -->
+    <div class="table join" style="margin-top:8px">
+      <div class="tr" style="grid-template-columns:1fr 1fr;">
+        <div class="td" style="min-height:150px">
+          <div class="small">22. CERTIFICATION OF INFORMANT</div>
+          <div class="tiny">I hereby certify that all information supplied are true and correct to my own knowledge and belief.</div>
+          <div style="display:grid;grid-template-columns:1.2fr 1.2fr .7fr;gap:10px;margin-top:24px">
+            <input class="line" name="inf_sig" required>
+            <input class="line" name="inf_addr" required>
+            <input class="line" name="inf_date" required>
+            <div class="tiny">Signature</div>
+            <div class="tiny">Address</div>
+            <div class="tiny">Date</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
+            <input class="line" name="inf_name" required>
+            <div class="tiny">Name in Print</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px">
+            <input class="line" name="inf_rel" required>
+            <div class="tiny">Relationship to the Child</div>
+          </div>
+        </div>
+        <div class="td" style="min-height:150px">
+          <div class="small">23. PREPARED BY</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr .7fr;gap:10px;margin-top:48px">
+            <input class="line" name="pre_sig" required>
+            <input class="line" name="pre_name" required>
+            <input class="line" name="pre_date" required>
+            <div class="tiny">Signature</div>
+            <div class="tiny">Name in Print</div>
+            <div class="tiny">Date</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
+            <input class="line" name="pre_title" required>
+            <div class="tiny">Title or Position</div>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>25. Registered at the Office of the Civil Registrar — Signature / Name in Print / Title / Date</label>
-        <textarea name="registered_by" rows="4" required></textarea>
+      <div class="tr" style="grid-template-columns:1fr 1fr;">
+        <div class="td" style="min-height:130px">
+          <div class="small">24. RECEIVED BY</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr .7fr;gap:10px;margin-top:36px">
+            <input class="line" name="rec_sig" required>
+            <input class="line" name="rec_name" required>
+            <input class="line" name="rec_date" required>
+            <div class="tiny">Signature</div>
+            <div class="tiny">Name in Print</div>
+            <div class="tiny">Date</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
+            <input class="line" name="rec_title" required>
+            <div class="tiny">Title or Position</div>
+          </div>
+        </div>
+        <div class="td" style="min-height:130px">
+          <div class="small">25. REGISTERED AT THE OFFICE OF THE CIVIL REGISTRAR</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr .7fr;gap:10px;margin-top:36px">
+            <input class="line" name="reg_sig" required>
+            <input class="line" name="reg_name" required>
+            <input class="line" name="reg_date" required>
+            <div class="tiny">Signature</div>
+            <div class="tiny">Name in Print</div>
+            <div class="tiny">Date</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
+            <input class="line" name="reg_title" required>
+            <div class="tiny">Title or Position</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remarks"><span class="small">REMARKS/ANNOTATIONS</span> <span class="tiny">(For LCRO/OCRG Use Only)</span></div>
+
+    <div class="ocr">
+      <div class="small">TO BE FILLED-UP AT THE OFFICE OF THE CIVIL REGISTRAR</div>
+      <div class="boxes">
+        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
+        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
       </div>
     </div>
 
     <div class="actions">
-      <button class="btn-reset" type="reset">Clear</button>
-      <button class="btn-primary" type="submit">Submit</button>
+      <button type="submit">Submit</button>
     </div>
+  </div>
   </form>
 
 <script>
-  // Extra JS to highlight missing fields (native 'required' also prevents submission)
-  const form = document.getElementById('liveBirthForm');
+  // Prevent submission unless ALL inputs/selects are filled.
+  const form = document.getElementById('liveBirth');
   form.addEventListener('submit', (e) => {
-    // Let the browser validate first; if any invalid, stop and highlight.
-    if (!form.checkValidity()) {
+    const fields = form.querySelectorAll('input.line, select.line, textarea.line');
+    let valid = true;
+    fields.forEach(el => {
+      // trim visual-only blanks
+      if (!el.value || el.value.trim() === '') { valid = false; el.style.outline='2px solid crimson'; }
+      else { el.style.outline=''; }
+    });
+    if (!valid) {
       e.preventDefault();
-      [...form.elements].forEach(el => {
-        if (el.willValidate && !el.checkValidity()) el.style.outline = '2px solid crimson';
-        else el.style.outline = '';
-      });
-    } else {
-      e.preventDefault();
-      alert('Form captured successfully (demo).');
+      alert('Please complete all required fields before submitting.');
     }
   });
-  form.addEventListener('input', (e) => {
-    const el = e.target;
-    if (el.willValidate) {
-      if (el.checkValidity()) el.style.outline='';
-    }
-  });
-  form.addEventListener('reset', () => {
-    [...form.elements].forEach(el => el.style.outline='');
-  });
+  form.addEventListener('input', (e) => { if (e.target.classList.contains('line')) e.target.style.outline=''; });
 </script>
-
 </body>
 </html>

@@ -327,6 +327,20 @@
     .signature-line{height:56px}
     .sig-pad{height:120px}
   }
+
+ .sig-header .date{
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;              /* pwede 4px or 0 kung gusto nimo mas duol pa */
+}
+
+.sig-header .date-line{
+  display: inline;       /* inline so underline matches text width */
+  border-bottom: 1px solid #0f172a;
+  padding-bottom: 2px;
+  min-width: 0;          /* remove that wide blank area */
+  text-align: left !important;
+}
 </style>
 </head>
 <body>
@@ -336,7 +350,7 @@
     <div class="sheet">
       <div class="header">
         <h1>Local Civil Registry Office Buenavista, Agusan del Norte</h1>
-        <span class="badge">REGULAR FILING OF CERTIFICATE OF LIVE BIRTH Timely Registration</span>
+        <span class="badge">REQUIREMENTS FOR DELAYED REGISTRATION OF BIRTH</span>
       </div>
 
       <div class="section" id="owner-section">
@@ -355,29 +369,12 @@
             <input id="middleName" name="middleName" type="text" />
           </div>
         </div>
-
-        <div class="grid cols-2" style="margin-top:12px">
-          <div>
-            <label class="small" for="status">Status</label>
-            <select id="status" name="status">
-              <option value="">— Select —</option>
-              <option value="marital">Marital</option>
-              <option value="nonmarital">Non-marital</option>
-              <option value="na">Not Applicable</option>
-            </select>
-          </div>
-          <div>
-            <label class="small" for="caseNo">Reference / Registry No. (if any)</label>
-            <input id="caseNo" name="caseNo" type="text" />
-          </div>
-        </div>
-
         
     </div>
 
     <!-- Sheet 2 -->
     <div class="sheet" id="timely-section" style="margin-top:20px">
-      <div class="header"><h1>Timely (Regular) Registration of Birth</h1></div>
+      <div class="header"><h1>Delayed Registration of Birth</h1></div>
 
       <label class="pill" style="margin:12px 22px 0;border-left:4px solid var(--blue-700)">
         Note: Upload the required documents (in any order). Each item is marked complete after a successful upload. The Proceed button is enabled only when all required uploads for your case are complete.
@@ -403,8 +400,8 @@
             <tr data-req="marriageCert" data-required-when="marital">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">1.Parent's Certificate of Marriage  </div>
-                <div class="subtext">Required only if parents are married.</div>
+                <div class="req-title">1.PSA Negative Result </div>
+                <div class="subtext">A certification from the Philippine Statistics Authority (PSA) confirming that there is no existing record of your birth in their database.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -424,6 +421,7 @@
                   <button class="upload-btn" type="button" hidden>Upload</button>
                   <span class="status-badge warn" hidden>Uploading…</span>
                   <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload a clear scanned copy in PDF / JPG / PNG · Max 10 MB</div>
                 </div>
               </td>
             </tr>
@@ -434,8 +432,8 @@
             <tr data-req="barangayCert" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">2.Barangay Certificate</div>
-                <div class="subtext">Residence/birth attestation as required by the LGU.</div>
+                <div class="req-title">2.National ID/Printable ID / Digital ID</div>
+                <div class="subtext">A valid proof of identification such as your PhilSys National ID, a printable version, or the official digital copy.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -455,6 +453,7 @@
                   <button class="upload-btn" type="button" hidden>Upload</button>
                   <span class="status-badge warn" hidden>Uploading…</span>
                   <span class="status-badge ok" hidden>Uploaded</span>
+                   <div class="hint">Upload front and back copy in PDF / JPG / PNG · Max 10 MB</div>
                 </div>
               </td>
             </tr>
@@ -464,8 +463,8 @@
             <tr data-req="parentIDs" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">3.Valid ID(s) of Parent/s</div>
-                <div class="subtext">Any government-issued ID of mother and/or father.</div>
+                <div class="req-title">3.Baptismal Certificate</div>
+                <div class="subtext">A church-issued document that records the date and place of your baptism, usually signed by the parish priest.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -485,7 +484,7 @@
                   <button class="upload-btn" type="button" hidden>Upload</button>
                   <span class="status-badge warn" hidden>Uploading…</span>
                   <span class="status-badge ok" hidden>Uploaded</span>
-                  <div class="hint">Upload front & back if applicable</div>
+                  <div class="hint">Upload a clear church-issued copy in PDF / JPG / PNG · Max 10 MB</div>
                 </div>
               </td>
             </tr>
@@ -495,8 +494,8 @@
             <tr data-req="admissionPaternity" data-required-when="nonmarital">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">4.Affidavit/Admission of Paternity</div>
-                <div class="subtext">Required for non-marital cases if acknowledging the father.</div>
+                <div class="req-title">4.Marriage Certificate (if married)</div>
+                <div class="subtext">An official record from the PSA or the Local Civil Registrar confirming your marriage, required only if you are already married.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -516,6 +515,7 @@
                   <button class="upload-btn" type="button" hidden>Upload</button>
                   <span class="status-badge warn" hidden>Uploading…</span>
                   <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload certified true copy in PDF / JPG / PNG · Max 10 MB</div>
                 </div>
               </td>
             </tr>
@@ -525,8 +525,8 @@
             <tr data-req="colb" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">5.Affidavit to Use the Surname of the Father</div>
-                <div class="subtext">Issued by the hospital/midwife, properly accomplished and signed.</div>
+                <div class="req-title">5.Voter's Registration Record</div>
+                <div class="subtext">A certification or document from COMELEC proving that you are a registered voter.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -546,7 +546,223 @@
                   <button class="upload-btn" type="button" hidden>Upload</button>
                   <span class="status-badge warn" hidden>Uploading…</span>
                   <span class="status-badge ok" hidden>Uploaded</span>
-                  <div class="hint">PDF / JPG / PNG · Max 10 MB</div>
+                  <div class="hint">Upload COMELEC record in PDF / JPG / PNG · Max 10 MB</div>
+                </div>
+              </td>
+            </tr>
+              
+            <!-- 6 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">6.Barangay Certification issued by the Punong Barangay</div>
+                <div class="subtext">A certification from your Barangay Captain verifying your residency and identity.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload signed Barangay Certification in PDF / JPG / PNG · Max 10 M</div>
+                </div>
+              </td>
+            </tr>
+
+             <!-- 7 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">7.Government-issued ID (Senior Citizen ID, PhilHealth ID, Voter's/COMELEC ID)</div>
+                <div class="subtext">Any valid government-issued identification card that shows your name, photo, and other personal details.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload front copy in PDF / JPG / PNG · Max 10 MB</div>
+                </div>
+              </td>
+            </tr>
+
+
+             <!-- 8 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">8.2x2 Front facing photo of the Registrant</div>
+                <div class="subtext">A recent colored photograph of yourself, size 2x2 inches, showing your full face on a plain background.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload a recent photo in JPG / PNG only · Max 5 MB</div>
+                </div>
+              </td>
+            </tr>
+
+
+             <!-- 9 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">9.Marriage Certificate of the Parents</div>
+                <div class="subtext">A copy of the marriage certificate of your parents to establish your legitimacy and family background.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload certified true copy in PDF / JPG / PNG · Max 10 MB</div>
+                </div>
+              </td>
+            </tr>
+
+
+             <!-- 10 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">10.Death Certificate for the Deceased Parents</div>
+                <div class="subtext">If either or both of your parents are deceased, submit their death certificates as proof.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload a clear PSA/LCRO copy in PDF / JPG / PNG · Max 10 MB</div>
+                </div>
+              </td>
+            </tr>
+
+
+             <!-- 11 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">11.Affidavit of Delayed Registration of Birth</div>
+                <div class="subtext">A sworn statement explaining why the birth was not registered on time.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload notarized affidavit in PDF / JPG / PNG · Max 10 MB</div>
+                </div>
+              </td>
+            </tr>
+
+
+
+             <!-- 12 -->
+            <tr data-req="colb" data-always-required="true">
+              <td><input type="checkbox" aria-label="Completed" disabled></td>
+              <td>
+                <div class="req-title">12.Affidavit of Out-of-Town Delayed Registration of Birth</div>
+                <div class="subtext">A sworn statement required if the delayed birth registration is filed in a place other than the person’s birthplace.</div>
+              </td>
+              <td>
+                <div class="uploader" data-dropzone>
+                  <div class="top">
+                    <div class="title">Please drag an image or file</div>
+                     <div class="row">
+                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
+                      <br>
+                      <span class="filename" data-fn></span>
+                    </div>
+                    <div class="sub">Drop file(s) here or click to browse</div>
+                       <br>
+                  </div>
+                  <div class="progress" hidden>
+                    <div class="bar"></div><div class="pct" data-pct>0%</div>
+                  </div>
+                  <button class="upload-btn" type="button" hidden>Upload</button>
+                  <span class="status-badge warn" hidden>Uploading…</span>
+                  <span class="status-badge ok" hidden>Uploaded</span>
+                  <div class="hint">Upload notarized affidavit in PDF / JPG / PNG · Max 10 MB</div>
                 </div>
               </td>
             </tr>
@@ -560,7 +776,7 @@
   <div class="section signoff">
     <div class="sig-header">
       <span>Checked and Verified by:</span>
-      <span class="date">Date: <span class="date-line" id="todayDate"></span></span>
+     <span class="date">Date: <span class="date-line" id="todayDate"></span></span>
     </div>
 
     <div class="sig-grid">
@@ -1006,7 +1222,58 @@ document.querySelectorAll('[data-accept]').forEach(btn=>{
   });
 });
 
-
 </script>
+
+<script>
+(function autoDate(){
+  const TARGET = '#todayDate';
+  const LOCALE = 'en-PH'; // ilisi og 'fil-PH' kung gusto ka Filipino names
+
+  function writeDate(){
+    const el = document.querySelector(TARGET);
+    if (!el) return;
+    const now = new Date();
+    el.textContent = now.toLocaleDateString(LOCALE, {
+      year:'numeric', month:'long', day:'numeric'
+    });
+
+    // optional hidden ISO value for form submit
+    let iso = document.getElementById('todayDateISO');
+    if (!iso) {
+      iso = document.createElement('input');
+      iso.type = 'hidden';
+      iso.id = 'todayDateISO';
+      iso.name = 'todayDateISO';
+      el.parentElement.appendChild(iso);
+    }
+    iso.value = now.toISOString().slice(0,10); // yyyy-mm-dd
+  }
+
+  function start(){
+    writeDate();
+
+    // refresh if page crosses midnight
+    const n = new Date();
+    const midnight = new Date(n.getFullYear(), n.getMonth(), n.getDate()+1, 0,0,1);
+    setTimeout(() => {
+      writeDate();
+      setInterval(writeDate, 24*60*60*1000);
+    }, midnight - n);
+
+    // safety: if still empty (e.g., other scripts threw), retry next tick
+    setTimeout(() => {
+      const el = document.querySelector(TARGET);
+      if (el && !el.textContent.trim()) writeDate();
+    }, 0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+
 </body>
 </html>
