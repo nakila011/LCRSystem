@@ -1,371 +1,511 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Municipal Form No. 102 — Certificate of Live Birth (Exact Replica – Fillable)</title>
+<title>Certificate of Live Birth – Municipal Form No. 102 (Rev. Aug 2016)</title>
 <style>
-  :root{ --green:#2f7a3a; --ink:#000; --paper:#fff; }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.25 Arial, Helvetica, sans-serif}
+  /* ===== PAGE & PRINT SETUP ===== */
+  @page { size: 8.5in 13in; margin: 0.5in; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: #f7f7f7;
+  }
+ .sheet {
+  width: calc(8.5in - 1in);
+  min-height: calc(13in - 1in);  /* at least one page tall */
+  height: auto;                  /* let content drive the height */
+  margin: 0.5in auto;
+  background: #fff;
+  box-shadow: 0 0 0.05in rgba(0,0,0,0.2);
+  position: relative;
+  padding: 0.25in 0.3in 0.2in 0.3in;
+}
 
+.grid {
+  border: 2px solid #2aa14a;
+  min-height: 100%;  /* can grow beyond */
+  height: auto;      /* remove fixed 100% cap */
+  position: relative;
+}
 
-@page{ size:A4; margin:10mm }
-.page, .table, .tr, .td{ page-break-inside: avoid; }
+/* optional pero nice para layout consistency */
+* { box-sizing: border-box; }
 
+@media print {
+  body { background: white; }
+  .sheet { box-shadow: none; margin: 0; height: auto; min-height: auto; }
+}
 
-.page{ width:980px; margin:18px auto; border:2px solid var(--green); background:#fff; padding:14px 16px; position:relative }
+  .ink { color: #1e7f3a; } /* headers text ink */
+  .bar-title {
+    padding: 6px 10px;
+    border-bottom: 2px solid #2aa14a;
+  }
+  .bar-title h1 {
+    margin: 2px 0 0;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  .bar-title .sub { font-size: 11px; text-align: center; margin-top: 1px; }
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 2px;
+    border-top: 2px solid #2aa14a;
+    border-bottom: 2px solid #2aa14a;
+  }
+  .meta-row > div { padding: 6px 8px; }
+  .meta-row label { color: #2aa14a; font-size: 10px; display: block; margin-bottom: 3px; }
+  .meta-row .box { border-left: 2px solid #2aa14a; }
 
+  /* ===== MAIN TABLE AREA ===== */
+  .section {
+    display: grid;
+    grid-template-columns: 22px 1fr; /* left vertical word column + content */
+    border-bottom: 2px solid #2aa14a;
+    min-height: 2.2in;
+  }
+  .section:last-of-type { border-bottom: none; }
 
-.header-top{ display:grid; grid-template-columns:1fr 1fr 1fr; align-items:start }
-.header-top .left{font-size:12px}
-.header-top .center{justify-self:center;font-size:12px}
-.header-top .right{justify-self:end;font-size:11px}
+  .vertical-word {
+    border-right: 2px solid #2aa14a;
+    display: flex; align-items: center; justify-content: center;
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-weight: bold; letter-spacing: 2px; color: #2aa14a; font-size: 12px;
+  }
 
+  .fields {
+    padding: 0; display: grid; grid-auto-rows: minmax(28px, auto);
+  }
 
-.title{ text-align:center; border-top:2px solid var(--green); border-bottom:2px solid var(--green); padding:8px 0 10px; margin:8px 0 10px }
-.title .rl{font-size:13px;margin-bottom:4px}
-.title .main{font-size:26px;font-weight:700;margin-top:6px;letter-spacing:1px}
+  .row { display: grid; grid-template-columns: 1.2fr 0.9fr 1.1fr 1.1fr; }
+  .row.small  { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .row.single { grid-template-columns: 1fr; }
+  .row.cols-2 { grid-template-columns: 1.2fr 2fr; }
+  .row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
 
+  .cell { border-bottom: 2px solid #2aa14a; border-right: 2px solid #2aa14a; padding: 6px 6px 4px; }
+  .row .cell:first-child { border-left: none; }
+  .row .cell:last-child { }
 
-.row{display:grid; gap:6px; margin-bottom:6px}
-.meta{grid-template-columns:1fr 1.2fr .9fr}
-.label{font-size:12px}
-.box{border:1.8px solid var(--green); padding:6px; min-height:32px; display:flex; flex-direction:column; justify-content:space-between}
+  .lbl { color: #2aa14a; font-size: 10px; display: block; margin-bottom: 4px; }
+  .lbl b { font-weight: 700; }
+  .value { min-height: 16px; }
 
+  .row-header { display: grid; grid-template-columns: 0.4fr 1.8fr 0.8fr 0.8fr 0.8fr; }
 
-.line{ width:100%; border:none; border-bottom:1px solid #0d4b2b; background:transparent; font:inherit; padding:2px 0; outline:none }
-.line::placeholder{color:#7f8b84}
+  /* Specific height nudges to visually match the provided form more tightly */
+  .tight { padding-top: 4px; padding-bottom: 2px; }
+  .loose { padding-top: 8px; padding-bottom: 10px; }
 
+  /* ===== FOOTER BLOCKS ===== */
+  .bottom-grid { border-top: 2px solid #2aa14a; display: grid; grid-template-columns: 1fr 1fr; }
+  .bottom-cell { border-right: 2px solid #2aa14a; padding: 8px; }
+  .bottom-cell:last-child { border-right: none; }
 
-.table{border:1.8px solid var(--green); margin-left:36px; width:calc(100% - 36px);}
-.table.join{ margin-top:-1.8px; border-top:0; }
-.table .tr{display:grid; border-top:1.8px solid var(--green)}
-.table .tr:first-child{border-top:0}
-.table .td{border-left:1.8px solid var(--green); padding:6px 8px; min-height:40px; display:flex; flex-direction:column; gap:4px}
-.table .td:first-child{border-left:0}
+  .sign-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .sign-box { border-top: 2px solid #2aa14a; padding-top: 18px; margin-top: 18px; }
 
+  /* ===== BOTTOM BUREAU BOXES ===== */
+  .lcr-row { margin-top: 6px; border-top: 2px solid #2aa14a; padding-top: 6px; }
+  .lcr-title { color: #2aa14a; font-size: 11px; }
+  .digit-boxes { display: grid; grid-template-columns: repeat(18, 1fr); gap: 4px; margin-top: 6px; }
+  .digit-boxes span { display: block; border: 2px solid #2aa14a; height: 18px; }
 
-.small{font-size:12px; font-weight:700}
-.tiny{font-size:11px}
+  /* ===== FORM-LIKE LINES ===== */
+  .line-input { border-bottom: 1px solid #2aa14a; min-height: 16px; }
 
+  /* ===== SMALL CAPS TITLES ===== */
+  .form-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 11px; color: #2aa14a;
+    padding: 2px 8px 6px; align-items: end;
+  }
+  .form-head .left small { display:block; font-size:10px; color:#2aa14a; }
+  .form-head .right { text-align: right; }
 
-.band{ position:absolute; left:10px; display:flex; flex-direction:column; align-items:center; gap:3px; color:#1f4f2a; font-weight:700; letter-spacing:1px }
-.band .cell{ border:1.6px solid var(--green); width:26px; height:26px; display:flex; align-items:center; justify-content:center }
-.band.child{top:232px}
-.band.mother{top:510px}
-.band.father{top:742px}
-
-
-.remarks{border:1.8px solid var(--green);margin-top:8px;padding:6px;font-size:12px}
-.ocr{border:1.8px solid var(--green);margin-top:0;padding:6px}
-.ocr .boxes{display:grid;grid-template-columns:repeat(16, 1fr);gap:6px;margin-top:6px}
-.ocr .bx{border:1.6px solid var(--green);height:22px}
-
-
-.actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px }
-button{ border:0; background:var(--green); color:#fff; padding:.55rem .9rem; font-weight:700; border-radius:4px; cursor:pointer }
-
-
-@media print{ .page{margin:0} .actions{display:none} }
-
+  /* Utility */
+  .muted { color: #1d8743; font-size: 10px; }
+  /* put this with your other CSS rules */
+.subblock {
+  border-top: 2px solid #2aa14a;
+  margin-top: 16px;
+  padding-top: 12px;
+}
+ 
+  .section:nth-of-type(3) .vertical-word {
+  align-items: flex-start;  /* dili na center */
+  padding-top: 6px;         /* gamayng puhon-on para tupong sa row labels */
+ }
+  @media print {
+    body { background: white; }
+    .sheet { box-shadow: none; margin: 0; }
+  }
 </style>
 </head>
 <body>
-  <form id="liveBirth" novalidate>
-  <div class="page" role="document" aria-label="Municipal Form No. 102 – Certificate of Live Birth">
-    <div class="header-top">
-      <div class="left">Municipal Form No. 102<br/>(Revised August 2016)</div>
-      <div class="center">Republic of the Philippines</div>
-      <div class="right">(To be accomplished in quadruplicate using black ink)</div>
-    </div>
-    <div class="title" aria-hidden="true">
-      <div class="rl">OFFICE OF THE CIVIL REGISTRAR GENERAL</div>
-      <div class="main">CERTIFICATE OF LIVE BIRTH</div>
-    </div>
+  <div class="sheet">
+    <div class="grid">
+      <div class="form-head">
+        <div class="left ink">
+          <div><b>Municipal Form No. 102</b></div>
+          <small>(Revised August 2016)</small>
+        </div>
+        <div class="right ink"><em>To be accomplished in quadruplicate using black ink</em></div>
+      </div>
 
-    <!-- Province / City / Registry No. -->
-    <div class="row meta">
-      <div class="box">
-        <span class="label">Province</span>
-        <input class="line" name="province" required>
+      <div class="bar-title ink">
+        <div class="sub">Republic of the Philippines<br>OFFICE OF THE CIVIL REGISTRAR GENERAL</div>
+        <h1>CERTIFICATE OF LIVE BIRTH</h1>
       </div>
-      <div class="box">
-        <span class="label">City/Municipality</span>
-        <input class="line" name="city" required>
-      </div>
-      <div class="box">
-        <span class="label">Registry No.</span>
-        <input class="line" name="registry" required>
-      </div>
-    </div>
 
-    <!-- CHILD band -->
-    <div class="band child" aria-hidden="true"><div class="cell">C</div><div class="cell">H</div><div class="cell">I</div><div class="cell">L</div><div class="cell">D</div></div>
+      <div class="meta-row">
+        <div>
+          <label class="ink">Province</label>
+          <div class="line-input"></div>
+          <label class="ink" style="margin-top:8px">City/Municipality</label>
+          <div class="line-input"></div>
+        </div>
+        <div class="box">
+          <label class="ink">Registry No.</label>
+          <div class="line-input"></div>
+        </div>
+      </div>
 
-    <!-- CHILD TABLE -->
-    <div class="table">
-      <div class="tr" style="grid-template-columns:1.3fr 1fr 1fr 1fr;">
-        <div class="td">
-          <div class="small">1. NAME</div>
-          <div class="tiny">(First)</div>
-          <input class="line" name="child_first" required>
-        </div>
-        <div class="td"><div class="tiny">(Middle)</div><input class="line" name="child_middle" required></div>
-        <div class="td"><div class="tiny">(Last)</div><input class="line" name="child_last" required></div>
-        <div class="td"></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr;">
-        <div class="td"><span class="small">2. SEX</span> <span class="tiny">(Male / Female)</span>
-          <select class="line" name="sex" required>
-            <option value=""> </option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        <div class="td"><span class="small">3. DATE OF<br/>BIRTH</span><div class="tiny">(Day)</div>
-          <input class="line" name="dob_day" required>
-        </div>
-        <div class="td"><div class="tiny">(Month)</div><input class="line" name="dob_month" required></div>
-        <div class="td"><div class="tiny">(Year)</div><input class="line" name="dob_year" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1.6fr 1.1fr 1.1fr;">
-        <div class="td"><span class="small">4. PLACE OF<br/>BIRTH</span> <span class="tiny">(Name of Hospital/Clinic/Institution/ House No., St., Barangay)</span>
-          <input class="line" name="pob_detail" required>
-        </div>
-        <div class="td"><span class="tiny">(City/Municipality)</span><input class="line" name="pob_city" required></div>
-        <div class="td"><span class="tiny">(Province)</span><input class="line" name="pob_province" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr 1.2fr 1fr 1fr;">
-        <div class="td"><span class="small">5a. TYPE OF BIRTH</span> <span class="tiny">(Single,Twin,Triplet, etc.)</span>
-          <select class="line" name="birth_type" required>
-            <option value=""> </option>
-            <option>Single</option><option>Twin</option><option>Triplet</option><option>Others</option>
-          </select>
-        </div>
-        <div class="td"><span class="small">5b. IF MULTIPLE BIRTH, CHILD WAS</span> <span class="tiny">(First, Second, Third, etc.)</span>
-          <input class="line" name="multiple_seq" required>
-        </div>
-        <div class="td"><span class="small">5c. BIRTH ORDER</span> <span class="tiny">(Order of this birth to previous live births including fetal death)</span> <span class="tiny">(First, Second, Third, etc.)</span>
-          <input class="line" name="birth_order" required>
-        </div>
-        <div class="td"><span class="small">6. WEIGHT AT BIRTH</span> <span class="right tiny">grams</span>
-          <input class="line" name="weight" required>
-        </div>
-      </div>
-    </div>
+      <!-- ===== CHILD SECTION ===== -->
+      <section class="section">
+        <div class="vertical-word">C H I L D</div>
+        <div class="fields">
+          <!-- 1 Name -->
+          <div class="row">
+            <div class="cell">
+              <label class="lbl"><b>1. NAME</b> <span class="muted">(First)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(Middle)</label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl muted">(Last)</label>
+              <div class="value line-input"></div>
+            </div>
+          </div>
 
-    <!-- MOTHER band -->
-    <div class="band mother" aria-hidden="true"><div class="cell">M</div><div class="cell">O</div><div class="cell">T</div><div class="cell">H</div><div class="cell">E</div><div class="cell">R</div></div>
+          <!-- 2 Sex 3 DoB -->
+          <div class="row">
+            <div class="cell">
+              <label class="lbl"><b>2. SEX</b> <span class="muted">(Male / Female)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>3. DATE OF BIRTH</b> <span class="muted">(Day)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(Month)</label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(Year)</label>
+              <div class="value line-input"></div>
+            </div>
+          </div>
 
-    <!-- MOTHER TABLE -->
-    <div class="table join" style="margin-top:6px">
-      <div class="tr" style="grid-template-columns:1.5fr 1.5fr 1.2fr;">
-        <div class="td"><div class="small">7. MAIDEN<br/>NAME</div><div class="tiny">(First)</div><input class="line" name="m_first" required></div>
-        <div class="td"><div class="tiny">(Middle)</div><input class="line" name="m_middle" required></div>
-        <div class="td"><div class="tiny">(Last)</div><input class="line" name="m_last" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr 1.3fr 1.1fr;">
-        <div class="td"><span class="small">8.CITIZENSHIP</span><input class="line" name="m_cit" required></div>
-        <div class="td"><span class="small">9. RELIGION/RELIGIOUS SECT</span><input class="line" name="m_rel" required></div>
-        <div class="td"><span class="small">11. OCCUPATION</span><input class="line" name="m_occ" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1.1fr 1.1fr 1.2fr 1fr;">
-        <div class="td"><span class="small">10a. Total number of children born alive</span><input class="line" name="m_10a" required></div>
-        <div class="td"><span class="small">10b. No. of children still living including this birth</span><input class="line" name="m_10b" required></div>
-        <div class="td"><span class="small">10c. No. of children born alive but are now dead</span><input class="line" name="m_10c" required></div>
-        <div class="td"><span class="small">12. AGE at the time of this birth</span> <span class="tiny">(completed years)</span><input class="line" name="m_age" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
-        <div class="td"><span class="small">13. RESIDENCE</span> <span class="tiny">(House No., St., Barangay)</span><input class="line" name="m_addr" required></div>
-        <div class="td"><span class="tiny">(City/Municipality)</span><input class="line" name="m_addr_city" required></div>
-        <div class="td"><span class="tiny">(Province)</span><input class="line" name="m_addr_prov" required></div>
-        <div class="td"><span class="tiny">(Country)</span><input class="line" name="m_addr_country" required></div>
-      </div>
-    </div>
+          <!-- 4 Place of birth -->
+          <div class="row">
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl"><b>4. PLACE OF BIRTH</b> <span class="muted">(Name of Hospital/Clinic/Institution/ House No., St., Barangay)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(City/Municipality)</label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(Province)</label>
+              <div class="value line-input"></div>
+            </div>
+          </div>
 
-    <!-- FATHER band -->
-    <div class="band father" aria-hidden="true"><div class="cell">F</div><div class="cell">A</div><div class="cell">T</div><div class="cell">H</div><div class="cell">E</div><div class="cell">R</div></div>
+          <!-- 5a 5b 5c 6 -->
+          <div class="row small">
+            <div class="cell">
+              <label class="lbl"><b>5a. TYPE OF BIRTH</b> <span class="muted">(Single, Twin, Triplet, etc.)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>5b. IF MULTIPLE BIRTH, CHILD WAS</b> <span class="muted">(First, Second, Third, etc.)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>5c. BIRTH ORDER</b> <span class="muted">(Order of this birth to previous live births including fetal death) (First, Second, Third, etc.)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>6. WEIGHT AT BIRTH</b></label>
+              <div class="value line-input"></div>
+              <div class="muted" style="text-align:right; margin-top:2px;">grams</div>
+            </div>
+          </div>
+      </section>
 
-    <!-- FATHER TABLE -->
-    <div class="table join" style="margin-top:6px">
-      <div class="tr" style="grid-template-columns:1.5fr 1.5fr 1.2fr;">
-        <div class="td"><div class="small">14. NAME</div><div class="tiny">(First)</div><input class="line" name="f_first" required></div>
-        <div class="td"><div class="tiny">(Middle)</div><input class="line" name="f_middle" required></div>
-        <div class="td"><div class="tiny">(Last)</div><input class="line" name="f_last" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr 1.3fr 1fr 1fr;">
-        <div class="td"><span class="small">15. CITIZENSHIP</span><input class="line" name="f_cit" required></div>
-        <div class="td"><span class="small">16. RELIGION/RELIGIOUS SECT</span><input class="line" name="f_rel" required></div>
-        <div class="td"><span class="small">17. OCCUPATION</span><input class="line" name="f_occ" required></div>
-        <div class="td"><span class="small">18. AGE at the time of this birth</span> <span class="tiny">(completed years)</span><input class="line" name="f_age" required></div>
-      </div>
-      <div class="tr" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
-        <div class="td"><span class="small">19. RESIDENCE</span> <span class="tiny">(House No., St., Barangay)</span><input class="line" name="f_addr" required></div>
-        <div class="td"><span class="tiny">(City/Municipality)</span><input class="line" name="f_addr_city" required></div>
-        <div class="td"><span class="tiny">(Province)</span><input class="line" name="f_addr_prov" required></div>
-        <div class="td"><span class="tiny">(Country)</span><input class="line" name="f_addr_country" required></div>
-      </div>
-    </div>
+      <!-- ===== MOTHER SECTION ===== -->
+      <section class="section">
+        <div class="vertical-word">M O T H E R</div>
+        <div class="fields">
+          <div class="row">
+            <div class="cell">
+              <label class="lbl"><b>7. MAIDEN NAME</b> <span class="muted">(First)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(Middle)</label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl muted">(Last)</label>
+              <div class="value line-input"></div>
+            </div>
+          </div>
 
-    <!-- MARRIAGE OF PARENTS -->
-    <div class="table join" style="margin-left:0;margin-top:8px">
-      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
-        <div class="td" style="grid-column:1/span 5">
-          <span class="small">MARRIAGE OF PARENTS</span> <span class="tiny">(If not married, accomplish Affidavit of Acknowledgement/Admission of Paternity at the back.)</span>
-        </div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
-        <div class="td" style="grid-column:1/span 2"><span class="small">20a. DATE</span> <span class="tiny">(Month)</span> <span class="tiny">(Day)</span> <span class="tiny">(Year)</span>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px"><input class="line" name="mar_month" required><input class="line" name="mar_day" required><input class="line" name="mar_year" required></div>
-        </div>
-        <div class="td" style="grid-column:3/span 3"><span class="small">20b. PLACE</span> <span class="tiny">(City / Municipality)</span> <span class="tiny">(Province)</span> <span class="tiny">(Country)</span>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px"><input class="line" name="mar_city" required><input class="line" name="mar_prov" required><input class="line" name="mar_ctry" required></div>
-        </div>
-      </div>
-    </div>
+          <div class="row cols-3">
+            <div class="cell">
+              <label class="lbl"><b>8. CITIZENSHIP</b></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>9. RELIGION/RELIGIOUS SECT</b></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>10a. Total number of children born alive</b></label>
+              <div class="value line-input"></div>
+            </div>
+          </div>
 
-    <!-- ATTENDANT / CERTIFICATION -->
-    <div class="table join" style="margin-top:6px">
-      <div class="tr" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr;">
-        <div class="td" style="grid-column:1/span 5"><span class="small">21a. ATTENDANT</span> <span class="tiny">1 Physician</span> &nbsp; <span class="tiny">2 Nurse</span> &nbsp; <span class="tiny">3 Midwife</span> &nbsp; <span class="tiny">4 Hilot (Traditional Birth Attendant)</span> &nbsp; <span class="tiny">5 Others (Specify)</span>
-          <select class="line" name="attendant" required>
-            <option value=""> </option>
-            <option>Physician</option><option>Nurse</option><option>Midwife</option><option>Hilot (Traditional Birth Attendant)</option><option>Others</option>
-          </select>
-        </div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr;">
-        <div class="td">
-          <span class="small">21b. CERTIFICATION OF ATTENDANT AT BIRTH</span> <span class="tiny">(Physician, Nurse, Midwife, Traditional Birth Attendant/Hilot, etc.)</span><br/>
-          <span class="tiny">I hereby certify that I attended the birth of the child who was born alive at ______ am/pm on the date of birth specified above.</span>
-          <div style="display:grid;grid-template-columns:1.4fr 1fr .8fr;gap:8px;margin-top:12px">
-            <input class="line" name="att_sig" required>
-            <input class="line" name="att_addr" required>
-            <input class="line" name="att_date" required>
-            <div class="tiny">Signature</div>
-            <div class="tiny">Address</div>
-            <div class="tiny">Date</div>
+          <div class="row cols-3">
+            <div class="cell">
+              <label class="lbl"><b>10b. No. of children still living including this birth</b></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>10c. No. of children born alive but are now dead</b></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>11. OCCUPATION</b></label>
+              <div class="value line-input"></div>
+            </div>
           </div>
-          <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:8px;margin-top:10px">
-            <input class="line" name="att_name" required>
-            <input class="line" name="att_title" required>
-            <div class="tiny">Name in Print</div>
-            <div class="tiny">Title or Position</div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- 22 / 23 / 24 / 25 blocks -->
-    <div class="table join" style="margin-top:8px">
-      <div class="tr" style="grid-template-columns:1fr 1fr;">
-        <div class="td" style="min-height:150px">
-          <div class="small">22. CERTIFICATION OF INFORMANT</div>
-          <div class="tiny">I hereby certify that all information supplied are true and correct to my own knowledge and belief.</div>
-          <div style="display:grid;grid-template-columns:1.2fr 1.2fr .7fr;gap:10px;margin-top:24px">
-            <input class="line" name="inf_sig" required>
-            <input class="line" name="inf_addr" required>
-            <input class="line" name="inf_date" required>
-            <div class="tiny">Signature</div>
-            <div class="tiny">Address</div>
-            <div class="tiny">Date</div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
-            <input class="line" name="inf_name" required>
-            <div class="tiny">Name in Print</div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px">
-            <input class="line" name="inf_rel" required>
-            <div class="tiny">Relationship to the Child</div>
+          <div class="row cols-3">
+            <div class="cell">
+              <label class="lbl"><b>12. AGE at the time of this birth</b> <span class="muted">(completed years)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl"><b>13. RESIDENCE</b> <span class="muted">(House No., St., Barangay) | (City/Municipality) | (Province) | (Country)</span></label>
+              <div class="value line-input"></div>
+            </div>
           </div>
         </div>
-        <div class="td" style="min-height:150px">
-          <div class="small">23. PREPARED BY</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr .7fr;gap:10px;margin-top:48px">
-            <input class="line" name="pre_sig" required>
-            <input class="line" name="pre_name" required>
-            <input class="line" name="pre_date" required>
-            <div class="tiny">Signature</div>
-            <div class="tiny">Name in Print</div>
-            <div class="tiny">Date</div>
+      </section>
+
+      <!-- ===== FATHER SECTION ===== -->
+      <section class="section" style="min-height: 3.2in;">
+        <div class="vertical-word">F A T H E R</div>
+        <div class="fields">
+          <div class="row">
+            <div class="cell">
+              <label class="lbl"><b>14. NAME</b> <span class="muted">(First)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl muted">(Middle)</label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl muted">(Last)</label>
+              <div class="value line-input"></div>
+            </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
-            <input class="line" name="pre_title" required>
-            <div class="tiny">Title or Position</div>
+
+          <div class="row cols-3">
+            <div class="cell">
+              <label class="lbl"><b>15. CITIZENSHIP</b></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>16. RELIGION/RELIGIOUS SECT</b></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell">
+              <label class="lbl"><b>17. OCCUPATION</b></label>
+              <div class="value line-input"></div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="tr" style="grid-template-columns:1fr 1fr;">
-        <div class="td" style="min-height:130px">
-          <div class="small">24. RECEIVED BY</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr .7fr;gap:10px;margin-top:36px">
-            <input class="line" name="rec_sig" required>
-            <input class="line" name="rec_name" required>
-            <input class="line" name="rec_date" required>
-            <div class="tiny">Signature</div>
-            <div class="tiny">Name in Print</div>
-            <div class="tiny">Date</div>
+
+          <div class="row cols-3">
+            <div class="cell">
+              <label class="lbl"><b>18. AGE at the time of this birth</b> <span class="muted">(completed years)</span></label>
+              <div class="value line-input"></div>
+            </div>
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl"><b>19. RESIDENCE</b> <span class="muted">(House No., St., Barangay) | (City/Municipality) | (Province) | (Country)</span></label>
+              <div class="value line-input"></div>
+            </div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
-            <input class="line" name="rec_title" required>
-            <div class="tiny">Title or Position</div>
+       </section>
+      
+          <!-- Marriage of Parents -->
+          <div class="row single">
+            <div class="cell">
+              <label class="lbl"><b>MARRIAGE OF PARENTS</b> <span class="muted">(If not married, accomplish Affidavit of Acknowledgement/Admission of Paternity at the back.)</span></label>
+              <div class="row small" style="border-top: 2px solid #2aa14a;">
+                <div class="cell">
+                  <label class="lbl"><b>20a. DATE</b> <span class="muted">(Month)</span></label>
+                  <div class="value line-input"></div>
+                </div>
+                <div class="cell">
+                  <label class="lbl muted">(Day)</label>
+                  <div class="value line-input"></div>
+                </div>
+                <div class="cell">
+                  <label class="lbl muted">(Year)</label>
+                  <div class="value line-input"></div>
+                </div>
+                <div class="cell">
+                  <label class="lbl"><b>20b. PLACE</b> <span class="muted">(City / Municipality) | (Province) | (Country)</span></label>
+                  <div class="value line-input"></div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="td" style="min-height:130px">
-          <div class="small">25. REGISTERED AT THE OFFICE OF THE CIVIL REGISTRAR</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr .7fr;gap:10px;margin-top:36px">
-            <input class="line" name="reg_sig" required>
-            <input class="line" name="reg_name" required>
-            <input class="line" name="reg_date" required>
-            <div class="tiny">Signature</div>
-            <div class="tiny">Name in Print</div>
-            <div class="tiny">Date</div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px">
-            <input class="line" name="reg_title" required>
-            <div class="tiny">Title or Position</div>
-          </div>
-        </div>
-      </div>
+
+         <!-- 22–25 blocks (match original layout) -->
+<div class="row cols-2">
+  <!-- LEFT COLUMN: 22 then 24 -->
+  <div class="cell">
+    <label class="lbl"><b>22. CERTIFICATION OF INFORMANT</b></label>
+    <div class="muted" style="margin-bottom:8px;">
+      I hereby certify that all information supplied are true and correct to my own knowledge and belief.
     </div>
 
-    <div class="remarks"><span class="small">REMARKS/ANNOTATIONS</span> <span class="tiny">(For LCRO/OCRG Use Only)</span></div>
+    <div class="line-input"></div>
+    <div class="muted">Signature</div>
 
-    <div class="ocr">
-      <div class="small">TO BE FILLED-UP AT THE OFFICE OF THE CIVIL REGISTRAR</div>
-      <div class="boxes">
-        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
-        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
-        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
-        <div class="bx"></div><div class="bx"></div><div class="bx"></div><div class="bx"></div>
-      </div>
-    </div>
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Name in Print</div>
 
-    <div class="actions">
-      <button type="submit">Submit</button>
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Relationship to the Child</div>
+
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Address</div>
+
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Date</div>
+
+    <!-- 24 below 22 -->
+    <div class="subblock">
+      <label class="lbl"><b>24. RECEIVED BY</b></label>
+      <div class="line-input"></div>
+      <div class="muted">Signature</div>
+
+      <div class="line-input" style="margin-top:10px;"></div>
+      <div class="muted">Name in Print</div>
+
+      <div class="line-input" style="margin-top:10px;"></div>
+      <div class="muted">Title or Position</div>
+
+      <div class="line-input" style="margin-top:10px;"></div>
+      <div class="muted">Date</div>
     </div>
   </div>
-  </form>
+
+ <!-- RIGHT COLUMN: 23 on top then 25 -->
+<div class="cell">
+  <label class="lbl"><b>23. PREPARED BY</b></label>
+   <br>
+   <br>
+  <div class="line-input"></div>
+  <div class="muted">Signature</div>
+
+  <div class="line-input" style="margin-top:10px;"></div>
+  <div class="muted">Date</div>
+
+  <div class="line-input" style="margin-top:10px;"></div>
+  <div class="muted">Name in Print</div>
+
+  <div class="line-input" style="margin-top:10px;"></div>
+  <div class="muted">Title or Position</div>
+  <!-- 25 stays below (unchanged) -->
+   <br>
+  <div class="subblock">
+    <label class="lbl"><b>25. REGISTERED AT THE OFFICE OF THE CIVIL REGISTRAR</b></label>
+    <div class="line-input"></div>
+    <div class="muted">Signature</div>
+
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Name in Print</div>
+
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Title or Position</div>
+
+    <div class="line-input" style="margin-top:10px;"></div>
+    <div class="muted">Date</div>
+  </div>
+</div>
+
+    
+    
+        </div>
+      
+          <!-- Remarks / Annotations -->
+          <div class="row single">
+            <div class="cell">
+              <label class="lbl"><b>REMARKS/ANNOTATIONS</b> <span class="muted">(For LCRO/OCRG Use Only)</span></label>
+              <div style="height: 60px; border: 1px dashed #2aa14a; margin-top:6px;"></div>
+            </div>
+          </div>
+
+          <!-- To be filled at LCRO -->
+          <div class="row single">
+            <div class="cell">
+              <label class="lbl"><b>TO BE FILLED-UP AT THE OFFICE OF THE CIVIL REGISTRAR</b></label>
+              <div class="digit-boxes" aria-hidden="true">
+                <!-- 8, 9, 11, 13, 15, 16, 17, 19 markers -->
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span>
+              </div>
+              <div class="muted" style="margin-top:4px;">8&nbsp;&nbsp;9&nbsp;&nbsp;11&nbsp;&nbsp;13&nbsp;&nbsp;15&nbsp;&nbsp;16&nbsp;&nbsp;17&nbsp;&nbsp;19</div>
+            </div>
+          </div>
+
+        </div>
+      
+
+    </div>
+  </div>
 
 <script>
-  // Prevent submission unless ALL inputs/selects are filled.
-  const form = document.getElementById('liveBirth');
-  form.addEventListener('submit', (e) => {
-    const fields = form.querySelectorAll('input.line, select.line, textarea.line');
-    let valid = true;
-    fields.forEach(el => {
-      // trim visual-only blanks
-      if (!el.value || el.value.trim() === '') { valid = false; el.style.outline='2px solid crimson'; }
-      else { el.style.outline=''; }
-    });
-    if (!valid) {
-      e.preventDefault();
-      alert('Please complete all required fields before submitting.');
+  // Minimal JS: Provide a quick print helper (optional)
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
+      // Ensure print layout takes effect
+      setTimeout(() => window.print(), 50);
     }
   });
-  form.addEventListener('input', (e) => { if (e.target.classList.contains('line')) e.target.style.outline=''; });
+
 </script>
 </body>
 </html>
