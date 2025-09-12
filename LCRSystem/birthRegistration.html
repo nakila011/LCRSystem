@@ -15,44 +15,31 @@
     print-color-adjust: exact;
     background: #f7f7f7;
   }
- .sheet {
-  width: calc(8.5in - 1in);
-  min-height: calc(13in - 1in);  /* at least one page tall */
-  height: auto;                  /* let content drive the height */
-  margin: 0.5in auto;
-  background: #fff;
-  box-shadow: 0 0 0.05in rgba(0,0,0,0.2);
-  position: relative;
-  padding: 0.25in 0.3in 0.2in 0.3in;
-}
-
-.grid {
-  border: 2px solid #2aa14a;
-  min-height: 100%;  /* can grow beyond */
-  height: auto;      /* remove fixed 100% cap */
-  position: relative;
-}
-
-/* optional pero nice para layout consistency */
-* { box-sizing: border-box; }
-
-@media print {
-  body { background: white; }
-  .sheet { box-shadow: none; margin: 0; height: auto; min-height: auto; }
-}
-
-  .ink { color: #1e7f3a; } /* headers text ink */
-  .bar-title {
-    padding: 6px 10px;
-    border-bottom: 2px solid #2aa14a;
+  .sheet {
+    width: calc(8.5in - 1in);
+    min-height: calc(13in - 1in);
+    height: auto;
+    margin: 0.5in auto;
+    background: #fff;
+    box-shadow: 0 0 0.05in rgba(0,0,0,0.2);
+    position: relative;
+    padding: 0.25in 0.3in 0.2in 0.3in;
   }
-  .bar-title h1 {
-    margin: 2px 0 0;
-    font-size: 20px;
-    letter-spacing: 0.5px;
-    text-align: center;
+
+  .grid {
+    border: 2px solid #2aa14a;
+    min-height: 100%;
+    height: auto;
+    position: relative;
   }
+
+  * { box-sizing: border-box; }
+
+  .ink { color: #1e7f3a; }
+  .bar-title { padding: 6px 10px; border-bottom: 2px solid #2aa14a; }
+  .bar-title h1 { margin: 2px 0 0; font-size: 20px; letter-spacing: 0.5px; text-align: center; }
   .bar-title .sub { font-size: 11px; text-align: center; margin-top: 1px; }
+
   .meta-row {
     display: grid;
     grid-template-columns: 1fr 180px;
@@ -75,14 +62,13 @@
 
   .vertical-word {
     border-right: 2px solid #2aa14a;
-    display: flex; align-items: center; justify-content: center;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding-top: 6px;                 /* align at top of first row */
     writing-mode: vertical-rl; transform: rotate(180deg);
     font-weight: bold; letter-spacing: 2px; color: #2aa14a; font-size: 12px;
   }
 
-  .fields {
-    padding: 0; display: grid; grid-auto-rows: minmax(28px, auto);
-  }
+  .fields { padding: 0; display: grid; grid-auto-rows: minmax(28px, auto); }
 
   .row { display: grid; grid-template-columns: 1.2fr 0.9fr 1.1fr 1.1fr; }
   .row.small  { grid-template-columns: 1fr 1fr 1fr 1fr; }
@@ -92,72 +78,133 @@
 
   .cell { border-bottom: 2px solid #2aa14a; border-right: 2px solid #2aa14a; padding: 6px 6px 4px; }
   .row .cell:first-child { border-left: none; }
-  .row .cell:last-child { }
-
   .lbl { color: #2aa14a; font-size: 10px; display: block; margin-bottom: 4px; }
   .lbl b { font-weight: 700; }
-  .value { min-height: 16px; }
 
-  .row-header { display: grid; grid-template-columns: 0.4fr 1.8fr 0.8fr 0.8fr 0.8fr; }
-
-  /* Specific height nudges to visually match the provided form more tightly */
-  .tight { padding-top: 4px; padding-bottom: 2px; }
-  .loose { padding-top: 8px; padding-bottom: 10px; }
-
-  /* ===== FOOTER BLOCKS ===== */
-  .bottom-grid { border-top: 2px solid #2aa14a; display: grid; grid-template-columns: 1fr 1fr; }
-  .bottom-cell { border-right: 2px solid #2aa14a; padding: 8px; }
-  .bottom-cell:last-child { border-right: none; }
-
-  .sign-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .sign-box { border-top: 2px solid #2aa14a; padding-top: 18px; margin-top: 18px; }
-
-  /* ===== BOTTOM BUREAU BOXES ===== */
-  .lcr-row { margin-top: 6px; border-top: 2px solid #2aa14a; padding-top: 6px; }
-  .lcr-title { color: #2aa14a; font-size: 11px; }
-  .digit-boxes { display: grid; grid-template-columns: repeat(18, 1fr); gap: 4px; margin-top: 6px; }
-  .digit-boxes span { display: block; border: 2px solid #2aa14a; height: 18px; }
-
-  /* ===== FORM-LIKE LINES ===== */
-  .line-input { border-bottom: 1px solid #2aa14a; min-height: 16px; }
-
-  /* ===== SMALL CAPS TITLES ===== */
-  .form-head {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 11px; color: #2aa14a;
-    padding: 2px 8px 6px; align-items: end;
+  /* ===== Inputs that sit on the "line" ===== */
+  .line-input { position: relative; border-bottom: 1px solid #2aa14a; min-height: 18px; }
+  .line-input input,
+  .line-input select,
+  .line-input textarea {
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    padding: 2px 0 2px;
   }
-  .form-head .left small { display:block; font-size:10px; color:#2aa14a; }
-  .form-head .right { text-align: right; }
+  .line-input textarea { resize: vertical; min-height: 22px; }
 
-  /* Utility */
+  /* Date picker with clickable icon */
+  .date { padding-right: 24px; }
+  .date-icon {
+    position: absolute; right: 0; top: -2px;
+    width: 18px; height: 18px; border: 0; background: none; cursor: pointer; opacity: .75;
+  }
+  .date-icon:hover { opacity: 1; }
+
+  /* Radio group for attendant */
+  .attendant { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 8px 12px; }
   .muted { color: #1d8743; font-size: 10px; }
-  /* put this with your other CSS rules */
-.subblock {
-  border-top: 2px solid #2aa14a;
-  margin-top: 16px;
-  padding-top: 12px;
-}
- 
-  .section:nth-of-type(3) .vertical-word {
-  align-items: flex-start;  /* dili na center */
-  padding-top: 6px;         /* gamayng puhon-on para tupong sa row labels */
- }
+
+  /* Divider between 22/24 and 23/25 blocks */
+  .subblock { border-top: 2px solid #2aa14a; margin-top: 16px; padding-top: 12px; }
+
+  /* Submit bar */
+  .actions {
+    position: sticky; bottom: 0;
+    background: rgba(255,255,255,.95);
+    border-top: 2px solid #2aa14a;
+    padding: 10px;
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .btn {
+    border: 2px solid #2aa14a; background: #2aa14a; color: #fff;
+    padding: 8px 14px; border-radius: 6px; font-weight: 700; cursor: pointer;
+  }
+  .btn[disabled] { opacity: .45; cursor: not-allowed; }
+
   @media print {
     body { background: white; }
-    .sheet { box-shadow: none; margin: 0; }
+    .sheet { box-shadow: none; margin: 0; height: auto; min-height: auto; }
+    .actions { display: none; }
   }
+ 
+.form-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding: 6px 10px 4px;
+}
+.form-head .left{ font-size:10px; line-height:1.1; }
+.form-head .left b{ display:block; margin-bottom:1px; }
+.form-head .right{ font-size:10px; font-style:italic; margin-top:2px; text-align:right; }
+.formal-date{
+  font-size: 11px;
+  color: #1d8743;
+  margin-top: 2px;
+}
+
+.date {
+  position: relative;
+}
+
+/* Hide the numeric UI text but keep the input usable for the picker */
+.date input[type="date"] {
+  color: transparent;          /* hide numbers */
+  caret-color: transparent;    /* hide caret */
+}
+
+/* Fully hide native calendar icon (keep only the green SVG button) */
+.date input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  pointer-events: none;
+}
+.date input[type="date"]::-ms-clear,
+.date input[type="date"]::-webkit-clear-button,
+.date input[type="date"]::-webkit-inner-spin-button,
+.date input[type="date"]::-webkit-datetime-edit {
+  display: none;
+}
+
+/* Place the worded date where the input text would be */
+.formal-date {
+  position: absolute;
+  left: 0;
+  top: 2px;          /* tweak if you want it a bit higher/lower */
+  font-size: 11px;
+  color: #1d8743;    /* green ink */
+  pointer-events: none;
+}
+
+/* (optional) Make the line look cleaner with the overlay text */
+.line-input.date {
+  padding-right: 24px; /* room for the green icon */
+}
+
+/* Printing rule already hides inputs, but keep this for safety */
+@media print {
+  .date input[type="date"],
+  .date .date-icon { display: none !important; }
+  .formal-date { position: static; font-size: 12px; }
+}
+
+
+
 </style>
 </head>
 <body>
+
+<form id="birthForm">
   <div class="sheet">
     <div class="grid">
       <div class="form-head">
-        <div class="left ink">
-          <div><b>Municipal Form No. 102</b></div>
-          <small>(Revised August 2016)</small>
-        </div>
-        <div class="right ink"><em>To be accomplished in quadruplicate using black ink</em></div>
-      </div>
+  <div class="left ink">
+    <div><b>Municipal Form No. 102</b></div>
+    <small>(Revised August 2016)</small>
+  </div>
+  <div class="right ink"><em>To be accomplished in quadruplicate using black ink</em></div>
+</div>
 
       <div class="bar-title ink">
         <div class="sub">Republic of the Philippines<br>OFFICE OF THE CIVIL REGISTRAR GENERAL</div>
@@ -167,13 +214,13 @@
       <div class="meta-row">
         <div>
           <label class="ink">Province</label>
-          <div class="line-input"></div>
+          <div class="line-input"><input name="meta_province" required></div>
           <label class="ink" style="margin-top:8px">City/Municipality</label>
-          <div class="line-input"></div>
+          <div class="line-input"><input name="meta_city" required></div>
         </div>
         <div class="box">
           <label class="ink">Registry No.</label>
-          <div class="line-input"></div>
+          <div class="line-input"><input name="meta_registry_no" required></div>
         </div>
       </div>
 
@@ -185,35 +232,41 @@
           <div class="row">
             <div class="cell">
               <label class="lbl"><b>1. NAME</b> <span class="muted">(First)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="child_first" required></div>
             </div>
             <div class="cell">
               <label class="lbl muted">(Middle)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="child_middle" required></div>
             </div>
             <div class="cell" style="grid-column: span 2;">
               <label class="lbl muted">(Last)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="child_last" required></div>
             </div>
           </div>
 
-          <!-- 2 Sex 3 DoB -->
+          <!-- 2 Sex + 3 DoB -->
           <div class="row">
             <div class="cell">
               <label class="lbl"><b>2. SEX</b> <span class="muted">(Male / Female)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input">
+                <select name="child_sex" required>
+                  <option value="" hidden>Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
             </div>
-            <div class="cell">
-              <label class="lbl"><b>3. DATE OF BIRTH</b> <span class="muted">(Day)</span></label>
-              <div class="value line-input"></div>
-            </div>
-            <div class="cell">
-              <label class="lbl muted">(Month)</label>
-              <div class="value line-input"></div>
-            </div>
-            <div class="cell">
-              <label class="lbl muted">(Year)</label>
-              <div class="value line-input"></div>
+            <div class="cell" style="grid-column: span 3;">
+              <label class="lbl"><b>3. DATE OF BIRTH</b></label>
+              <div class="line-input date">
+                <input type="date" name="child_dob" required>
+                <button class="date-icon" type="button" aria-label="Pick date">
+                  <!-- calendar svg -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                    <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -221,15 +274,15 @@
           <div class="row">
             <div class="cell" style="grid-column: span 2;">
               <label class="lbl"><b>4. PLACE OF BIRTH</b> <span class="muted">(Name of Hospital/Clinic/Institution/ House No., St., Barangay)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="birth_place_addr" required></div>
             </div>
             <div class="cell">
               <label class="lbl muted">(City/Municipality)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="birth_place_city" required></div>
             </div>
             <div class="cell">
               <label class="lbl muted">(Province)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="birth_place_province" required></div>
             </div>
           </div>
 
@@ -237,22 +290,23 @@
           <div class="row small">
             <div class="cell">
               <label class="lbl"><b>5a. TYPE OF BIRTH</b> <span class="muted">(Single, Twin, Triplet, etc.)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="type_of_birth" required></div>
             </div>
             <div class="cell">
-              <label class="lbl"><b>5b. IF MULTIPLE BIRTH, CHILD WAS</b> <span class="muted">(First, Second, Third, etc.)</span></label>
-              <div class="value line-input"></div>
+              <label class="lbl"><b>5b. IF MULTIPLE BIRTH, CHILD WAS</b></label>
+              <div class="line-input"><input name="multiple_birth_order_text" required></div>
             </div>
             <div class="cell">
-              <label class="lbl"><b>5c. BIRTH ORDER</b> <span class="muted">(Order of this birth to previous live births including fetal death) (First, Second, Third, etc.)</span></label>
-              <div class="value line-input"></div>
+              <label class="lbl"><b>5c. BIRTH ORDER</b></label>
+              <div class="line-input"><input type="number" min="1" name="birth_order" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>6. WEIGHT AT BIRTH</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input type="number" min="1" name="birth_weight_grams" required></div>
               <div class="muted" style="text-align:right; margin-top:2px;">grams</div>
             </div>
           </div>
+        </div>
       </section>
 
       <!-- ===== MOTHER SECTION ===== -->
@@ -262,56 +316,56 @@
           <div class="row">
             <div class="cell">
               <label class="lbl"><b>7. MAIDEN NAME</b> <span class="muted">(First)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_first" required></div>
             </div>
             <div class="cell">
               <label class="lbl muted">(Middle)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_middle" required></div>
             </div>
             <div class="cell" style="grid-column: span 2;">
               <label class="lbl muted">(Last)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_last" required></div>
             </div>
           </div>
 
           <div class="row cols-3">
             <div class="cell">
               <label class="lbl"><b>8. CITIZENSHIP</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_citizenship" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>9. RELIGION/RELIGIOUS SECT</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_religion" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>10a. Total number of children born alive</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input type="number" min="0" name="mother_children_total" required></div>
             </div>
           </div>
 
           <div class="row cols-3">
             <div class="cell">
               <label class="lbl"><b>10b. No. of children still living including this birth</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input type="number" min="0" name="mother_children_living" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>10c. No. of children born alive but are now dead</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input type="number" min="0" name="mother_children_dead" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>11. OCCUPATION</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_occupation" required></div>
             </div>
           </div>
 
           <div class="row cols-3">
             <div class="cell">
               <label class="lbl"><b>12. AGE at the time of this birth</b> <span class="muted">(completed years)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input type="number" min="10" name="mother_age" required></div>
             </div>
             <div class="cell" style="grid-column: span 2;">
               <label class="lbl"><b>13. RESIDENCE</b> <span class="muted">(House No., St., Barangay) | (City/Municipality) | (Province) | (Country)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="mother_residence" required></div>
             </div>
           </div>
         </div>
@@ -324,188 +378,340 @@
           <div class="row">
             <div class="cell">
               <label class="lbl"><b>14. NAME</b> <span class="muted">(First)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_first" required></div>
             </div>
             <div class="cell">
               <label class="lbl muted">(Middle)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_middle" required></div>
             </div>
             <div class="cell" style="grid-column: span 2;">
               <label class="lbl muted">(Last)</label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_last" required></div>
             </div>
           </div>
 
           <div class="row cols-3">
             <div class="cell">
               <label class="lbl"><b>15. CITIZENSHIP</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_citizenship" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>16. RELIGION/RELIGIOUS SECT</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_religion" required></div>
             </div>
             <div class="cell">
               <label class="lbl"><b>17. OCCUPATION</b></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_occupation" required></div>
             </div>
           </div>
 
           <div class="row cols-3">
             <div class="cell">
               <label class="lbl"><b>18. AGE at the time of this birth</b> <span class="muted">(completed years)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input type="number" min="10" name="father_age" required></div>
             </div>
             <div class="cell" style="grid-column: span 2;">
               <label class="lbl"><b>19. RESIDENCE</b> <span class="muted">(House No., St., Barangay) | (City/Municipality) | (Province) | (Country)</span></label>
-              <div class="value line-input"></div>
+              <div class="line-input"><input name="father_residence" required></div>
             </div>
           </div>
-       </section>
-      
-          <!-- Marriage of Parents -->
-          <div class="row single">
-            <div class="cell">
-              <label class="lbl"><b>MARRIAGE OF PARENTS</b> <span class="muted">(If not married, accomplish Affidavit of Acknowledgement/Admission of Paternity at the back.)</span></label>
-              <div class="row small" style="border-top: 2px solid #2aa14a;">
+        </div>
+      </section>
+
+      <!-- ===== MARRIAGE OF PARENTS ===== -->
+      <div class="row single">
+        <div class="cell">
+          <label class="lbl"><b>MARRIAGE OF PARENTS</b> <span class="muted">(If not married, accomplish Affidavit of Acknowledgement/Admission of Paternity at the back.)</span></label>
+          <div class="row small" style="border-top: 2px solid #2aa14a;">
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl"><b>20a. DATE</b></label>
+              <div class="line-input date">
+                <input type="date" name="parents_marriage_date" required>
+                <button class="date-icon" type="button" aria-label="Pick date">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                    <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="cell" style="grid-column: span 2;">
+              <label class="lbl"><b>20b. PLACE</b> <span class="muted">(City / Municipality) | (Province) | (Country)</span></label>
+              <div class="line-input"><input name="parents_marriage_place" required></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 21 ATTENDANT & CERTIFICATION ===== -->
+      <div class="row single">
+        <div class="cell">
+          <label class="lbl"><b>21a. ATTENDANT</b></label>
+          <div class="attendant">
+            <label><input type="radio" name="attendant" value="Physician" required> Physician</label>
+            <label><input type="radio" name="attendant" value="Nurse"> Nurse</label>
+            <label><input type="radio" name="attendant" value="Midwife"> Midwife</label>
+            <label><input type="radio" name="attendant" value="Hilot"> Hilot (TBA)</label>
+            <span>
+              <label><input type="radio" name="attendant" value="Others" id="attendant_others"> Others</label>
+              <div class="line-input" style="margin-top:4px;"><input id="attendant_other_text" name="attendant_other_text" placeholder="Specify if Others"></div>
+            </span>
+          </div>
+
+          <label class="lbl" style="margin-top:10px;"><b>21b. CERTIFICATION OF ATTENDANT AT BIRTH</b></label>
+          <div class="row cols-3" style="border-top: 2px solid #2aa14a; padding-top: 8px;">
+            <div class="cell" style="grid-column: span 3;">
+              <div class="row small" style="border-top: 0;">
                 <div class="cell">
-                  <label class="lbl"><b>20a. DATE</b> <span class="muted">(Month)</span></label>
-                  <div class="value line-input"></div>
+                  <div class="line-input"><input name="att_sig" required></div>
+                  <div class="muted">Signature</div>
                 </div>
                 <div class="cell">
-                  <label class="lbl muted">(Day)</label>
-                  <div class="value line-input"></div>
+                  <div class="line-input"><input name="att_name" required></div>
+                  <div class="muted">Name in Print</div>
                 </div>
                 <div class="cell">
-                  <label class="lbl muted">(Year)</label>
-                  <div class="value line-input"></div>
+                  <div class="line-input"><input name="att_address" required></div>
+                  <div class="muted">Address</div>
                 </div>
                 <div class="cell">
-                  <label class="lbl"><b>20b. PLACE</b> <span class="muted">(City / Municipality) | (Province) | (Country)</span></label>
-                  <div class="value line-input"></div>
+                  <div class="line-input"><input name="att_title" required></div>
+                  <div class="muted">Title or Position</div>
+                </div>
+                <div class="cell" style="grid-column: span 2;">
+                  <div class="line-input date">
+                    <input type="date" name="att_date" required>
+                    <button class="date-icon" type="button" aria-label="Pick date">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                        <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="muted">Date</div>
                 </div>
               </div>
             </div>
           </div>
-
-         <!-- 22–25 blocks (match original layout) -->
-<div class="row cols-2">
-  <!-- LEFT COLUMN: 22 then 24 -->
-  <div class="cell">
-    <label class="lbl"><b>22. CERTIFICATION OF INFORMANT</b></label>
-    <div class="muted" style="margin-bottom:8px;">
-      I hereby certify that all information supplied are true and correct to my own knowledge and belief.
-    </div>
-
-    <div class="line-input"></div>
-    <div class="muted">Signature</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Name in Print</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Relationship to the Child</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Address</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Date</div>
-
-    <!-- 24 below 22 -->
-    <div class="subblock">
-      <label class="lbl"><b>24. RECEIVED BY</b></label>
-      <div class="line-input"></div>
-      <div class="muted">Signature</div>
-
-      <div class="line-input" style="margin-top:10px;"></div>
-      <div class="muted">Name in Print</div>
-
-      <div class="line-input" style="margin-top:10px;"></div>
-      <div class="muted">Title or Position</div>
-
-      <div class="line-input" style="margin-top:10px;"></div>
-      <div class="muted">Date</div>
-    </div>
-  </div>
-
- <!-- RIGHT COLUMN: 23 on top then 25 -->
-<div class="cell">
-  <label class="lbl"><b>23. PREPARED BY</b></label>
-   <br>
-   <br>
-  <div class="line-input"></div>
-  <div class="muted">Signature</div>
-
-  <div class="line-input" style="margin-top:10px;"></div>
-  <div class="muted">Date</div>
-
-  <div class="line-input" style="margin-top:10px;"></div>
-  <div class="muted">Name in Print</div>
-
-  <div class="line-input" style="margin-top:10px;"></div>
-  <div class="muted">Title or Position</div>
-  <!-- 25 stays below (unchanged) -->
-   <br>
-  <div class="subblock">
-    <label class="lbl"><b>25. REGISTERED AT THE OFFICE OF THE CIVIL REGISTRAR</b></label>
-    <div class="line-input"></div>
-    <div class="muted">Signature</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Name in Print</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Title or Position</div>
-
-    <div class="line-input" style="margin-top:10px;"></div>
-    <div class="muted">Date</div>
-  </div>
-</div>
-
-    
-    
         </div>
-      
-          <!-- Remarks / Annotations -->
-          <div class="row single">
-            <div class="cell">
-              <label class="lbl"><b>REMARKS/ANNOTATIONS</b> <span class="muted">(For LCRO/OCRG Use Only)</span></label>
-              <div style="height: 60px; border: 1px dashed #2aa14a; margin-top:6px;"></div>
-            </div>
+      </div>
+
+      <!-- ===== 22–25 blocks ===== -->
+      <div class="row cols-2">
+        <!-- LEFT COLUMN: 22 then 24 -->
+        <div class="cell">
+          <label class="lbl"><b>22. CERTIFICATION OF INFORMANT</b></label>
+          <div class="muted" style="margin-bottom:8px;">
+            I hereby certify that all information supplied are true and correct to my own knowledge and belief.
           </div>
 
-          <!-- To be filled at LCRO -->
-          <div class="row single">
-            <div class="cell">
-              <label class="lbl"><b>TO BE FILLED-UP AT THE OFFICE OF THE CIVIL REGISTRAR</b></label>
-              <div class="digit-boxes" aria-hidden="true">
-                <!-- 8, 9, 11, 13, 15, 16, 17, 19 markers -->
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span>
-              </div>
-              <div class="muted" style="margin-top:4px;">8&nbsp;&nbsp;9&nbsp;&nbsp;11&nbsp;&nbsp;13&nbsp;&nbsp;15&nbsp;&nbsp;16&nbsp;&nbsp;17&nbsp;&nbsp;19</div>
-            </div>
+          <div class="line-input"><input name="inf_sig" required></div>
+          <div class="muted">Signature</div>
+
+          <div class="line-input" style="margin-top:10px;"><input name="inf_name" required></div>
+          <div class="muted">Name in Print</div>
+
+          <div class="line-input" style="margin-top:10px;"><input name="inf_relation" required></div>
+          <div class="muted">Relationship to the Child</div>
+
+          <div class="line-input" style="margin-top:10px;"><input name="inf_address" required></div>
+          <div class="muted">Address</div>
+
+          <div class="line-input date" style="margin-top:10px;">
+            <input type="date" name="inf_date" required>
+            <button class="date-icon" type="button" aria-label="Pick date">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+              </svg>
+            </button>
           </div>
+          <div class="muted">Date</div>
 
+          <div class="subblock">
+            <label class="lbl"><b>24. RECEIVED BY</b></label>
+            <div class="line-input"><input name="rec_sig" required></div>
+            <div class="muted">Signature</div>
+
+            <div class="line-input" style="margin-top:10px;"><input name="rec_name" required></div>
+            <div class="muted">Name in Print</div>
+
+            <div class="line-input" style="margin-top:10px;"><input name="rec_title" required></div>
+            <div class="muted">Title or Position</div>
+
+            <div class="line-input date" style="margin-top:10px;">
+              <input type="date" name="rec_date" required>
+              <button class="date-icon" type="button" aria-label="Pick date">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                  <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="muted">Date</div>
+          </div>
         </div>
-      
 
+        <!-- RIGHT COLUMN: 23 then 25 -->
+        <div class="cell">
+          <label class="lbl"><b>23. PREPARED BY</b></label>
+          <div class="line-input"><input name="prep_sig" required></div>
+          <div class="muted">Signature</div>
+
+          <div class="line-input date" style="margin-top:10px;">
+            <input type="date" name="prep_date" required>
+            <button class="date-icon" type="button" aria-label="Pick date">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="muted">Date</div>
+
+          <div class="line-input" style="margin-top:10px;"><input name="prep_name" required></div>
+          <div class="muted">Name in Print</div>
+
+          <div class="line-input" style="margin-top:10px;"><input name="prep_title" required></div>
+          <div class="muted">Title or Position</div>
+
+          <div class="subblock">
+            <label class="lbl"><b>25. REGISTERED AT THE OFFICE OF THE CIVIL REGISTRAR</b></label>
+            <div class="line-input"><input name="reg_sig" required></div>
+            <div class="muted">Signature</div>
+
+            <div class="line-input" style="margin-top:10px;"><input name="reg_name" required></div>
+            <div class="muted">Name in Print</div>
+
+            <div class="line-input" style="margin-top:10px;"><input name="reg_title" required></div>
+            <div class="muted">Title or Position</div>
+
+            <div class="line-input date" style="margin-top:10px;">
+              <input type="date" name="reg_date" required>
+              <button class="date-icon" type="button" aria-label="Pick date">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="#2aa14a" aria-hidden="true">
+                  <path d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm13 8H4v10h16V10zM4 8h16V6H4v2z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="muted">Date</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Remarks / Annotations (LCRO use only — not required) -->
+      <div class="row single">
+        <div class="cell">
+          <label class="lbl"><b>REMARKS/ANNOTATIONS</b> <span class="muted">(For LCRO/OCRG Use Only)</span></label>
+          <div style="height: 60px; border: 1px dashed #2aa14a; margin-top:6px;"></div>
+        </div>
+      </div>
+
+      <!-- LCRO code boxes (not required) -->
+      <div class="row single">
+        <div class="cell">
+          <label class="lbl"><b>TO BE FILLED-UP AT THE OFFICE OF THE CIVIL REGISTRAR</b></label>
+          <div class="digit-boxes" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span>
+          </div>
+          <div class="muted" style="margin-top:4px;">8&nbsp;&nbsp;9&nbsp;&nbsp;11&nbsp;&nbsp;13&nbsp;&nbsp;15&nbsp;&nbsp;16&nbsp;&nbsp;17&nbsp;&nbsp;19</div>
+        </div>
+      </div>
+
+      <!-- Submit actions -->
+      <div class="actions">
+        <button class="btn" type="reset">Reset</button>
+        <button id="submitBtn" class="btn" type="submit" disabled>Submit</button>
+      </div>
     </div>
   </div>
+</form>
 
 <script>
-  // Minimal JS: Provide a quick print helper (optional)
+  // Enable Ctrl/Cmd+P to print nicely
   window.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
-      // Ensure print layout takes effect
       setTimeout(() => window.print(), 50);
     }
   });
 
+  // Form validation & UX
+  const form = document.getElementById('birthForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function updateSubmitState() {
+    // If "Others" attendant is selected, require the text field
+    const othersRadio = document.getElementById('attendant_others');
+    const othersText = document.getElementById('attendant_other_text');
+    if (othersRadio) {
+      othersText.required = othersRadio.checked;
+    }
+    submitBtn.disabled = !form.checkValidity();
+  }
+
+  // Watch all inputs for validity changes
+  form.addEventListener('input', updateSubmitState);
+  form.addEventListener('change', updateSubmitState);
+
+  // Make calendar icons open the picker
+  document.querySelectorAll('.date-icon').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = btn.previousElementSibling;
+      if (input && input.showPicker) input.showPicker();
+      else input.focus();
+    });
+  });
+
+  // Prevent submit when invalid; show native messages; simulate success
+  form.addEventListener('submit', (e) => {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      form.reportValidity();
+      return;
+    }
+    e.preventDefault();
+    alert('✅ Form submitted! (Hook up your own submit handler here.)');
+  });
+
+  // Initialize state on load
+  updateSubmitState();
+
+
+ 
+  function formatDateLong(iso){
+    if(!iso) return '';
+    const [y,m,d] = iso.split('-').map(Number);
+    if(!y || !m || !d) return '';
+    const month = new Date(y, m - 1, d).toLocaleString('en-US', { month: 'long' });
+    return `${month} ${d}, ${y}`;
+  }
+
+  function attachFormalDatePreviews(){
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+      // create the display span for formal date
+      let preview = input.parentElement.querySelector('.formal-date');
+      if(!preview){
+        preview = document.createElement('div');
+        preview.className = 'formal-date';
+        input.parentElement.appendChild(preview);
+      }
+
+      // fill preview
+      preview.textContent = formatDateLong(input.value);
+
+      // keep it in sync
+      input.addEventListener('input', () => {
+        preview.textContent = formatDateLong(input.value);
+      });
+      input.addEventListener('change', () => {
+        preview.textContent = formatDateLong(input.value);
+      });
+    });
+  }
+
+  attachFormalDatePreviews();
+
+
 </script>
 </body>
 </html>
+
