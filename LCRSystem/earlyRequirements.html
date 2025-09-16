@@ -336,7 +336,7 @@
     <div class="sheet">
       <div class="header">
         <h1>Local Civil Registry Office Buenavista, Agusan del Norte</h1>
-        <span class="badge">REGULAR FILING OF CERTIFICATE OF LIVE BIRTH Timely Registration</span>
+        <span class="badge">REGULAR FILING OF REQUIREMENTS FOR CERTIFICATE OF DEATH Timely Registration</span>
       </div>
 
       <div class="section" id="owner-section">
@@ -355,29 +355,13 @@
             <input id="middleName" name="middleName" type="text" />
           </div>
         </div>
-
-        <div class="grid cols-2" style="margin-top:12px">
-          <div>
-            <label class="small" for="status">Status</label>
-            <select id="status" name="status">
-              <option value="">— Select —</option>
-              <option value="marital">Marital</option>
-              <option value="nonmarital">Non-marital</option>
-              <option value="na">Not Applicable</option>
-            </select>
-          </div>
-          <div>
-            <label class="small" for="caseNo">Reference / Registry No. (if any)</label>
-            <input id="caseNo" name="caseNo" type="text" />
-          </div>
-        </div>
-
-        
+  
+    
     </div>
 
     <!-- Sheet 2 -->
     <div class="sheet" id="timely-section" style="margin-top:20px">
-      <div class="header"><h1>Timely (Regular) Registration of Birth</h1></div>
+      <div class="header"><h1>Timely (Regular) Registration of Death</h1></div>
 
       <label class="pill" style="margin:12px 22px 0;border-left:4px solid var(--blue-700)">
         Note: Upload the required documents (in any order). Each item is marked complete after a successful upload. The Proceed button is enabled only when all required uploads for your case are complete.
@@ -403,7 +387,7 @@
             <tr data-req="marriageCert" data-required-when="marital">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">1.Parent's Certificate of Marriage  </div>
+                <div class="req-title">1.Barangay Certification</div>
                 <div class="subtext">Required only if parents are married.</div>
               </td>
               <td>
@@ -434,7 +418,7 @@
             <tr data-req="barangayCert" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">2.Barangay Certificate</div>
+                <div class="req-title">2.Police/NBI Report</div>
                 <div class="subtext">Residence/birth attestation as required by the LGU.</div>
               </td>
               <td>
@@ -464,7 +448,7 @@
             <tr data-req="parentIDs" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">3.Valid ID(s) of Parent/s</div>
+                <div class="req-title">3.Cause of Death issued by MHO</div>
                 <div class="subtext">Any government-issued ID of mother and/or father.</div>
               </td>
               <td>
@@ -491,66 +475,7 @@
             </tr>
 
 
-            <!-- 4 -->
-            <tr data-req="admissionPaternity" data-required-when="nonmarital">
-              <td><input type="checkbox" aria-label="Completed" disabled></td>
-              <td>
-                <div class="req-title">4.Affidavit/Admission of Paternity</div>
-                <div class="subtext">Required for non-marital cases if acknowledging the father.</div>
-              </td>
-              <td>
-                <div class="uploader" data-dropzone>
-                  <div class="top">
-                    <div class="title">Please drag an image or file</div>
-                     <div class="row">
-                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
-                      <br>
-                      <span class="filename" data-fn></span>
-                    </div>
-                    <div class="sub">Drop file(s) here or click to browse</div>
-                     <br>
-                  </div>
-                  <div class="progress" hidden>
-                    <div class="bar"></div><div class="pct" data-pct>0%</div>
-                  </div>
-                  <button class="upload-btn" type="button" hidden>Upload</button>
-                  <span class="status-badge warn" hidden>Uploading…</span>
-                  <span class="status-badge ok" hidden>Uploaded</span>
-                </div>
-              </td>
-            </tr>
-
-           
-            <!-- 5 -->
-            <tr data-req="colb" data-always-required="true">
-              <td><input type="checkbox" aria-label="Completed" disabled></td>
-              <td>
-                <div class="req-title">5.Affidavit to Use the Surname of the Father</div>
-                <div class="subtext">Issued by the hospital/midwife, properly accomplished and signed.</div>
-              </td>
-              <td>
-                <div class="uploader" data-dropzone>
-                  <div class="top">
-                    <div class="title">Please drag an image or file</div>
-                     <div class="row">
-                      <input type="file" accept=".pdf,.jpg,.jpeg,.png" aria-label="Choose file">
-                      <br>
-                      <span class="filename" data-fn></span>
-                    </div>
-                    <div class="sub">Drop file(s) here or click to browse</div>
-                       <br>
-                  </div>
-                  <div class="progress" hidden>
-                    <div class="bar"></div><div class="pct" data-pct>0%</div>
-                  </div>
-                  <button class="upload-btn" type="button" hidden>Upload</button>
-                  <span class="status-badge warn" hidden>Uploading…</span>
-                  <span class="status-badge ok" hidden>Uploaded</span>
-                  <div class="hint">PDF / JPG / PNG · Max 10 MB</div>
-                </div>
-              </td>
-            </tr>
-
+        
           </tbody>
         </table>
       </div>
@@ -621,98 +546,96 @@
   const tooBig = (file) => file.size > MAX_MB*1024*1024;
 
   function annotateChecklistLabels(){
-  const table = document.querySelector('.checklist');
-  if(!table) return;
-  const heads = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
-  const rows = table.querySelectorAll('tbody tr');
-  rows.forEach(tr => {
-    const tds = tr.querySelectorAll('td');
-    tds.forEach((td, i) => {
-      if (heads[i]) td.setAttribute('data-label', heads[i]);
+    const table = document.querySelector('.checklist');
+    if(!table) return;
+    const heads = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+    const rows = table.querySelectorAll('tbody tr');
+    rows.forEach(tr => {
+      const tds = tr.querySelectorAll('td');
+      tds.forEach((td, i) => {
+        if (heads[i]) td.setAttribute('data-label', heads[i]);
+      });
     });
-  });
-}
+  }
 
-// call it early so CSS has labels available on small screens
-annotateChecklistLabels();
- 
+  // call it early so CSS has labels available on small screens
+  annotateChecklistLabels();
 
   function setRowFiles(row, files){
-  // Revoke old URLs if any
-  if (row._blobUrls && Array.isArray(row._blobUrls)) {
-    row._blobUrls.forEach(u => { try { URL.revokeObjectURL(u); } catch(e){} });
-  }
-  row._uploadedFiles = Array.from(files || []);
-  row._blobUrls = row._uploadedFiles.map(f => URL.createObjectURL(f));
-}
-
-function ensureActionButtons(row){
-  const dz = row.querySelector('[data-dropzone]');
-  const uploadedBadge = dz.querySelector('.status-badge.ok');
-  if(!uploadedBadge) return;
-
-  // Ensure a horizontal actions container exists
-  let actions = dz.querySelector('.upload-actions');
-  if(!actions){
-    actions = document.createElement('div');
-    actions.className = 'upload-actions';
-
-    // Insert the container right after the hint/status area
-    // and move the existing 'Uploaded' badge into it.
-    uploadedBadge.insertAdjacentElement('afterend', actions);
-    actions.appendChild(uploadedBadge);
+    if (row._blobUrls && Array.isArray(row._blobUrls)) {
+      row._blobUrls.forEach(u => { try { URL.revokeObjectURL(u); } catch(e){} });
+    }
+    row._uploadedFiles = Array.from(files || []);
+    row._blobUrls = row._uploadedFiles.map(f => URL.createObjectURL(f));
   }
 
-  // Reuse if already created
-  let reBtn = row.querySelector('.mini-btn.reupload');
-  let viewBtn = row.querySelector('.mini-btn.view');
+  function ensureActionButtons(row){
+    const dz = row.querySelector('[data-dropzone]');
+    const uploadedBadge = dz.querySelector('.status-badge.ok');
+    if(!uploadedBadge) return;
 
-  if(!reBtn){
-    reBtn = document.createElement('button');
-    reBtn.type = 'button';
-    reBtn.className = 'mini-btn reupload';
-    reBtn.textContent = 'Reupload';
-    actions.appendChild(reBtn);
+    let actions = dz.querySelector('.upload-actions');
+    if(!actions){
+      actions = document.createElement('div');
+      actions.className = 'upload-actions';
+      uploadedBadge.insertAdjacentElement('afterend', actions);
+      actions.appendChild(uploadedBadge);
+    }
 
-    reBtn.addEventListener('click', () => {
-      const input = dz.querySelector('input[type="file"]');
-      const fnEl  = dz.querySelector('[data-fn]');
-      input.disabled = false;
-      input.value = ''; // force 'change' even if same file chosen
-      const oneShot = () => {
-        if(input.files && input.files.length){
-          fnEl.textContent = Array.from(input.files).map(f=>f.name).join(', ');
-          simulateUpload(row, input.files);
+    let reBtn = row.querySelector('.mini-btn.reupload');
+    let viewBtn = row.querySelector('.mini-btn.view');
+
+    if(!reBtn){
+      reBtn = document.createElement('button');
+      reBtn.type = 'button';
+      reBtn.className = 'mini-btn reupload';
+      reBtn.textContent = 'Reupload';
+      actions.appendChild(reBtn);
+
+      reBtn.addEventListener('click', () => {
+        const input = dz.querySelector('input[type="file"]');
+        const fnEl  = dz.querySelector('[data-fn]');
+        input.disabled = false;
+        input.value = '';
+        const oneShot = () => {
+          if(input.files && input.files.length){
+            fnEl.textContent = Array.from(input.files).map(f=>f.name).join(', ');
+            simulateUpload(row, input.files);
+          }
+        };
+        input.addEventListener('change', oneShot, { once: true });
+        input.click();
+      });
+    }
+
+    if(!viewBtn){
+      viewBtn = document.createElement('button');
+      viewBtn.type = 'button';
+      viewBtn.className = 'mini-btn view';
+      viewBtn.textContent = 'View';
+      actions.appendChild(viewBtn);
+
+      viewBtn.addEventListener('click', () => {
+        if(!row._blobUrls || !row._blobUrls.length){
+          alert('No file available to view.');
+          return;
         }
-      };
-      input.addEventListener('change', oneShot, { once: true });
-      input.click();
-    });
+        window.open(row._blobUrls[0], '_blank');
+      });
+    }
   }
 
-  if(!viewBtn){
-    viewBtn = document.createElement('button');
-    viewBtn.type = 'button';
-    viewBtn.className = 'mini-btn view';
-    viewBtn.textContent = 'View';
-    actions.appendChild(viewBtn);
-
-    viewBtn.addEventListener('click', () => {
-      if(!row._blobUrls || !row._blobUrls.length){
-        alert('No file available to view.');
-        return;
-      }
-      window.open(row._blobUrls[0], '_blank');
-    });
+  // Safely read the status value (or empty string if the dropdown doesn't exist)
+  function getStatus() {
+    const el = document.getElementById('status');
+    return el ? el.value : '';
   }
-}
 
   function isRowRequired(row){
-    const status = document.getElementById('status').value;
-    if(row.dataset.alwaysRequired === 'true') return true;
+    if (row.dataset.alwaysRequired === 'true') return true;
     const need = row.dataset.requiredWhen;
-    if(!need) return false;
-    return status === need;
+    if (!need) return false;
+    return getStatus() === need;
   }
 
   function updateRowVisualRequiredness(){
@@ -729,34 +652,29 @@ function ensureActionButtons(row){
   }
 
   function updateProceedState(){
-  const rows = Array.from(document.querySelectorAll('#timelyBody tr'));
-  const allRequiredCompleted = rows.every(row => !isRowRequired(row) || row.dataset.completed === 'true');
+    const rows = Array.from(document.querySelectorAll('#timelyBody tr'));
+    const allRequiredCompleted = rows.every(row => !isRowRequired(row) || row.dataset.completed === 'true');
 
-  const proceed = document.getElementById('proceedAction');
-  const submitBtn = document.getElementById('submitAll');
+    const proceed = document.getElementById('proceedAction');
+    const submitBtn = document.getElementById('submitAll');
 
-  if(allRequiredCompleted){
-    // enable Proceed link
-    proceed.classList.remove('is-disabled');
-    proceed.removeAttribute('aria-disabled');
-    proceed.removeAttribute('tabindex');
+    if(allRequiredCompleted){
+      proceed.classList.remove('is-disabled');
+      proceed.removeAttribute('aria-disabled');
+      proceed.removeAttribute('tabindex');
 
-    // enable Submit button
-    submitBtn.classList.remove('is-disabled');
-    submitBtn.disabled = false;
-  }else{
-    // disable Proceed link
-    proceed.classList.add('is-disabled');
-    proceed.setAttribute('aria-disabled','true');
-    proceed.setAttribute('tabindex','-1');
+      submitBtn.classList.remove('is-disabled');
+      submitBtn.disabled = false;
+    }else{
+      proceed.classList.add('is-disabled');
+      proceed.setAttribute('aria-disabled','true');
+      proceed.setAttribute('tabindex','-1');
 
-    // disable Submit button
-    submitBtn.classList.add('is-disabled');
-    submitBtn.disabled = true;
+      submitBtn.classList.add('is-disabled');
+      submitBtn.disabled = true;
+    }
   }
-}
 
-  // progress animation to mimic the 2nd screenshot
   function animateProgress(container, doneCb){
     const prog = container.querySelector('.progress');
     const bar  = container.querySelector('.bar');
@@ -775,46 +693,40 @@ function ensureActionButtons(row){
     };
     tick();
   }
-   function simulateUpload(row, files){
-  if(!files || !files.length) return;
 
-  for(const f of files){
-    if(tooBig(f)){
-      alert(`"${f.name}" exceeds ${MAX_MB} MB. Please upload a smaller file.`);
-      return;
+  function simulateUpload(row, files){
+    if(!files || !files.length) return;
+    for(const f of files){
+      if(tooBig(f)){
+        alert(`"${f.name}" exceeds ${MAX_MB} MB. Please upload a smaller file.`);
+        return;
+      }
     }
+
+    const dz = row.querySelector('[data-dropzone]');
+    const input = dz.querySelector('input[type="file"]');
+    const uploadBtn = dz.querySelector('.upload-btn');
+    const uploading = dz.querySelector('.status-badge.warn');
+    const uploaded  = dz.querySelector('.status-badge.ok');
+
+    uploading.hidden = false;
+    uploadBtn.disabled = true;
+
+    animateProgress(dz, ()=>{
+      row.dataset.completed = 'true';
+      row.querySelector('input[type="checkbox"]').checked = true;
+      setRowFiles(row, files);
+
+      input.disabled = true;
+      uploadBtn.hidden = true;
+
+      uploading.hidden = true;
+      uploaded.hidden = false;
+
+      ensureActionButtons(row);
+      updateProceedState();
+    });
   }
-
-  const dz = row.querySelector('[data-dropzone]');
-  const input = dz.querySelector('input[type="file"]');
-  const uploadBtn = dz.querySelector('.upload-btn');
-  const uploading = dz.querySelector('.status-badge.warn');
-  const uploaded  = dz.querySelector('.status-badge.ok');
-
-  uploading.hidden = false;
-  uploadBtn.disabled = true;
-
-  animateProgress(dz, ()=>{
-    // Mark row as complete
-    row.dataset.completed = 'true';
-    row.querySelector('input[type="checkbox"]').checked = true;
-
-    // Store files & preview URLs for View action
-    setRowFiles(row, files);
-
-    // Lock the "Upload" button; keep input disabled until "Reupload"
-    input.disabled = true;
-    uploadBtn.hidden = true;
-
-    uploading.hidden = true;
-    uploaded.hidden = false;
-
-    // Inject/ensure the action buttons beside the Uploaded badge
-    ensureActionButtons(row);
-
-    updateProceedState();
-  });
-}
 
   function wireRows(){
     document.querySelectorAll('#timelyBody tr').forEach(row=>{
@@ -823,7 +735,6 @@ function ensureActionButtons(row){
       const fnEl = dz.querySelector('[data-fn]');
       const uploadBtn = dz.querySelector('.upload-btn');
 
-      // show chosen filename(s)
       input.addEventListener('change', ()=>{
         if(input.files && input.files.length){
           const files = Array.from(input.files).map(f=>f.name).join(', ');
@@ -848,165 +759,152 @@ function ensureActionButtons(row){
       ['dragleave','drop'].forEach(ev=>{
         dz.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); dz.classList.remove('dragover'); });
       });
-      
-      
-  dz.addEventListener('drop', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  dz.classList.remove('dragover');
 
-  const dt = e.dataTransfer;
-  if (!dt || !dt.files || !dt.files.length) return;
-
-  // For single-file inputs, take only the first file; for multiple, take all.
-  const picked = input.multiple ? Array.from(dt.files) : [dt.files[0]];
-
-  // Show names in the UI (no programmatic assignment to input.files)
-  fnEl.textContent = picked.map(f => f.name).join(', ');
-
-  // Auto-upload on drop
-      simulateUpload(row, picked);
+      dz.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dz.classList.remove('dragover');
+        const dt = e.dataTransfer;
+        if (!dt || !dt.files || !dt.files.length) return;
+        const picked = input.multiple ? Array.from(dt.files) : [dt.files[0]];
+        fnEl.textContent = picked.map(f => f.name).join(', ');
+        simulateUpload(row, picked);
       });
     });
   }
 
-   // Submit click: collect uploaded files per row and "submit"
-  document.getElementById('proceedAction').addEventListener('click', (e)=>{
-    const a = e.currentTarget;
-    if(a.classList.contains('is-disabled')) e.preventDefault();
-  });
-
-  document.getElementById('status').addEventListener('change', ()=>{
+  document.addEventListener('DOMContentLoaded', () => {
     updateRowVisualRequiredness();
     updateProceedState();
-  });
+    wireRows();
 
-  updateRowVisualRequiredness();
-  updateProceedState();
-  wireRows();
-
-  document.getElementById('submitAll').addEventListener('click', () => {
-  const rows = Array.from(document.querySelectorAll('#timelyBody tr'));
-  const payload = rows
-    .filter(r => r.dataset.completed === 'true')
-    .map(r => ({
-      requirement: r.dataset.req,
-      files: (r._uploadedFiles || []).map(f => ({
-        name: f.name, size: f.size, type: f.type
-      }))
-    }));
-
-  // TODO: replace with real POST (e.g., fetch('/api/submit', {method:'POST', body:…}))
-  console.log('Submitting payload:', payload);
-  alert('Submitted! We received ' + payload.reduce((n, r) => n + r.files.length, 0) + ' file(s).');
-});
-
-
-(function setToday(){
-  const el = document.getElementById('todayDate');
-  if(!el) return;
-  const d = new Date();
-  // e.g., September 11, 2025
-  const txt = d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
-  el.textContent = txt;
-})();
-
-/* ==== Lightweight signature pad (mouse + touch) ==== */
-function makeSigPad(canvasId, imgId){
-  const canvas = document.getElementById(canvasId);
-  const img    = document.getElementById(imgId);
-  if(!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  // scale for crispness on HiDPI
-  function fitCanvas(){
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    const rect = canvas.getBoundingClientRect();
-    canvas.width  = Math.floor(rect.width * ratio);
-    canvas.height = Math.floor(rect.height * ratio);
-    ctx.scale(ratio, ratio);
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = '#0f172a';
-  }
-  fitCanvas();
-  window.addEventListener('resize', () => { 
-    // keep existing drawing when resizing
-    const data = canvas.toDataURL();
-    fitCanvas();
-    const imgTmp = new Image();
-    imgTmp.onload = () => ctx.drawImage(imgTmp, 0, 0, canvas.clientWidth, canvas.clientHeight);
-    imgTmp.src = data;
-  });
-
-  let drawing = false, last = null;
-
-  function posFromEvent(e){
-    if(e.touches && e.touches[0]){
-      const rect = canvas.getBoundingClientRect();
-      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
-    }else{
-      const rect = canvas.getBoundingClientRect();
-      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    const proceed = document.getElementById('proceedAction');
+    if (proceed) {
+      proceed.addEventListener('click', (e) => {
+        if (proceed.classList.contains('is-disabled')) e.preventDefault();
+      });
     }
-  }
 
-  function start(e){ drawing = true; last = posFromEvent(e); e.preventDefault(); }
-  function move(e){
-    if(!drawing) return;
-    const p = posFromEvent(e);
-    ctx.beginPath();
-    ctx.moveTo(last.x, last.y);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    last = p;
-    e.preventDefault();
-    // live preview inside the signature box
-    img.src = canvas.toDataURL('image/png');
-  }
-  function end(){ drawing = false; last = null; }
+    const submitBtn = document.getElementById('submitAll');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        const rows = Array.from(document.querySelectorAll('#timelyBody tr'));
+        const payload = rows
+          .filter(r => r.dataset.completed === 'true')
+          .map(r => ({
+            requirement: r.dataset.req,
+            files: (r._uploadedFiles || []).map(f => ({
+              name: f.name, size: f.size, type: f.type
+            }))
+          }));
+        console.log('Submitting payload:', payload);
+        alert('Submitted! We received ' + payload.reduce((n, r) => n + r.files.length, 0) + ' file(s).');
+      });
+    }
 
-  // mouse
-  canvas.addEventListener('mousedown', start);
-  canvas.addEventListener('mousemove', move);
-  window.addEventListener('mouseup', end);
-  // touch
-  canvas.addEventListener('touchstart', start, {passive:false});
-  canvas.addEventListener('touchmove', move, {passive:false});
-  canvas.addEventListener('touchend', end);
+    const statusEl = document.getElementById('status');
+    if (statusEl) {
+      statusEl.addEventListener('change', () => {
+        updateRowVisualRequiredness();
+        updateProceedState();
+      });
+    }
 
-  return {
-    clear(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      img.removeAttribute('src');
-    },
-    accept(){
+    (function setToday(){
+      const el = document.getElementById('todayDate');
+      if(!el) return;
+      const d = new Date();
+      const txt = d.toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'});
+      el.textContent = txt;
+    })();
+  });
+
+  /* ==== Lightweight signature pad (mouse + touch) ==== */
+  function makeSigPad(canvasId, imgId){
+    const canvas = document.getElementById(canvasId);
+    const img    = document.getElementById(imgId);
+    if(!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    function fitCanvas(){
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      const rect = canvas.getBoundingClientRect();
+      canvas.width  = Math.floor(rect.width * ratio);
+      canvas.height = Math.floor(rect.height * ratio);
+      ctx.scale(ratio, ratio);
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#0f172a';
+    }
+    fitCanvas();
+    window.addEventListener('resize', () => { 
+      const data = canvas.toDataURL();
+      fitCanvas();
+      const imgTmp = new Image();
+      imgTmp.onload = () => ctx.drawImage(imgTmp, 0, 0, canvas.clientWidth, canvas.clientHeight);
+      imgTmp.src = data;
+    });
+
+    let drawing = false, last = null;
+    function posFromEvent(e){
+      const rect = canvas.getBoundingClientRect();
+      if(e.touches && e.touches[0]){
+        return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+      }else{
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      }
+    }
+    function start(e){ drawing = true; last = posFromEvent(e); e.preventDefault(); }
+    function move(e){
+      if(!drawing) return;
+      const p = posFromEvent(e);
+      ctx.beginPath();
+      ctx.moveTo(last.x, last.y);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      last = p;
+      e.preventDefault();
       img.src = canvas.toDataURL('image/png');
     }
-  };
-}
+    function end(){ drawing = false; last = null; }
 
-// initialize both pads
-const jo = makeSigPad('sigPad-joanne',   'sigImg-joanne');
-const te = makeSigPad('sigPad-teresita', 'sigImg-teresita');
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
 
-// wire buttons
-document.querySelectorAll('[data-clear]').forEach(btn=>{
-  btn.addEventListener('click', ()=> {
-    const who = btn.getAttribute('data-clear');
-    if(who === 'joanne') jo && jo.clear();
-    if(who === 'teresita') te && te.clear();
+    canvas.addEventListener('touchstart', start, {passive:false});
+    canvas.addEventListener('touchmove', move, {passive:false});
+    canvas.addEventListener('touchend', end);
+
+    return {
+      clear(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        img.removeAttribute('src');
+      },
+      accept(){
+        img.src = canvas.toDataURL('image/png');
+      }
+    };
+  }
+
+  const jo = makeSigPad('sigPad-joanne', 'sigImg-joanne');
+  const te = makeSigPad('sigPad-teresita', 'sigImg-teresita');
+
+  document.querySelectorAll('[data-clear]').forEach(btn=>{
+    btn.addEventListener('click', ()=> {
+      const who = btn.getAttribute('data-clear');
+      if(who === 'joanne') jo && jo.clear();
+      if(who === 'teresita') te && te.clear();
+    });
   });
-});
-document.querySelectorAll('[data-accept]').forEach(btn=>{
-  btn.addEventListener('click', ()=> {
-    const who = btn.getAttribute('data-accept');
-    if(who === 'joanne') jo && jo.accept();
-    if(who === 'teresita') te && te.accept();
+  document.querySelectorAll('[data-accept]').forEach(btn=>{
+    btn.addEventListener('click', ()=> {
+      const who = btn.getAttribute('data-accept');
+      if(who === 'joanne') jo && jo.accept();
+      if(who === 'teresita') te && te.accept();
+    });
   });
-});
-
-
 </script>
+
 </body>
 </html>
