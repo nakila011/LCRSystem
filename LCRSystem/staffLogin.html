@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LCR System — Staff/Admin Login</title>
+   <style>
+  :root{
+    --blue-100:#D0E1F5;
+    --blue-200:#A8BCDA;
+    --blue-700:#415D8A;
+    --white:#FFFFFF;
+    --text:#1e293b;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{
+    height:100%;
+    margin:0;
+    overflow-x:hidden; /* remove horizontal scrollbar */
+  }
+  body{
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;
+    color:var(--text);
+    background: linear-gradient(135deg,var(--blue-100), var(--white) 60%, var(--blue-200));
+  }
+
+/* Glassy wrapper */
+.header-container{
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  max-width:2000px;
+  margin:0 auto 8px;
+  padding:18px 30px;
+  box-shadow:0 6px 16px rgba(65,93,138,.15);
+  border:1px solid rgba(65,93,138,.08);
+  overflow:hidden;
+}
+@media (max-width:480px){
+  .header-container{ padding:12px 14px; }
+}
+
+/* --- One-row header on ALL screens --- */
+.site-header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(10px,2.2vw,18px);
+  padding:12px clamp(8px,2vw,16px);
+  margin:0 auto 16px;
+  max-width:1100px;
+  flex-wrap:nowrap;                 /* never wrap row */
+  text-align:center;
+}
+.logo-group{ display:flex; align-items:center; gap:10px; flex:0 0 auto; }
+.site-header .right{ flex:0 0 auto; }
+
+/* Logos scale a bit on narrow screens */
+.site-header .logo{
+  height:clamp(50px,12vw,90px);
+  width:auto; object-fit:contain;
+  flex-shrink:1;
+}
+
+/* Title: responsive, centered, max 2 lines, no ellipsis */
+.site-header h1{
+  margin:0;
+  color:var(--blue-700);
+  font-weight:900;
+  line-height:1.15;
+  text-align:center;
+
+  /* allow wrapping & prevent "..." */
+  white-space:normal;
+  overflow:visible;
+  text-overflow:unset;
+
+  /* fit between logos */
+  flex:1 1 auto;
+  min-width:0;
+  max-width:60vw;
+  font-size:clamp(14px,4.6vw,32px);
+
+  /* clamp to 2 lines */
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+
+/* tiny phones */
+@media (max-width:380px){
+  .site-header{ gap:10px; }
+  .site-header .logo{ height:clamp(46px,14vw,64px); }
+  .site-header h1{ font-size:clamp(13px,5vw,26px); max-width:58vw; }
+}
+
+  /* ---------- Card / form ---------- */
+  .container{ min-height:calc(100% - 90px); display:grid; place-items:center; padding:24px; }
+  .card{
+    width:100%; max-width: 420px; background:var(--white); border-radius:20px;
+    box-shadow:0 10px 30px rgba(65,93,138,0.18);
+    overflow:hidden; border:1px solid rgba(65,93,138,0.08);
+    animation: fadeInUp 0.6s ease-out forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover{
+    transform: scale(1.05) translateY(-6px);
+    box-shadow: 0 20px 40px rgba(65,93,138,0.35);
+  }
+
+  .brand{display:flex; align-items:center; gap:.75rem; padding:24px 24px 0 24px;}
+  .logo-chip{
+    width: 70px; height: 70px; border-radius: 12px; overflow: hidden;
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border:1px solid #cbd5e1; margin-bottom:15px; margin-right:10px;
+  }
+  .logo-chip img{ width:100%; height:100%; object-fit:contain; }
+
+  .brand h2{ font-size:1.5rem; margin:0; color:var(--blue-700); }
+  .sub{ margin:2px 0 16px; font-size:.95rem; color:#3f516d; }
+  .hero{height:6px; background: linear-gradient(90deg,var(--blue-200), var(--blue-700), var(--blue-100));}
+  form{ padding:22px 24px 10px; }
+  .input{ margin-top:16px; }
+  label{ display:block; font-size:.9rem; margin:0 0 6px 2px; color:#334155; }
+  input[type="email"], input[type="password"]{
+    width:100%; padding:12px 14px; border-radius:12px; border:1.2px solid #c4d4ea; background:#f7fbff;
+  }
+  input:focus{border-color: var(--blue-700); box-shadow: 0 0 0 4px rgba(65,93,138,.12); background:#fff;}
+
+  .row{ display:flex; align-items:center; justify-content:space-between; margin-top:12px; gap:10px; }
+  .checkbox{ display:flex; align-items:center; gap:.5rem; font-size:.9rem; color:#3a4c6b; }
+  .checkbox input{ accent-color: var(--blue-700); width:16px; height:16px; }
+  .link{ font-size:.9rem; color:blue; text-decoration:none; }
+  .link:hover{ text-decoration:underline; }
+  button{
+    margin-top:18px; width:100%; border:none; cursor:pointer; font-weight:600;
+    padding:12px 16px; border-radius:12px; color:var(--white);
+    background: linear-gradient(135deg,var(--blue-700), #2e4466);
+  }
+
+  .muted{ text-align:center; font-size:.85rem; color:#586a86; margin:14px 0 0 }
+  .switch-admin{
+    display:flex; align-items:center; justify-content:center; gap:.5rem; margin:20px 0;
+    color:blue; font-weight:500; font-size:.9rem; text-decoration:none; cursor:pointer;
+  }
+  .switch-admin img{ width:22px; height:22px; }
+  .switch-admin:hover{ text-decoration:underline; }
+
+  .auth-alt{display:flex; align-items:center; justify-content:center; gap:.4rem; margin:6px 0 18px; font-size:.9rem; color:#3f516d}
+  .auth-alt a{ color:blue; text-decoration:none; font-weight:600 }
+  .auth-alt a:hover{ text-decoration:underline }
+
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  </style>
+</head>
+<body>
+
+
+  <div class="header-container">
+    <header class="site-header" aria-label="Site header">
+      <div class="logo-group">
+        <img src="/LCRSystem/image/buenavistalogo.png" class="logo" alt="Municipality of Buenavista logo" />
+    
+      </div>
+      <h1>
+        <span class="h-top">Local Civil Registry</span>
+        <span class="h-bottom">Office of Buenavista</span>
+      </h1>
+
+          <img src="/LCRSystem/image/LCRlogo.png" class="logo right" alt="LCR Buenavista logo"/>
+    </header>
+  </div>
+
+
+  <div class="container">
+    <div class="card" role="region" aria-labelledby="title">
+      
+      
+     
+  <div class="brand">
+     <div class="logo-chip">
+    <img src="/LCRSystem/image/LCR.png" alt="LCR Logo" />
+  </div>
+       <div>
+    <h2 id="title">Local Civil Registry</h2>
+    <div class="sub">Administrators/Staff Login</div>
+    </div>
+ </div>
+
+      <div class="hero"></div>
+
+      <form id="adminLoginForm" action="/admin/login" method="post" novalidate>
+        <div class="input">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="staff@lcr.gov" autocomplete="username" required />
+        </div>
+        <div class="input">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" minlength="8" required />
+        </div>
+
+        <!-- Remember me + Forgot password -->
+        <div class="row">
+          <label class="checkbox"><input type="checkbox" id="rememberMe" /> Remember me</label>
+          <a class="link" href="forgotPassword.html">Forgot password?</a>
+        </div>
+
+        <button type="submit">Sign in</button>
+
+        <!-- back to Citizen login -->
+        
+        <a class="switch-admin" href="clientLogin.html">
+          <img src="/LCRSystem/image/reverse.png" alt="flip icon" />
+          <span>Sign in as Client</span>
+        </a>
+         
+         <div class="auth-alt">
+          <span>Wala pa kay account?</span>
+          <a href="createAccount.html">Create an account</a>
+        </div>
+
+        <p class="muted">Note: LCR staff and administrators use this Login Form.</p>
+
+        
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Prefill email if remembered (admin)
+    (function(){
+      const savedEmail = localStorage.getItem('lcr_admin_saved_email');
+      const remember = document.getElementById('rememberMe');
+      const email = document.getElementById('email');
+
+      if (savedEmail) {
+        email.value = savedEmail;
+        remember.checked = true;
+      }
+
+      document.getElementById('adminLoginForm').addEventListener('submit', function(){
+        if (remember.checked) {
+          localStorage.setItem('lcr_admin_saved_email', email.value.trim());
+        } else {
+          localStorage.removeItem('lcr_admin_saved_email');
+        }
+      });
+    })();
+
+    // Simple client-side validation feedback
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e){
+      const email = document.getElementById('email');
+      const pwd = document.getElementById('password');
+      let ok = true;
+      if (!email.value || !email.checkValidity()) { email.focus(); ok = false; }
+      else if (!pwd.value || !pwd.checkValidity()) { pwd.focus(); ok = false; }
+      if (!ok) {
+        e.preventDefault();
+        [email, pwd].forEach(el=>{
+          if(!el.checkValidity()){
+            el.style.borderColor = 'var(--blue-700)';
+            el.style.boxShadow = '0 0 0 4px rgba(65,93,138,.12)';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
