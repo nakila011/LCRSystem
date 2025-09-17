@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Civil Registry Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="logo"></div>
+          <div class="name">Shields<span style="color:var(--blue-700);">.Civil</span></div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" class="active">Dashboard</a>
+          <a href="validate-birth.html">Validate Birth</a>
+          <a href="validate-death.html">Validate Death</a>
+          <a href="validateMarriage.html">Validate Marriage</a>
+        </nav>
+      </aside>
+
+      <main>
+        <header class="header">
+          <div><strong>Welcome back!</strong> John Doe</div>
+          <div class="actions"><div class="pill">Admin</div></div>
+        </header>
+
+        <section class="content">
+          <div class="kpis">
+            <div class="card"><h3>Total Citizens</h3><div class="kpi-value">89,000</div></div>
+            <div class="card"><h3>Total Families</h3><div class="kpi-value">15,000</div></div>
+            <div class="card"><h3>New Registrations</h3><div class="kpi-value">42,000</div></div>
+            <div class="card"><h3>Total Expenses</h3><div class="kpi-value">30,000</div></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Activity</h3>
+              <canvas id="lineChart" width="900" height="320"></canvas>
+            </div>
+            <div class="card">
+              <h3>Total Overview</h3>
+              <canvas id="donutChart" width="360" height="320"></canvas>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

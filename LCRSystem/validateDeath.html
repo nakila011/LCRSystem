@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Validate Death</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><div class="logo"></div><div class="name">Shields<span style="color:var(--blue-700);">.Civil</span></div></div>
+        <nav class="nav">
+          <a href="index.html">Dashboard</a>
+          <a href="validate-birth.html">Validate Birth</a>
+          <a href="validate-death.html" class="active">Validate Death</a>
+          <a href="validate-marriage.html">Validate Marriage</a>
+        </nav>
+      </aside>
+
+      <main>
+        <header class="header"><div><strong>Validate Death Certificate</strong></div></header>
+        <section class="content">
+          <div class="card">
+            <form class="form">
+              <div class="row">
+                <div class="field"><label>Certificate Number</label><input required /></div>
+                <div class="field"><label>Full Name</label><input required /></div>
+              </div>
+              <div class="row">
+                <div class="field"><label>Date of Death</label><input type="date" required /></div>
+                <div class="field"><label>Place of Death</label><input required /></div>
+              </div>
+              <button class="submit" type="submit">Validate</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
