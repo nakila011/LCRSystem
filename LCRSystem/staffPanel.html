@@ -9,46 +9,81 @@
   </head>
   <body>
     <div class="app">
-      <aside class="sidebar">
-        <div class="brand">
-          <div class="logo"></div>
-          <div class="name">
-            Shields<span style="color:var(--blue-700);">.Civil</span>
-          </div>
-          <p class="tagline">Civil Registry Management System</p>
-        </div>
-        <nav class="nav">
-          <a href="" class="active">Home</a>
-          <a href="validateDashboard.html">Dashboard</a>
-          <a href="validateBirth.html">Validate Birth</a>
-          <a href="validateDeath.html">Validate Death</a>
-          <a href="validateMarriage.html">Validate Marriage</a>
-        </nav>
-      </aside>
+
+
+ <aside class="sidebar" data-collapsed="false">
+  <div class="brand">
+    <div class="logo">
+      <img src="image/LCRlogo.png" alt="LCR Logo">
+    </div>
+    <div class="name">
+      Shields<span class="accent">.Civil</span>
+    </div>
+    <p class="tagline">Civil Registry Management System</p>
+  </div>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__section">Main</div>
+    <a href="staffPanel.html" class="nav__link is-active" aria-current="page" title="Home">
+      <span class="nav__icon" aria-hidden="true">🏠</span>
+      <span class="nav__label">Home</span>
+    </a>
+    <a href="validateDashboard.html" class="nav__link" title="Dashboard">
+      <span class="nav__icon" aria-hidden="true">📊</span>
+      <span class="nav__label">Dashboard</span>
+    </a>
+
+    <div class="nav__section">Validations</div>
+    <a href="validateBirth.html" class="nav__link" title="Validate Birth">
+      <span class="nav__icon" aria-hidden="true">👶</span>
+      <span class="nav__label">Validate Birth</span>
+    </a>
+    <a href="validateDeath.html" class="nav__link" title="Validate Death">
+      <span class="nav__icon" aria-hidden="true">🕊️</span>
+      <span class="nav__label">Validate Death</span>
+    </a>
+    <a href="validateMarriage.html" class="nav__link" title="Validate Marriage">
+      <span class="nav__icon" aria-hidden="true">💍</span>
+      <span class="nav__label">Validate Marriage</span>
+    </a>
+  </nav>
+</aside>
 
       <main>
         <header class="header">
-          <div>
-            <strong>Welcome back!</strong> John Doe
-            <p class="subtitle">
-              You are logged in to the Civil Registry Dashboard. 
-              From here, you can validate and manage records of Birth, Death, 
-              and Marriage. Please use the sidebar to navigate between sections.
-            </p>
-          </div>
-          <div class="actions"><div class="pill">Admin</div></div>
-        </header>
+  <div>
+    <strong>Welcome back!</strong>
 
-        <section class="overview">
-          <h2>System Overview</h2>
-          <p>
-            The Civil Registry Dashboard provides administrators with tools 
-            to manage and validate important civil records. 
-            Using this platform, you can review submitted applications, 
-            verify document authenticity, and ensure accuracy of official 
-            certificates such as birth, death, and marriage records.
-          </p>
-        </section>
+    <!-- SVG Animated Name -->
+    <svg class="staff-name" viewBox="0 0 600 100" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="50%" text-anchor="middle" dy=".35em">Jouselo Nakila</text>
+    </svg>
+    <div class="actions"><div class="pill">LCR STAFF...</div></div>
+    <p class="subtitle">
+      You are logged in to the Civil Registry Dashboard. 
+      From here, you can validate and manage records of Birth, Death, 
+      and Marriage. Please use the sidebar to navigate between sections.
+    </p>
+  </div>
+  
+</header>
+
+<section class="overview-grid">
+  <article class="overview-card appear-on-scroll">
+    <h2>System Overview</h2>
+    <p>
+     The Civil Registry Dashboard provides administrators with tools to manage and validate important civil records. Using this platform, you can review submitted applications, verify document authenticity, and ensure the accuracy of official certificates such as birth, death, and marriage records. The dashboard also offers real-time monitoring of application statuses, duplicate detection, and validation tracking to maintain reliable and error-free data. Built-in audit logs and revision notes support transparency and accountability, while role-based access ensures that only authorized personnel can approve or revise entries. This centralized system simplifies civil registry management, enhances efficiency, and upholds the integrity of vital records.
+    </p>
+  </article>
+
+  <article class="overview-card appear-on-scroll">
+    <h2>Records Overview</h2>
+    <p>
+      Monitor record statuses, detect duplicates, and track validation progress across Birth, Death, and Marriage entries. Ensure data integrity with a consistent review process and audit-friendly logs. The system provides clear visibility of pending, approved, and revised records, helping staff make accurate decisions faster. Automated checks highlight inconsistencies, while detailed validation histories support accountability and transparency. With role-based access, only authorized personnel can update or approve records, strengthening security. This streamlined process not only improves efficiency but also ensures compliance with reporting standards and legal requirements.
+    </p>
+  </article>
+</section>
+
       </main>
     </div>
 

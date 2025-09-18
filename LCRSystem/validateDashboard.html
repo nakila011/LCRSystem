@@ -1,35 +1,425 @@
-   <!DOCTYPE html>
-   <html lang="en">
-   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style/styles.css" />
-    <script defer src="app.js"></script>
-   </head>
-   <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style/styles.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
-    <section class="content">
-          <div class="kpis">
-            <div class="card"><h3>Total Citizens</h3><div class="kpi-value">89,000</div></div>
-            <div class="card"><h3>Total Families</h3><div class="kpi-value">15,000</div></div>
-            <div class="card"><h3>New Registrations</h3><div class="kpi-value">42,000</div></div>
-            <div class="card"><h3>Total Expenses</h3><div class="kpi-value">30,000</div></div>
-          </div>
+  <!-- Base styles -->
+  <style>
+    :root{
+      --bg:#f3f5f8;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --shadow:0 2px 10px rgba(0,0,0,.06);
 
-          <div class="grid-2">
-            <div class="card">
-              <h3>Activity</h3>
-              <canvas id="lineChart" width="900" height="320"></canvas>
-            </div>
-            <div class="card">
-              <h3>Total Overview</h3>
-              <canvas id="donutChart" width="360" height="320"></canvas>
-            </div>
-          </div>
-        </section>
+      --blue:#1676ff;
+      --green:#22c55e;
+      --yellow:#f59e0b;
+      --red:#ef4444;
+
+
+  --componentSize: 420px;     /* container width (increase for longer words) */
+  --maskSize: 180px;           /* width of the sharp “focus” window */
+  --speed: 1s;                /* animation speed */
+  --borderOffset: 8px;        /* makes the top/bottom border sit a bit outside */
+  --bgColor: #A8BCDA;         /* background color behind the text strip (match page bg) */
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg); color:#111827;
+    }
+
+    .app{
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      min-height:100dvh;
+    }
+/* fadeInUp for entry */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+   @keyframes mask-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(var(--componentSize) - var(--maskSize))); }
+}
+@keyframes mask-inner-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(var(--maskSize) - var(--componentSize))); }
+}
+
+/* base styles (adjust to your page) */
+.focus{
+  font-size: 78px;            /* your requested size */
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  text-transform: none;       /* keep real casing; set to uppercase if you like */
+  color: #fff;                /* the blurred base color; inner mask will inherit */
+  position: relative;
+  width: var(--componentSize);
+  margin: 20px 0 8px;         /* tidy spacing above tiles */
+  text-align: left;
+}
+
+/* blurred duplicate behind */
+.focus::before{
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: #111827;             /* darker to match your theme */
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* moving “focus” window frame */
+.focus::after{
+  content: "";
+  position: absolute;
+  width: var(--maskSize);
+  height: calc(100% + var(--borderOffset));
+  top: calc(var(--borderOffset) / -2);
+  left: 0;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  animation: mask-move var(--speed) linear infinite alternate;
+}
+
+/* the actual sharp text that slides inside the mask */
+.focus .focus--mask{
+  overflow: hidden;
+  position: absolute;
+  width: var(--maskSize);
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: var(--bgColor); /* should match page background so the “window” looks clean */
+  animation: mask-move var(--speed) linear infinite alternate;
+}
+
+.focus .focus--mask-inner{
+  display: inline-block;
+  white-space: nowrap;
+  animation: mask-inner-move var(--speed) linear infinite alternate;
+  color: #111827;             /* sharp text color */
+}
+
+/* responsive tweak */
+@media (max-width: 720px){
+  .focus{ font-size: 52px; }
+}
+@keyframes focusInOut {
+  0%   { opacity:0; text-shadow: 0 0 25px rgba(0,0,0,0.6); }
+  25%  { opacity:1; text-shadow: 0 0 5px rgba(0,0,0,0.2); }
+  50%  { opacity:0.6; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
+  75%  { opacity:1; text-shadow: 0 0 8px rgba(0,0,0,0.3); }
+  100% { opacity:0; text-shadow: 0 0 25px rgba(0,0,0,0.6); }
+}
+
+@media (max-width:720px){
+  .page-header{ font-size:52px; }
+}
+
+    /* Content area */
+    .content{
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    /* KPI tiles row */
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(180px,1fr));
+      gap:16px;
+    }
+    .tile{
+      border-radius:10px; color:#fff; padding:16px; box-shadow:var(--shadow);
+      display:flex; flex-direction:column; gap:10px; min-height:110px;
+    }
+    .tile h4{margin:0; font-weight:700; display:flex; align-items:center; gap:8px}
+    .tile .value{font-size:34px; font-weight:800; line-height:1}
+    .tile .more{margin-top:auto; font-size:13px; opacity:.9}
+
+    .tile.blue{background:var(--blue)}
+    .tile.green{background:var(--green)}
+    .tile.yellow{background:var(--yellow)}
+    .tile.red{background:var(--red)}
+
+    /* Cards for charts */
+    .panel-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .panel{
+      background:var(--card);
+      border-radius:10px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      min-height:420px;
+    }
+    .panel .hd{
+  padding: 16px 20px;
+  border-bottom: 1px solid #eef2f7;
+  font-family: "Segoe UI", "Roboto", "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #374151; /* professional dark gray */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+    .panel .body{
+      padding:12px 16px; height:100%; display:flex; flex-direction:column;
+    }
+    .chart-wrap{
+      flex:1;
+      min-height:340px;
+      position:relative;
+    }
+    .chart-wrap canvas{
+      position:absolute; inset:0; width:100% !important; height:100% !important;
+    }
+
+    @media (max-width:1100px){
+      .app{grid-template-columns: 220px 1fr;}
+      .tiles{grid-template-columns: repeat(2,minmax(180px,1fr));}
+      .panel-row{grid-template-columns: 1fr;}
+    }
+    @media (max-width:720px){
+      .app{grid-template-columns: 1fr;}
+      .sidebar{display:none;}
+      .page-header{font-size:52px;}
+    }
+
+    .chart-totals {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chart-totals .total {
+  color: #22c55e; /* green */
+}
+
+.chart-totals .male {
+  color: #3b82f6; /* blue */
+}
+
+.chart-totals .female {
+  color: #ec4899; /* pink */
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
     
-   </body>
-   </html>
-   
-   
+    <aside class="sidebar" data-collapsed="false">
+  <div class="brand">
+    <div class="logo">
+      <img src="image/LCRlogo.png" alt="LCR Logo">
+    </div>
+    <div class="name">
+      Shields<span class="accent">.Civil</span>
+    </div>
+    <p class="tagline">Civil Registry Management System</p>
+  </div>
+
+  <nav class="nav" role="navigation">
+    <div class="nav__section">Main</div>
+    <a href="staffPanel.html" class="nav__link " aria-current="page" title="Home">
+      <span class="nav__icon" aria-hidden="true">🏠</span>
+      <span class="nav__label">Home</span>
+    </a>
+    <a href="validateDashboard.html" class="nav__link is-active" title="Dashboard">
+      <span class="nav__icon" aria-hidden="true">📊</span>
+      <span class="nav__label">Dashboard</span>
+    </a>
+
+    <div class="nav__section">Validations</div>
+    <a href="validateBirth.html" class="nav__link" title="Validate Birth">
+      <span class="nav__icon" aria-hidden="true">👶</span>
+      <span class="nav__label">Validate Birth</span>
+    </a>
+    <a href="validateDeath.html" class="nav__link" title="Validate Death">
+      <span class="nav__icon" aria-hidden="true">🕊️</span>
+      <span class="nav__label">Validate Death</span>
+    </a>
+    <a href="validateMarriage.html" class="nav__link" title="Validate Marriage">
+      <span class="nav__icon" aria-hidden="true">💍</span>
+      <span class="nav__label">Validate Marriage</span>
+    </a>
+  </nav>
+</aside>
+
+    <!-- CONTENT -->
+    <section class="content">
+      <!-- Big Title -->
+     <h1 class="focus" data-text="Dashboard">
+  <span class="focus--mask">
+    <span class="focus--mask-inner">Dashboard</span>
+  </span>
+  Dashboard
+</h1>
+      <br>
+      <br>
+      <!-- KPI TILES -->
+      <div class="tiles">
+        <div class="tile blue">
+          <h4>Birth</h4>
+          <div class="value" id="kpiBirth">0</div>
+          <div class="more">More info ⟶</div>
+        </div>
+        <div class="tile green">
+          <h4>Death</h4>
+          <div class="value" id="kpiDeath">0</div>
+          <div class="more">More info ⟶</div>
+        </div>
+        <div class="tile yellow">
+          <h4>Marriage</h4>
+          <div class="value" id="kpiMarriage">0</div>
+          <div class="more">More info ⟶</div>
+        </div>
+        <div class="tile red">
+          <h4>Total (All)</h4>
+          <div class="value" id="kpiTotal">0</div>
+          <div class="more">More info ⟶</div>
+        </div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="panel-row">
+        <div class="panel">
+  <div class="hd">Displays the 2025 birth registrations, categorized by Male and Female, with the overall total shown for easy gender comparison.</div>
+  <div class="body">
+    <div class="chart-wrap">
+      <canvas id="doughnut"></canvas>
+    </div>
+
+    <!-- Totals below chart -->
+    <div class="chart-totals">
+      <span class="total">Total: <strong id="totalBirths"></strong></span>
+      <span class="male">Male: <strong id="maleBirths"></strong></span>
+      <span class="female">Female: <strong id="femaleBirths"></strong></span>
+    </div>
+  </div>
+</div>
+
+        <div class="panel">
+          <div class="hd">Bar Chart</div>
+          <div class="body">
+            <div class="chart-wrap">
+              <canvas id="bar"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  // ---------- DATA ----------
+  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const birthPerMonth    = [120,135,150,142,160,171,168,175,162,170,165,178];
+  const deathPerMonth    = [45, 50, 48, 52, 58, 55, 60, 57, 49, 51, 53, 56];
+  const marriagePerMonth = [30, 35, 40, 38, 45, 50, 48, 52, 47, 49, 55, 60];
+
+  // Totals
+  const totalBirth    = birthPerMonth.reduce((a,b)=>a+b,0);
+  const totalDeath    = deathPerMonth.reduce((a,b)=>a+b,0);
+  const totalMarriage = marriagePerMonth.reduce((a,b)=>a+b,0);
+  const grandTotal    = totalBirth + totalDeath + totalMarriage;
+
+  // Update KPI Tiles
+  document.getElementById("kpiBirth").textContent    = totalBirth.toLocaleString();
+  document.getElementById("kpiDeath").textContent    = totalDeath.toLocaleString();
+  document.getElementById("kpiMarriage").textContent = totalMarriage.toLocaleString();
+  document.getElementById("kpiTotal").textContent    = grandTotal.toLocaleString();
+
+  // ---------- Doughnut Chart: Birth by Gender + Green Total Ring ----------
+  // ---------- Doughnut Chart: Total (green) + Male (blue) + Female (pink) ----------
+const maleBirths   = Math.floor(totalBirth * 0.52);
+const femaleBirths = totalBirth - maleBirths;
+
+// Totals text below the chart (keep)
+document.getElementById("totalBirths").textContent  = totalBirth.toLocaleString();
+document.getElementById("maleBirths").textContent   = maleBirths.toLocaleString();
+document.getElementById("femaleBirths").textContent = femaleBirths.toLocaleString();
+
+new Chart(document.getElementById("doughnut"), {
+  type: "doughnut",
+  data: {
+    labels: ["Total", "Male", "Female"],
+    datasets: [{
+      // order: green, blue, pink
+      data: [totalBirth, maleBirths, femaleBirths],
+      backgroundColor: ["#22c55e", "#3b82f6", "#ec4899"]
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      // remove legend (walay “Male/Female” sa kilid)
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          // nice label in tooltip
+          label: (ctx) => `${ctx.label}: ${ctx.parsed.toLocaleString()}`
+        }
+      }
+    },
+    cutout: "60%"
+  }
+});
+
+  // ---------- Bar Chart (unchanged) ----------
+  new Chart(document.getElementById("bar"), {
+    type: "bar",
+    data: {
+      labels: months,
+      datasets: [
+        { label: "Birth",    data: birthPerMonth },
+        { label: "Death",    data: deathPerMonth },
+        { label: "Marriage", data: marriagePerMonth }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "right" } },
+      scales: {
+        y: { beginAtZero: true, ticks: { precision: 0 } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+</script>
+
+ <footer class="footer">
+      <p>© 2025 Shields.Civil Registry Management | Ensuring accuracy and integrity of records</p>
+    </footer>
+
+</body>
+</html>
