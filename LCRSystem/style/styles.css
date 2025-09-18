@@ -1,0 +1,263 @@
+/* ================================
+   Civil Registry Dashboard Styles
+   (Centered, minimal, elegant)
+   ================================ */
+
+/* Design Tokens */
+:root {
+  --blue-700: #2563eb;
+  --blue-200: #A8BCDA;
+
+  --gray-950: #0b1220;
+  --gray-900: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --white: #ffffff;
+
+  --sidebar-width: 260px;
+
+  /* Type scale */
+  --fz-xs: 0.75rem;
+  --fz-sm: 0.875rem;
+  --fz-base: 1rem;
+  --fz-lg: 1.25rem;
+
+  /* Layout rhythm */
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+
+  /* Shape & shadow */
+  --radius: 12px;
+  --shadow-sm: 0 2px 6px rgba(17, 24, 39, 0.06);
+}
+
+/* Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: var(--fz-base);
+  color: var(--gray-900);
+  background: var(--gray-100);
+  line-height: 1.7; /* readable line-height */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--white);
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-3) var(--space-4);
+}
+
+.brand {
+  text-align: center; /* CENTER tag + name */
+  padding: 0 var(--space-2);
+}
+
+.logo {
+  width: 64px; height: 64px; border-radius: 50%;
+  margin: 0 auto var(--space-2);
+  background: radial-gradient(circle at 30% 30%, var(--blue-700), var(--blue-200));
+  box-shadow: var(--shadow-sm);
+}
+
+.name {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.2px;
+}
+
+/* Tagline: smaller, subtle, gray + CENTER (requested) */
+.tagline {
+  margin-top: 0.25rem;
+  font-size: var(--fz-xs);
+  color: var(--gray-500);
+  text-align: center;
+}
+
+/* Nav: neatly spaced with hover */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: 0.25rem;
+}
+.nav a {
+  display: block;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  color: var(--gray-700);
+  font-weight: 500;
+  font-size: var(--fz-sm);
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+  outline: none;
+}
+.nav a:hover {
+  background: var(--blue-200);
+  color: var(--gray-950);
+  box-shadow: var(--shadow-sm);
+}
+.nav a:active { transform: translateY(1px); }
+.nav a.active {
+  background: var(--blue-700);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Main */
+main {
+  flex: 1;
+  padding: var(--space-6) var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ===== HERO / WELCOME (Requested changes) ===== */
+
+/* Center the entire header block content */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;         /* center horizontally */
+  justify-content: center;     /* center vertically in its own area */
+  text-align: center;          /* center text */
+  gap: var(--space-2);
+  padding-top: var(--space-6);
+}
+
+/* Make 'Welcome back! John Doe' VERY LARGE (78px), bold, centered */
+.header strong {
+  display: block;
+  font-size: 78px;             /* requested exact size */
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+  text-align: center;
+
+  /* Smooth fade-in + slide-up animation */
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeSlideUp 700ms ease-out 80ms forwards;
+}
+
+/* Subtitle: smaller, lighter, centered for readability */
+.header .subtitle {
+  margin-top: 0.5rem;
+  font-size: var(--fz-sm);
+  color: var(--gray-600);
+  line-height: 1.8;
+  max-width: 70ch;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlideUp 700ms ease-out 160ms forwards;
+}
+
+/* Optional: center the role pill below (kept minimal) */
+.actions {
+  margin-top: var(--space-2);
+}
+.actions .pill {
+  background: var(--blue-700);
+  color: var(--white);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: var(--fz-sm);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeSlideUp 700ms ease-out 220ms forwards;
+}
+
+/* Animation keyframes */
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Overview Card (Centered text + elegant) ===== */
+.overview {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  max-width: 900px;
+  margin: 0 auto;              /* center the card itself */
+  text-align: center;          /* center text inside */
+}
+
+/* Heading: medium-large, strong */
+.overview h2 {
+  font-size: var(--fz-lg);
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: var(--space-2);
+}
+
+/* Paragraph: balanced line-height already set; mute slightly */
+.overview p {
+  color: var(--gray-700);
+  line-height: 1.8;
+}
+
+/* Footer: smaller, centered, muted */
+.footer {
+  margin-top: auto;
+  text-align: center;
+  padding: var(--space-3);
+  background: var(--white);
+  border-top: 1px solid var(--gray-200);
+  font-size: var(--fz-xs);
+  color: var(--gray-500);
+}
+
+/* Responsive: keep hero readable on small screens */
+@media (max-width: 1024px) {
+  main { padding: var(--space-5) var(--space-4); }
+  .header strong { font-size: 56px; }
+}
+@media (max-width: 720px) {
+  .app { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-3);
+  }
+  .nav { flex-direction: row; flex-wrap: wrap; gap: var(--space-2); justify-content: center; }
+  .header { padding-top: var(--space-5); }
+  .header strong { font-size: 42px; }
+  .overview { padding: var(--space-4); }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
