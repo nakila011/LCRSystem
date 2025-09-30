@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/LCRSystem/image/LCRlogo.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/LCRSystem/image/LCRlogo.png">
+<meta name="theme-color" content="#415D8A">
+<title>CERTIFICATE OF DEATH — Republic of the Philippines (Form 103)</title>
+
+<!-- Font substitutes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#111; --ink-faint:#444; --border:#222; --hair:#6a6a6a; --paper:#fff;
+    --title-size: clamp(18px, 2.4vw, 26px);
+    --label-size: clamp(11px, 1.25vw, 13px);
+    --mini-size: clamp(10px, 1.1vw, 12px);
+    --body-size: clamp(12px, 1.35vw, 14px);
+    --rule: 1px; --hairline:.6px;
+    --err:#c62828; --err-bg:rgba(198,40,40,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;background:var(--paper);color:var(--ink)}
+  body{margin:0;font:var(--body-size) "Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif}
+
+  .smallcaps{letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+  .mini{font-size:var(--mini-size);color:var(--ink-faint)}
+  .center{text-align:center}
+  .right{text-align:right}
+  .just{text-align:justify}
+
+  /* Page */
+  .sheet{
+    margin:0 auto; max-width:980px;
+    padding:clamp(12px,2vw,18px);
+    border:var(--rule) solid var(--border);
+    box-shadow:0 2px 0 rgba(0,0,0,.03) inset;
+    position:relative;
+  }
+  .A4{aspect-ratio:auto}
+
+  /* Masthead */
+  .masthead{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;align-items:end;margin-bottom:8px}
+  .masthead__left,.masthead__right{align-self:start}
+  .masthead .title{
+    font-family:"Merriweather",Georgia,serif; font-weight:900; text-align:center; margin:4px 0 0;
+    font-size:var(--title-size); border-top:var(--hairline) solid var(--hair); padding-top:6px
+  }
+  .masthead .gov,.masthead .office{font-size:var(--mini-size);text-align:center}
+
+  /* Meta header line */
+  .meta-grid{
+    display:grid; grid-template-columns:2fr 2fr 1fr; gap:6px;
+    border-top:var(--rule) solid var(--border); border-bottom:var(--rule) solid var(--border);
+    padding:6px 4px; margin-bottom:8px;
+  }
+  @media (max-width:860px){ .meta-grid{grid-template-columns:1fr 1fr} }
+  @media (max-width:520px){ .meta-grid{grid-template-columns:1fr} }
+
+  .meta{border:var(--hairline) solid var(--hair); height:34px; padding:2px 6px;
+        display:flex; flex-direction:column; justify-content:flex-end}
+  .meta label{font-size:var(--mini-size);color:var(--ink-faint);line-height:1}
+  .meta input{border:0; outline:none; font-size:12px; padding-top:2px; min-height:16px; width:100%}
+
+  /* Sections / rows */
+  .section{border:var(--rule) solid var(--border); padding:8px; margin-top:8px}
+  .section__title{font-weight:700; border-bottom:var(--rule) solid var(--border); padding:4px; background:#f7f7f7; margin:-8px -8px 8px}
+
+  .row{margin:8px 0}
+  .row .label{font-weight:700;font-size:var(--label-size);margin-bottom:4px}
+  .row .note{font-size:var(--mini-size);color:var(--ink-faint);margin-left:6px;font-weight:600}
+
+  /* Grids */
+  .grid-1,.grid-2,.grid-3,.grid-4{display:grid;gap:6px}
+  .grid-1{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr 1fr}
+  .grid-3{grid-template-columns:1fr 1fr 1fr}
+  .grid-4{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:720px){
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .grid-4{grid-template-columns:1fr 1fr}
+  }
+
+  /* Field & hint labels */
+  .field{ position:relative; padding-bottom:8px; }
+  .field input, .field select, .field textarea{
+    width:100%; border:var(--hairline) solid var(--hair);
+    height:28px; padding:4px 6px; font-size:12px; background:#fff; outline:none;
+  }
+  .field.small input, .field.small select{height:24px}
+  .field textarea{min-height:74px; resize:vertical}
+  @media (max-width:640px){
+    .field input,.field select,.field textarea{height:40px;font-size:14px}
+    .field.small input,.field.small select{height:36px}
+    .field textarea{min-height:96px}
+  }
+
+  .hint{
+    position:absolute; top:50%; left:8px; transform:translateY(-50%);
+    font-size:var(--mini-size); color:var(--ink-faint); pointer-events:none;
+    transition: top .15s ease, transform .15s ease, opacity .15s ease;
+    line-height:1; z-index:0;
+  }
+  .field.has-value .hint,
+  .field :is(input,textarea):focus + .hint{ top:100%; transform:translateY(3px); opacity:.85 }
+  .field:has(select) .hint{ top:100%; transform:translateY(3px); opacity:.85 }
+  
+  .field select{appearance:auto; line-height:1.2}
+   .field:has(select) .hint{
+  top:100%;
+  transform:translateY(6px);   /* a bit lower so it never hugs the border */
+  opacity:.85;
+}
+
+/* For native date inputs: hide our hint because browsers show their own
+   dd/mm/yyyy (or calendar) affordance — avoids overlap */
+.field:has(input[type="date"]) .hint{
+  display:none;
+}
+  /* Error visuals */
+  .field.error input,.field.error select,.field.error textarea{
+    border-color:var(--err); box-shadow:0 0 0 2px var(--err-bg) inset;
+  }
+  .err{ position:absolute; top:100%; left:0; transform:translateY(6px); font-size:12px; color:var(--err); display:flex; align-items:center; gap:6px;}
+  .err::before{content:"⚠";font-size:14px;line-height:1}
+
+  /* Signature lines */
+  .line{border-bottom:var(--hairline) solid var(--hair); height:28px}
+  .line.tall{height:40px}
+  .sigrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:720px){ .sigrow{grid-template-columns:1fr} }
+
+  /* Actions */
+  .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+  .actions button{padding:8px 14px;border:1px solid var(--border);font-size:13px;cursor:pointer;background:#f7f7f7}
+  .actions .submit{background:#222;color:#fff}
+  @media (max-width:480px){ .actions button{flex:1;min-width:140px} }
+
+  /* Print */
+  @media print{
+    :root{--title-size:22pt;--label-size:10pt;--mini-size:9pt;--body-size:11pt;--rule:.8pt;--hairline:.5pt;}
+    @page{size:A4;margin:10mm}
+    body{background:#fff}
+    .sheet{max-width:none;border:0;padding:0;box-shadow:none}
+    .section__title{background:#f2f2f2}
+    .actions{display:none}
+    .A4{aspect-ratio:210/297}
+  }
+</style>
+</head>
+<body>
+<form id="deathForm" class="sheet A4" novalidate>
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="masthead__left">
+      <div class="mini smallcaps">Municipal Form No. 103</div>
+      <div class="mini">Revised August 2016</div>
+    </div>
+    <div class="masthead__center">
+      <div class="gov smallcaps">Republic of the Philippines</div>
+      <div class="office smallcaps">OFFICE OF THE CIVIL REGISTRAR GENERAL</div>
+      <h1 class="title">CERTIFICATE OF DEATH</h1>
+    </div>
+    <div class="masthead__right">
+      <div class="mini">To be accomplished in quadruplicate using black ink</div>
+    </div>
+  </header>
+
+  <!-- Province / City / Registry -->
+  <section class="meta-grid">
+    <div class="meta"><label for="prov">Province</label><input id="prov" name="prov" required></div>
+    <div class="meta"><label for="citymuni">City/Municipality</label><input id="citymuni" name="citymuni" required></div>
+    <div class="meta"><label for="regno">Registry No.</label><input id="regno" name="regno" required></div>
+  </section>
+
+  <!-- 1-13 -->
+  <section class="section">
+    <div class="row">
+      <div class="label">1. NAME</div>
+      <div class="grid-3">
+        <div class="field"><input name="first" required><span class="hint">(First)</span></div>
+        <div class="field"><input name="middle" required><span class="hint">(Middle)</span></div>
+        <div class="field"><input name="last" required><span class="hint">(Last)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">2. SEX</div>
+      <div class="grid-2">
+        <div class="field small">
+          <select name="sex" required>
+            <option value="" disabled selected>— Select —</option>
+            <option>Male</option><option>Female</option>
+          </select>
+          <span class="hint">(Male/Female)</span>
+        </div>
+        <div class="field small">
+          <select name="civil" required>
+            <option value="" disabled selected>— Civil Status —</option>
+            <option>Single</option><option>Married</option><option>Widow/Widower</option><option>Annulled/Divorced</option>
+          </select>
+          <span class="hint">(Single/Married/Widow/Widower/Annulled/Divorced)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">3. DATE OF DEATH<span class="note">(Day, Month, Year)</span></div>
+      <div class="grid-3">
+        <div class="field small"><input type="number" min="1" max="31" name="d_day" required><span class="hint">(Day)</span></div>
+        <div class="field small"><input name="d_month" required><span class="hint">(Month)</span></div>
+        <div class="field small"><input type="number" min="1900" max="2100" name="d_year" required><span class="hint">(Year)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">4. DATE OF BIRTH<span class="note">(Day, Month, Year)</span></div>
+      <div class="grid-3">
+        <div class="field small"><input type="number" min="1" max="31" name="b_day" required><span class="hint">(Day)</span></div>
+        <div class="field small"><input name="b_month" required><span class="hint">(Month)</span></div>
+        <div class="field small"><input type="number" min="1800" max="2100" name="b_year" required><span class="hint">(Year)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">5. AGE AT THE TIME OF DEATH</div>
+      <div class="grid-4">
+        <div class="field small"><input type="number" min="0" name="age_years" required><span class="hint">A. (If 1 year or above) (Completed years)</span></div>
+        <div class="field small"><input type="number" min="0" name="age_months" required><span class="hint">B. (If under 1 year) (Months)</span></div>
+        <div class="field small"><input type="number" min="0" name="age_days" required><span class="hint">C. (If under 1 year) (Days)</span></div>
+        <div class="field small"><input type="text" name="age_time" required><span class="hint">D. (If under 24 Hrs) (Hours / Min / Sec)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">6. PLACE OF DEATH</div>
+      <div class="grid-1">
+        <div class="field"><input name="place_death" required><span class="hint">(Name of Hospital/Clinic/Institution/House No., St., Barangay, City/Municipality, Province)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">7. CIVIL STATUS</div>
+      <div class="grid-1">
+        <div class="field"><input name="civil_status_text" required><span class="hint">(Single/Married/Widow/Widower/Annulled/Divorced)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">8. RELIGION / RELIGIOUS SECT</div>
+      <div class="grid-1"><div class="field"><input name="religion" required></div></div>
+    </div>
+
+    <div class="row">
+      <div class="label">9. CITIZENSHIP</div>
+      <div class="grid-1"><div class="field"><input name="citizenship" required></div></div>
+    </div>
+
+    <div class="row">
+      <div class="label">10. RESIDENCE</div>
+      <div class="grid-1"><div class="field"><input name="residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+    </div>
+
+    <div class="row">
+      <div class="label">11. OCCUPATION</div>
+      <div class="grid-1"><div class="field"><input name="occupation" required></div></div>
+    </div>
+
+    <div class="row">
+      <div class="label">12. NAME OF FATHER</div>
+      <div class="grid-3">
+        <div class="field"><input name="f_first" required><span class="hint">(First)</span></div>
+        <div class="field"><input name="f_middle" required><span class="hint">(Middle)</span></div>
+        <div class="field"><input name="f_last" required><span class="hint">(Last)</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">13. MAIDEN NAME OF MOTHER</div>
+      <div class="grid-3">
+        <div class="field"><input name="m_first" required><span class="hint">(First)</span></div>
+        <div class="field"><input name="m_middle" required><span class="hint">(Middle)</span></div>
+        <div class="field"><input name="m_last" required><span class="hint">(Last)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDICAL CERTIFICATE -->
+  <section class="section">
+    <div class="section__title center">MEDICAL CERTIFICATE <span class="mini">(For ages 0 to 7 days, accomplish items 14–19a at the back)</span></div>
+
+    <!-- 19b Causes of death -->
+    <div class="row">
+      <div class="label">19b. CAUSES OF DEATH <span class="note">(If the deceased is aged 8 days and over)</span></div>
+      <div class="grid-3">
+        <div class="field"><input name="immediate_a" required><span class="hint">I. Immediate cause — a.</span></div>
+        <div class="field"><input name="immediate_b" required><span class="hint">b.</span></div>
+        <div class="field"><input name="immediate_c" required><span class="hint">c.</span></div>
+      </div>
+      <div class="grid-3">
+        <div class="field"><input name="antecedent_a" required><span class="hint">II. Antecedent cause — a.</span></div>
+        <div class="field"><input name="antecedent_b" required><span class="hint">b.</span></div>
+        <div class="field"><input name="underlying" required><span class="hint">III. Underlying cause — c.</span></div>
+      </div>
+      <div class="grid-1">
+        <div class="field"><input name="other_significant" required><span class="hint">II. Other significant conditions contributing to death</span></div>
+      </div>
+      <div class="grid-1">
+        <div class="field"><input name="interval_onset" required><span class="hint">Interval Between Onset and Death</span></div>
+      </div>
+    </div>
+
+    <!-- 19c Maternal -->
+    <div class="row">
+      <div class="label">19c. MATERNAL CONDITION <span class="note">(If female aged 15–49 years old)</span></div>
+      <div class="grid-4">
+        <div class="field small">
+          <select name="preg_status" required>
+            <option value="" disabled selected>— Select —</option>
+            <option>a. pregnant, not in labour</option>
+            <option>b. pregnant, in labour</option>
+            <option>c. less than 42 days after delivery</option>
+            <option>d. 42 days to 1 year after delivery</option>
+            <option>e. none of the choices</option>
+          </select>
+          <span class="hint">(Choose one)</span>
+        </div>
+        <div class="field small"><input name="maternal_details" required><span class="hint">(Details if applicable)</span></div>
+        <div class="field small">
+          <select name="autopsy" required>
+            <option value="" disabled selected>— Autopsy —</option>
+            <option>Yes</option><option>No</option>
+          </select>
+          <span class="hint">20. AUTOPSY (Yes/No)</span>
+        </div>
+        <div class="field small"><input name="blank_mcz" required><span class="hint">(Additional note)</span></div>
+      </div>
+    </div>
+
+    <!-- 19d External causes -->
+    <div class="row">
+      <div class="label">19d. DEATH BY EXTERNAL CAUSES</div>
+      <div class="grid-2">
+        <div class="field"><input name="manner" required><span class="hint">a. Manner of death (Homicide, Suicide, Accident, Legal intervention, etc.)</span></div>
+        <div class="field"><input name="place_occurrence" required><span class="hint">b. Place of Occurrence (home, farm, factory, street, sea, etc.)</span></div>
+      </div>
+    </div>
+
+    <!-- 21a/b Attendant -->
+    <div class="row">
+      <div class="label">21a. ATTENDANT</div>
+      <div class="grid-3">
+        <div class="field"><input name="attendant_type" required><span class="hint">(1 Private Physician / 2 Public Health Officer / 3 Hospital Authority / 4 None / 5 Others)</span></div>
+        <div class="field small"><input name="attended_from" required><span class="hint">21b. If attended, state duration — From (mm/dd/yy)</span></div>
+        <div class="field small"><input name="attended_to" required><span class="hint">To</span></div>
+      </div>
+    </div>
+
+    <!-- 22 Certification of death -->
+    <div class="row">
+      <div class="label">22. CERTIFICATION OF DEATH</div>
+      <div class="mini" style="margin:4px 0 6px">
+        I hereby certify that the foregoing particulars are correct as near as same can be ascertained and I further certify that I
+        <strong>have attended / have not attended</strong> the deceased and that death occurred at ____ am/pm on the date specified above.
+      </div>
+      <div class="sigrow">
+        <div>
+          <div class="line"></div>
+          <div class="mini">Signature</div>
+          <div class="line"></div>
+          <div class="mini">Name in Print</div>
+          <div class="line"></div>
+          <div class="mini">Title or Position</div>
+          <div class="line"></div>
+          <div class="mini">Address</div>
+          <div class="line small"></div>
+          <div class="mini">Date</div>
+        </div>
+        <div>
+          <div class="section__title" style="margin:0 0 8px">REVIEWED BY:</div>
+          <div class="line"></div>
+          <div class="mini">Signature Over Printed Name of Health Officer</div>
+          <div class="line small" style="margin-top:6px"></div>
+          <div class="mini">Date</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 23-25 Disposition -->
+    <div class="row">
+      <div class="label">23. CORPSE DISPOSAL</div>
+      <div class="grid-3">
+        <div class="field small">
+          <select name="corpse_disposal" required>
+            <option value="" disabled selected>— Select —</option>
+            <option>Burial</option><option>Cremation</option><option>Others</option>
+          </select>
+          <span class="hint">(Burial, Cremation, If others, specify)</span>
+        </div>
+        <div class="field small"><input name="burial_permit_no" required><span class="hint">24a. BURIAL/CREMATION PERMIT — Number</span></div>
+        <div class="field small"><input type="date" name="burial_permit_date" required><span class="hint">Date Issued</span></div>
+      </div>
+      <div class="grid-2" style="margin-top:6px">
+        <div class="field small"><input name="transfer_permit_no" required><span class="hint">24b. TRANSFER PERMIT — Number</span></div>
+        <div class="field small"><input type="date" name="transfer_permit_date" required><span class="hint">Date Issued</span></div>
+      </div>
+      <div class="grid-1" style="margin-top:6px">
+        <div class="field"><input name="cemetery" required><span class="hint">25. NAME AND ADDRESS OF CEMETERY OR CREMATORY</span></div>
+      </div>
+    </div>
+
+    <!-- 26-29 Informant / Prepared by / Received / Registered -->
+    <div class="row">
+      <div class="grid-2">
+        <div>
+          <div class="label">26. CERTIFICATION OF INFORMANT</div>
+          <div class="mini" style="margin:4px 0 6px">I hereby certify that all information supplied are true and correct to my own knowledge and belief.</div>
+          <div class="line"></div><div class="mini">Signature</div>
+          <div class="line"></div><div class="mini">Name in Print</div>
+          <div class="line"></div><div class="mini">Relationship to the Deceased</div>
+          <div class="line"></div><div class="mini">Address</div>
+          <div class="line small"></div><div class="mini">Date</div>
+        </div>
+        <div>
+          <div class="label">27. PREPARED BY</div>
+          <div class="line"></div><div class="mini">Signature</div>
+          <div class="line"></div><div class="mini">Name in Print</div>
+          <div class="line"></div><div class="mini">Title or Position</div>
+          <div class="line small"></div><div class="mini">Date</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="grid-2">
+        <div>
+          <div class="label">28. RECEIVED BY</div>
+          <div class="line"></div><div class="mini">Signature</div>
+          <div class="line"></div><div class="mini">Name in Print</div>
+          <div class="line"></div><div class="mini">Title or Position</div>
+          <div class="line small"></div><div class="mini">Date</div>
+        </div>
+        <div>
+          <div class="label">29. REGISTERED AT THE OFFICE OF THE CIVIL REGISTRAR</div>
+          <div class="line"></div><div class="mini">Signature</div>
+          <div class="line"></div><div class="mini">Name in Print</div>
+          <div class="line"></div><div class="mini">Title or Position</div>
+          <div class="line small"></div><div class="mini">Date</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="label">REMARKS/ANNOTATIONS <span class="mini">(For LCRO/OCRG Use Only)</span></div>
+      <div class="field"><textarea name="remarks"></textarea></div>
+    </div>
+
+    <div class="row">
+      <div class="label">TO BE FILLED-UP AT THE OFFICE OF THE CIVIL REGISTRAR</div>
+      <div class="grid-4">
+        <div class="field small"><input name="box5"><span class="hint">5</span></div>
+        <div class="field small"><input name="box8"><span class="hint">8</span></div>
+        <div class="field small"><input name="box9"><span class="hint">9</span></div>
+        <div class="field small"><input name="box10"><span class="hint">10</span></div>
+      </div>
+      <div class="grid-3" style="margin-top:6px">
+        <div class="field small"><input name="box11"><span class="hint">11</span></div>
+        <div class="field small"><input name="box19ab"><span class="hint">19a(a)/19b</span></div>
+        <div class="field small"><input name="box19c"><span class="hint">19a(c)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="actions">
+    <button type="reset">Reset</button>
+    <button type="submit" class="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  // ===== Hint state =====
+  function syncFieldState(el){
+    const field = el.closest('.field'); if(!field) return;
+    const val = (el.tagName==='SELECT') ? (el.value||'') : (el.value||'').trim();
+    field.classList.toggle('has-value', val !== '');
+  }
+
+  // ===== Error helpers =====
+  function clearError(field){
+    field.classList.remove('error');
+    const m = field.querySelector('.err'); if(m) m.remove();
+    const ctl = field.querySelector('input,select,textarea'); if(ctl) ctl.removeAttribute('aria-invalid');
+  }
+  function showError(field, text='Fill this field'){
+    if(field.querySelector('.err')) return;
+    field.classList.add('error');
+    const ctl = field.querySelector('input,select,textarea'); if(ctl) ctl.setAttribute('aria-invalid','true');
+    const div = document.createElement('div'); div.className='err'; div.role='alert'; div.textContent=text; field.appendChild(div);
+  }
+  function validateForm(form){
+    let firstInvalid=null;
+    form.querySelectorAll('.field').forEach(clearError);
+    const ctrls = form.querySelectorAll('.field input[required], .field select[required], .field textarea[required]');
+    ctrls.forEach(ctrl=>{
+      const field = ctrl.closest('.field');
+      const val = (ctrl.tagName==='SELECT') ? (ctrl.value||'') : (ctrl.value||'').trim();
+      if(val===''){ if(!firstInvalid) firstInvalid=ctrl; showError(field); }
+    });
+    return firstInvalid;
+  }
+
+  const form = document.getElementById('deathForm');
+  const inputs = form.querySelectorAll('.field input, .field select, .field textarea');
+
+  inputs.forEach(el=>{
+    syncFieldState(el);
+    el.addEventListener('input', ()=>{ syncFieldState(el); if((el.value||'').trim()!=='') clearError(el.closest('.field')); });
+    el.addEventListener('change', ()=>{ syncFieldState(el); if((el.value||'').trim()!=='') clearError(el.closest('.field')); });
+    el.addEventListener('blur', ()=>syncFieldState(el));
+    el.addEventListener('focus', ()=>syncFieldState(el));
+  });
+
+  form.addEventListener('submit', (e)=>{
+    const firstInvalid = validateForm(form);
+    if(firstInvalid){
+      e.preventDefault();
+      firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+      firstInvalid.focus({preventScroll:true});
+    }else{
+      alert('All fields complete. Submitting form…');
+      // Replace with real submit/POST as needed.
+    }
+  });
+
+  form.addEventListener('reset', ()=>{
+    setTimeout(()=>{
+      form.querySelectorAll('.field').forEach(clearError);
+      inputs.forEach(syncFieldState);
+    },0);
+  });
+</script>
+</body>
+</html>
