@@ -5,112 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LCR System — Home</title>
   <style>
-    :root{
+       :root{
       --blue-100:#D0E1F5; --blue-200:#A8BCDA; --blue-700:#415D8A;
       --white:#FFFFFF; --text:#1e293b;
     }
     *,*::before,*::after{ box-sizing:border-box; }
-    html,body{ margin:0; padding:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; color:var(--text); background:var(--blue-100); }
+    html,body{ 
+      margin:0; 
+      padding:0; 
+      font-family:"Times New Roman", Georgia, serif; 
+      color:var(--text); 
+      background:var(--white); 
+    }
     a{ color:inherit; text-decoration:none; }
 
     .nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: linear-gradient(90deg, var(--blue-200), var(--blue-700));
+  background: #415D8A;   /* ✅ solid color */
   color: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
-.nav-inner {
-  max-width: 100%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 32px;
+    .nav-inner {
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 32px;
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+    .brand-mini img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+    
+  h1, h2, h3, h4, h5, h6 {
+  color: #000000 !important;
 }
 
-.brand-mini {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  letter-spacing: .3px;
-}
-.brand-mini img {
-  height: 32px;
-  width: auto;
-  object-fit: contain;
-}
+    .links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
 
-.links {
-  display: flex;
-  gap: 22px;
-  align-items: center;
-}
+    .links a {
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-weight: 600;
+      opacity: .95;
+      color: #fff;
+      text-decoration: none;
+    }
+    .links a:hover {
+      background: rgba(255,255,255,.12);
+    }
 
-.links a {
-  padding: 8px 10px;
-  border-radius: 10px;
-  font-weight: 600;
-  opacity: .95;
-  color: #fff;
-  text-decoration: none;
-}
-.links a:hover {
-  background: rgba(255,255,255,.12);
-}
+    .hamburger {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
 
-/* Hamburger hidden by default */
-.hamburger {
-  display: none;
-  font-size: 26px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-}
+    @media (max-width: 640px) {
+      .hamburger {
+        display: block;
+      }
 
-@media (max-width: 640px) {
-  .hamburger {
-    display: block;
-  }
+      .links {
+        display: none; 
+        flex-direction: column;
+        gap: 8px;
+        background: #A8BCDA;   
+        padding: 8px;
+        border-radius: 10px;
+        margin-top: 10px;
+        position: absolute;
+        top: 60px;  
+        right: 16px;
+        width: 140px;   
+        box-shadow: 0 6px 14px rgba(0,0,0,.25);
+      }
 
-  .links {
-    display: none; /* hidden by default */
-    flex-direction: column;
-    gap: 8px;
-    background: #A8BCDA;   /* system blue */
-    padding: 8px;
-    border-radius: 10px;
-    margin-top: 10px;
-    position: absolute;
-    top: 60px;   /* just below nav */
-    right: 16px;
-    width: 140px;   /* smaller width */
-    box-shadow: 0 6px 14px rgba(0,0,0,.25);
-  }
+      .links.show {
+        display: flex;
+      }
 
-  .links.show {
-    display: flex;
-  }
+      .links a {
+        color: #fff;  
+        text-align: center;
+        font-weight: 600;
+        padding: 6px;
+        border-radius: 6px;
+        transition: background .2s, color .2s;
+      }
 
-  .links a {
-    color: #fff;  /* white text */
-    text-align: center;
-    font-weight: 600;
-    padding: 6px;
-    border-radius: 6px;
-    transition: background .2s, color .2s;
-  }
-
-  .links a:hover {
-    background: var(--blue-700); /* darker blue when hovered */
-    color: #fff;
-  }
-}
-
+      .links a:hover {
+        background: var(--blue-700); 
+        color: #fff;
+      }
+    }
 
 .header-container{
 
@@ -206,10 +214,17 @@
 
     .datetime{ font-size:1.1rem; font-weight:600; color:#334155; margin-top:8px; }
 
-    footer{
-      margin-top:40px; padding:20px; text-align:center; background:var(--blue-200); color:#fff;
-    }
-    footer p{ color: black; margin:4px 0; }
+   footer {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  background: #415D8A;   /* ✅ changed */
+  color: #fff;
+}
+footer p {
+  color: #fff; /* make text white for contrast */
+  margin: 4px 0;
+}
 
     html, body { overflow-x: hidden; }
     
@@ -465,12 +480,7 @@
 
 
 
-main .card,
-main .service-card {
-  opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+
 
 /* Hover effect */
 main .card:hover,
@@ -505,13 +515,51 @@ main .service-card:hover {
 }
 
 
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* Apply to all cards and service cards */
+.card, .service-card {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.6s ease-out;
+}
+
+/* When visible */
+.card.in-view, .service-card.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card ul li img {
+  max-width: 220px;
+  border-radius: 10px;
+  margin-top: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+}
+
+.card ul li video,
+.card ul li iframe {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.2);
+}
+
   </style>
 </head>
 
 <button id="calFab" type="button" class="calendar-fab" aria-label="Open calendar">
   <img src="/LCRSystem/image/calendar.png" alt="Calendar Icon" style="width:40px;height:40px;pointer-events:none;">
 </button>
-
 
 <!-- Calendar Panel -->
 <div id="calPanel" class="calendar-panel" aria-live="polite">
@@ -537,13 +585,11 @@ main .service-card:hover {
       <img src="/LCRSystem/image/LCR.png" alt="Buenavista Logo">
       <span>LCR Buenavista</span>
     </div>
-
   
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       ☰
     </button>
 
-    <!-- Links -->
     <div class="links" id="nav-links">
       <a href="index.html">Home</a>
       <a href="clientLogin.html">Login</a>
@@ -694,14 +740,35 @@ main .service-card:hover {
   <br><br>
 
   <!-- Achievements -->
-  <section class="card">
-    <h3>Achievements</h3>
-    <ul>
-      <li>ISO-certified processes for civil registration (2022)</li>
-      <li>100% digital archiving of birth, marriage, and death certificates (2021)</li>
-      <li>Recognized by PSA for Outstanding Civil Registry Service (2020)</li>
-    </ul>
-  </section>
+<section class="card">
+  <h3>Achievements</h3>
+  <p>
+    Over the years, the Local Civil Registry Office of Buenavista has made significant progress
+    in modernizing its services and ensuring quality standards for the community.
+  </p>
+
+  <ul class="achievements-media">
+    <li>
+      <strong>100% Digital Archiving of Birth, Marriage, and Death Certificates (2021)</strong>
+      <br>
+      <img src="/LCRSystem/image/digital-archive.jpg" alt="Digital Archive">
+      <video controls>
+        <source src="/LCRSystem/video/digital-archive.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </li>
+
+    <li>
+      <strong>Recognized by PSA for Outstanding Civil Registry Service (2020)</strong>
+      <br>
+      <img src="/LCRSystem/image/psa-award.jpg" alt="PSA Award">
+      <video controls>
+        <source src="/LCRSystem/video/psa-award.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </li>
+  </ul>
+</section>
 
   <br><br>
 
@@ -857,9 +924,20 @@ main .service-card:hover {
 </body>
 
 <script>
-document.getElementById('hamburger').addEventListener('click', function() {
-  document.getElementById('nav-links').classList.toggle('show');
+  document.getElementById('hamburger').addEventListener('click', function() {
+     document.getElementById('nav-links').classList.toggle('show');
+   
 });
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.card, .service-card').forEach(el => observer.observe(el));
 
 </script>
 
