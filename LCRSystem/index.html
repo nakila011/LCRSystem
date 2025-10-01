@@ -287,7 +287,6 @@ footer p {
   transform: translateY(-2px);
   box-shadow:0 12px 24px rgba(65,93,138,.45);
 }
-
       
  /* === Floating Calendar + Time === */
 .calendar-fab{
@@ -460,6 +459,35 @@ footer p {
   gap: 22px;
   grid-template-columns: 1fr 1fr;
 }
+.announcement .ann-img{
+  width: 100%;
+  max-width: 360px;   /* ← control size here */
+  height: auto;
+  display: block;
+  margin: 10px auto;  /* center */
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.2);
+}
+
+/* Optional: give the link a flex wrapper to center easily */
+.announcement .ann-media{
+  display: flex;
+  justify-content: center;
+}
+.announcement .ann-note{
+  font-size: .85rem;
+  color: #475569;
+  margin-top: 6px;
+}
+.info-announcement {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 768px) {
+  .info-announcement { grid-template-columns: 1fr; }
+}
+
 
 /* Make cards responsive */
 @media (max-width: 768px) {
@@ -470,10 +498,9 @@ footer p {
 
 /* Optional: highlight announcement */
 .announcement {
-  border-left: 5px solid var(--blue-700);
+  border-left: none;          
   background: #f7fbff;
 }
-
 /* Commitment card styling */
 .commitment {
   margin-top: 22px;
@@ -481,9 +508,44 @@ footer p {
   font-weight: 500;
 }
 
+/* Column content */
+.ann-col h3{
+  margin-top: 0;
+}
 
+/* Image wrapper & sizing */
+.ann-media{
+  display: flex;
+  justify-content: center;
+}
+.ann-img{
+  width: 100%;
+  max-width: 360px;    /* adjust to make images smaller/larger */
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin-top: 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.2);
+}
 
+/* Responsive: stack on small screens */
+@media (max-width: 900px){
+  .ann-grid{ grid-template-columns: 1fr; }
+}
 
+/* two-column grid (keep your existing rules if you have them) */
+.ann-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media (max-width:900px){ .ann-grid{ grid-template-columns:1fr; } }
+
+/* full-width, black underline */
+#announcement > .ann-title{
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #000; /* black */
+}
+
+/* if your global .card h3 adds a blue border, neutralize it here */
+#announcement h3{ border-bottom: none; }
 
 /* Hover effect */
 main .card:hover,
@@ -543,7 +605,7 @@ main .service-card:hover {
 }
 
 .card ul li img {
-  max-width: 220px;
+  max-width: 20px;
   border-radius: 10px;
   margin-top: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,.15);
@@ -556,6 +618,93 @@ main .service-card:hover {
   margin-top: 10px;
   box-shadow: 0 6px 14px rgba(0,0,0,.2);
 }
+.card ul li img{ max-width:20px; border-radius:10px; margin-top:8px; box-shadow:0 4px 10px rgba(0,0,0,.15); }
+    .card ul li video,.card ul li iframe{ max-width:100%; border-radius:12px; margin-top:10px; box-shadow:0 6px 14px rgba(0,0,0,.2); }
+
+    /* ================================ */
+    /* MEDIA CAROUSEL (landscape video) */
+    /* ================================ */
+    .media-carousel{
+      position: relative;
+      width: 100%;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      aspect-ratio: 16/9;
+    }
+    .carousel-track{
+      display: flex;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+    .carousel-slide{
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform .45s ease;
+    }
+    .carousel-slide video{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      background: #000;
+      display: block;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* Arrows */
+    .carousel-nav button{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border: none; border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      color: #fff;
+      display: grid; place-items: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+      z-index: 2;
+      line-height: 1;
+    }
+    .carousel-nav button:hover{ background: rgba(0,0,0,.55); }
+    .carousel-nav button:disabled{ opacity: .35; cursor: not-allowed; }
+    .carousel-nav button:focus-visible{
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+    .carousel-prev{ left: 10px; }
+    .carousel-next{ right: 10px; }
+
+    /* Visually-hidden helper for screen readers */
+    .carousel-sr{
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      .carousel-slide{ transition: none; }
+    }
+
+    /* Mobile tweaks */
+    @media (max-width:560px){
+      .media-carousel{ border-radius: 12px; }
+      .carousel-nav button{ width: 38px; height: 38px; }
+    }
+    .media-error {
+      position:absolute; inset:0; display:grid; place-items:center;
+      color:#fff; font-weight:700; background:rgba(0,0,0,.6);
+    }
 
   </style>
 </head>
@@ -664,40 +813,63 @@ main .service-card:hover {
 </section>
 
 
+
   <br><br>
 
 
-  <!-- Info & Announcement (side-by-side) -->
-  <section class="info-announcement">
-    <!-- 1) Information -->
-    <article class="card">
-      <h3>Information</h3>
-      <p>
-        The Buenavista <strong>eRehistro</strong> is designed to handle the civil registry needs of residents of Buenavista,
-        as well as Filipinos living outside the municipality whose Birth, Marriage, or Death Certificates are officially
-        registered in Buenavista.
-      </p>
-      <p>
-        Did you know that a Birth Certificate serves as a “gateway” to countless opportunities?
-        It is a vital document required when transacting with both government and private institutions such as the
-        <strong>Department of Education (DepEd)</strong>, <strong>Department of Foreign Affairs (DFA)</strong>,
-        <strong>Land Transportation Office (LTO)</strong>, <strong>PhilHealth</strong>, <strong>GSIS</strong>,
-        <strong>SSS</strong>, <strong>COMELEC</strong>, insurance providers, and many others.
-      </p>
-    </article>
+<!-- Information (separate section) -->
+<section id="info" class="card">
+  <h3>Information</h3>
+  <p>
+    The Buenavista <strong>eRehistro</strong> is designed to handle the civil registry needs of residents of Buenavista,
+    as well as Filipinos living outside the municipality whose Birth, Marriage, or Death Certificates are officially
+    registered in Buenavista.
+  </p>
+  <p>
+    Did you know that a Birth Certificate serves as a “gateway” to countless opportunities?
+    It is a vital document required when transacting with both government and private institutions such as the
+    <strong>Department of Education (DepEd)</strong>, <strong>Department of Foreign Affairs (DFA)</strong>,
+    <strong>Land Transportation Office (LTO)</strong>, <strong>PhilHealth</strong>, <strong>GSIS</strong>,
+    <strong>SSS</strong>, <strong>COMELEC</strong>, insurance providers, and many others.
+  </p>
+</section>
 
-    <!-- 2) Announcement -->
-    <article class="card announcement">
-      <h3>Announcement</h3>
+<!-- Announcement (split 2 columns) -->
+<section id="announcement" class="card announcement">
+  <h3 class="ann-title">Announcement</h3>
+
+  <div class="ann-grid">
+    <!-- LEFT: Good News -->
+    <div class="ann-col">
       <p>
-        The <strong>Philippine Statistics Authority (PSA)</strong> and the <strong>Local Government of Buenavista</strong>
-        have entered into a <strong>Memorandum of Agreement (MOA)</strong> to provide <strong>1,582 free late birth
-        registrations</strong> for qualified Buenavista residents—particularly members of Indigenous Peoples (IP), Muslim
-        Filipinos, and families from the most disadvantaged sectors—through the
-        <strong>Birth Registration Assistance Project (BRAP)</strong>.
+        <strong>Good News Barangay Guinabsan 📯😍</strong><br>
+        The LCR Office of Buenavista will join <strong>Kumustahan</strong> sa Barangay Guinabsan tomorrow
+        August 19, 2025. Kung kinsa pa to walay mga Birth Certificate, this is your opportunity
+        para marehistro mo for <strong>Free</strong> — Serbisyo sa Munisipyo nga dalhon diha sa inyong Barangay.
+        Ug sa gusto magpakuha og PSA copies sa Birth, Marriage, Death, and CENOMAR naa gihapon for free
+        <em>(excluded ang PSA fees)</em>.
       </p>
-    </article>
-  </section>
+      <a href="/LCRSystem/image/mass-wedding-poster-full.jpg" target="_blank" rel="noopener" class="ann-media">
+        <img class="ann-img" src="/LCRSystem/image/a2.jpg" alt="PSA services poster">
+      </a>
+    </div>
+
+    <!-- RIGHT: Announcement -->
+    <div class="ann-col">
+      <p>
+        <strong>ATTENTION‼️</strong><br>
+        To all the Couples for our Kasalan sa Barangay 4, please be informed that our Civil Mass Wedding
+        will be held on <strong>September 26, 2025 (Friday)</strong> at Barangay 4 Covered Court,
+        Buenavista, Agusan Del Norte at <strong>9:00 AM</strong>. Please be there before 9 AM.
+      </p>
+      <a href="/LCRSystem/image/mass-wedding-poster-full.jpg" target="_blank" rel="noopener" class="ann-media">
+        <img class="ann-img" src="/LCRSystem/image/a1.jpg" alt="Civil Mass Wedding poster">
+      </a>
+    </div>
+  </div>
+</section>
+
+ 
 
   <!-- 3) Commitment (below the two) -->
   <section class="card commitment">
@@ -710,7 +882,69 @@ main .service-card:hover {
 
   <br><br>
 
-  <!-- Location -->
+ 
+
+  <br><br>
+
+  <!-- Vision & Mission -->
+  <section class="card">
+    <h3>Vision & Mission</h3>
+    <p><strong>Vision:</strong> To provide accurate, accessible, and efficient civil registration services to the people of Buenavista.</p>
+    <p><strong>Mission:</strong> To uphold integrity, transparency, and excellence in recording vital events and in delivering timely services to citizens and stakeholders.</p>
+  </section>
+
+  <br><br>
+
+  <!-- Achievements -->
+ <!-- ==========================================================
+           Achievements (ENHANCED): Landscape Video Carousel + Arrows
+           ========================================================== -->
+      <section class="card" id="achievements">
+        <h3>Achievements</h3>
+        <p>
+          Over the years, the Local Civil Registry Office of Buenavista has made significant progress in modernizing its
+          services and ensuring quality standards for the community.
+        </p>
+
+        <div class="media-carousel" id="achievementsCarousel" tabindex="0"
+            aria-roledescription="carousel" aria-label="Achievements media">
+          <div class="carousel-track">
+            <!-- Slide 1 -->
+            <div class="carousel-slide is-active" aria-roledescription="slide" aria-label="1 of 2">
+<video id="achv1" controls playsinline muted preload="metadata"
+       poster="/LCRSystem/image/vid1-poster.jpg">
+  <source src="/LCRSystem/image/vid2.mp4" type="video/mp4">
+</video>
+
+            </div>
+              <div class="carousel-slide" aria-roledescription="slide" aria-label="2 of 3">
+              <video id="achv2" controls playsinline muted preload="metadata"
+       poster="/LCRSystem/image/vid2-poster.jpg">
+  <source src="/LCRSystem/image/vid1.mp4" type="video/mp4">
+</video>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-slide" aria-roledescription="slide" aria-label="3 of 3">
+              <video id="achv2" controls playsinline muted preload="metadata"
+       poster="/LCRSystem/image/vid2-poster.jpg">
+  <source src="/LCRSystem/image/vid1.mp4" type="video/mp4">
+</video>
+            </div>
+          </div>
+
+          <!-- arrows -->
+          <div class="carousel-nav" aria-controls="achievementsCarousel">
+            <button type="button" class="carousel-prev" aria-label="Previous item">‹<span class="carousel-sr">Previous</span></button>
+            <button type="button" class="carousel-next" aria-label="Next item">›<span class="carousel-sr">Next</span></button>
+          </div>
+        </div>
+      </section>
+
+  <br><br>
+
+
+
+ <!-- Location -->
   <section class="card">
     <h3>Location</h3>
     <p><strong>Municipality of Buenavista</strong><br>Agusan del Norte, Philippines</p>
@@ -730,50 +964,6 @@ main .service-card:hover {
 
     <div id="datetime" class="datetime"></div>
   </section>
-
-  <br><br>
-
-  <!-- Vision & Mission -->
-  <section class="card">
-    <h3>Vision & Mission</h3>
-    <p><strong>Vision:</strong> To provide accurate, accessible, and efficient civil registration services to the people of Buenavista.</p>
-    <p><strong>Mission:</strong> To uphold integrity, transparency, and excellence in recording vital events and in delivering timely services to citizens and stakeholders.</p>
-  </section>
-
-  <br><br>
-
-  <!-- Achievements -->
-<section class="card">
-  <h3>Achievements</h3>
-  <p>
-    Over the years, the Local Civil Registry Office of Buenavista has made significant progress
-    in modernizing its services and ensuring quality standards for the community.
-  </p>
-
-  <ul class="achievements-media">
-    <li>
-      <strong>100% Digital Archiving of Birth, Marriage, and Death Certificates (2021)</strong>
-      <br>
-      <img src="/LCRSystem/image/digital-archive.jpg" alt="Digital Archive">
-      <video controls>
-        <source src="/LCRSystem/video/digital-archive.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </li>
-
-    <li>
-      <strong>Recognized by PSA for Outstanding Civil Registry Service (2020)</strong>
-      <br>
-      <img src="/LCRSystem/image/psa-award.jpg" alt="PSA Award">
-      <video controls>
-        <source src="/LCRSystem/video/psa-award.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </li>
-  </ul>
-</section>
-
-  <br><br>
 
  <!-- Contact 
   
@@ -941,6 +1131,96 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 
 document.querySelectorAll('.card, .service-card').forEach(el => observer.observe(el));
+
+// ==== Media carousel (video) ====
+  (function(){
+    const root  = document.getElementById('achievementsCarousel'); if(!root) return;
+    const track = root.querySelector('.carousel-track');
+    const slides= Array.from(root.querySelectorAll('.carousel-slide'));
+    const btnPrev = root.querySelector('.carousel-prev');
+    const btnNext = root.querySelector('.carousel-next');
+    let index = 0;
+
+    // Lay slides horizontally  ✅ (use backticks)
+    slides.forEach((s,i)=>{ s.style.transform = `translateX(${100*i}%)`; });
+
+    function showErrorOn(slide, msg){
+      if (!slide.querySelector('.media-error')) {
+        // ✅ backticks around HTML
+        slide.insertAdjacentHTML('beforeend', `<div class="media-error">${msg || 'Video can’t load'}</div>`);
+      }
+    }
+
+    function pauseOthers(){
+      slides.forEach((s,i)=>{
+        const v = s.querySelector('video');
+        if (v && i !== index) { try{ v.pause(); v.currentTime = 0; }catch{} }
+      });
+    }
+
+    async function playWhenReady(v, slide){
+      if (!v) return;
+      v.muted = true;          // allow autoplay
+      v.playsInline = true;    // iOS inline
+      try { v.load(); } catch {}
+
+      const ready = new Promise((resolve, reject)=>{
+        const onCanPlay = ()=>{ cleanup(); resolve(); };
+        const onError   = ()=>{ cleanup(); reject(v.error || new Error('video error')); };
+        const cleanup = ()=>{
+          v.removeEventListener('canplay', onCanPlay);
+          v.removeEventListener('error', onError);
+        };
+        v.addEventListener('canplay', onCanPlay, { once:true });
+        v.addEventListener('error', onError, { once:true });
+        // Safety timeout -> if stuck, still try to play
+        setTimeout(()=>{ cleanup(); resolve(); }, 5000);
+      });
+
+      try { await ready; await v.play(); }
+      catch(e){ console.warn('Play failed', e); showErrorOn(slide, 'Tap ▶ to play'); v.setAttribute('controls','controls'); }
+    }
+
+    async function go(to){
+      index = Math.max(0, Math.min(slides.length-1, to));
+      // ✅ backticks here too
+      slides.forEach((s,i)=>{ s.style.transform = `translateX(${100*(i-index)}%)`; });
+
+      if (btnPrev) btnPrev.disabled = (index===0);
+      if (btnNext) btnNext.disabled = (index===slides.length-1);
+
+      pauseOthers();
+      const slide = slides[index];
+      const v = slide.querySelector('video');
+      await playWhenReady(v, slide);
+    }
+
+    if (btnPrev) btnPrev.addEventListener('click', ()=> go(index-1));
+    if (btnNext) btnNext.addEventListener('click', ()=> go(index+1));
+
+    // Keyboard
+    root.addEventListener('keydown', e=>{
+      if (e.key==='ArrowRight'){ e.preventDefault(); go(index+1); }
+      if (e.key==='ArrowLeft'){  e.preventDefault(); go(index-1); }
+    });
+
+    // Swipe
+    let startX=0, dx=0, TH=40;
+    track.addEventListener('touchstart', e=> startX = e.touches[0].clientX, {passive:true});
+    track.addEventListener('touchmove',  e=> dx = e.touches[0].clientX - startX, {passive:true});
+    track.addEventListener('touchend',   ()=>{ if(Math.abs(dx)>TH) go(index + (dx<0?1:-1)); startX=0; dx=0; });
+
+    // Error overlay if decode fails
+    slides.forEach(s=>{
+      const v=s.querySelector('video');
+      if (!v) return;
+      v.addEventListener('error', ()=> showErrorOn(s, 'Video can’t load'), {once:true});
+    });
+
+    // Init
+    go(0);
+  })();
+
 
 </script>
 
