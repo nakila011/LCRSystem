@@ -215,7 +215,7 @@
         <img src="image/LCRlogo.png" alt="LCR Logo">
       </div>
       <div class="name">
-        Shields<span class="accent">.Civil</span>
+        Civil<span class="accent">.Registry</span>
       </div>
       <p class="tagline">Civil Registry Management System</p>
     </div>
@@ -413,7 +413,7 @@
 
                 <dialog id="reg-1" class="req-dialog">
                   <header>
-                    <h3>Validate Registration</h3>
+                    <h3>Validate Marriage Registration Form</h3>
                     <button class="icon ghost" data-close aria-label="Close">✕</button>
                   </header>
 
@@ -426,7 +426,7 @@
 
                     <ul class="req-tbody">
                       <li class="req-tr">
-                        <span class="req-td req-title">Full Name: John Smith</span>
+                        <span class="req-td req-title">Marriage Application Form: Marriage Certificate Form</span>
                         <div class="req-td">
                           <div class="actions-inline">
                             <button class="btn sm success" data-approve>Approve</button>
@@ -441,37 +441,7 @@
                         </div>
                       </li>
 
-                      <li class="req-tr">
-                        <span class="req-td req-title">Date of Birth: 12/03/2023</span>
-                        <div class="req-td">
-                          <div class="actions-inline">
-                            <button class="btn sm success" data-approve>Approve</button>
-                            <button class="btn sm danger ghost" data-revise>Revise (with note)</button>
-                          </div>
-                        </div>
-                        <div class="req-td">
-                          <form class="note-form" hidden>
-                            <textarea class="note-input" rows="3" placeholder="Add note for revision..."></textarea>
-                            <button class="btn sm primary" data-send-revision>Send for Revision</button>
-                          </form>
-                        </div>
-                      </li>
-
-                      <li class="req-tr">
-                        <span class="req-td req-title">Place of Birth: General Hospital</span>
-                        <div class="req-td">
-                          <div class="actions-inline">
-                            <button class="btn sm success" data-approve>Approve</button>
-                            <button class="btn sm danger ghost" data-revise>Revise (with note)</button>
-                          </div>
-                        </div>
-                        <div class="req-td">
-                          <form class="note-form" hidden>
-                            <textarea class="note-input" rows="3" placeholder="Add note for revision..."></textarea>
-                            <button class="btn sm primary" data-send-revision>Send for Revision</button>
-                          </form>
-                        </div>
-                      </li>
+                      
                     </ul>
                   </div>
                 </dialog>
@@ -525,8 +495,622 @@
 
 <!-- ===== The full birth form HTML is stored in this template and injected into the iframe ===== -->
 <template id="birth-form-template">
-  <!-- (template content unchanged; omitted here for brevity in this message if you already have it)
-       If you need the full inner HTML again, keep what you pasted previously. -->
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+ 
+ <link rel="icon" href="/LCRSystem/image/LCRlogo.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/LCRSystem/image/LCRlogo.png">
+<meta name="theme-color" content="#415D8A">
+  <title>Application for Marriage License — Republic of the Philippines</title>
+
+  <!-- Font substitutes: Merriweather (serif) for headings, Inter (sans-serif) for labels/body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink:#111; --ink-faint:#444; --border:#222; --hair:#6a6a6a; --paper:#fff;
+      --title-size: clamp(18px, 2.4vw, 26px);
+      --label-size: clamp(11px, 1.25vw, 13px);
+      --mini-size: clamp(10px, 1.1vw, 12px);
+      --body-size: clamp(12px, 1.35vw, 14px);
+      --rule: 1px; --hairline: 0.6px;
+      --err:#c62828; --err-bg:rgba(198,40,40,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;background:var(--paper);color:var(--ink);}
+    body{margin:0;font:var(--body-size) "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;}
+
+    .smallcaps{letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+    .mini{font-size:var(--mini-size);color:var(--ink-faint)}
+    .center{text-align:center}
+    .right{text-align:right}
+    .just{text-align:justify}
+
+    .sheet{
+      margin:0 auto;
+      max-width:980px;
+      padding:clamp(12px, 2vw, 18px);
+      border:var(--rule) solid var(--border);
+      box-shadow:0 2px 0 rgba(0,0,0,.03) inset;
+      position:relative;
+    }
+    .A4{aspect-ratio:auto;}
+
+    .masthead{display:grid;grid-template-columns:1fr 2fr 1fr;gap:8px;align-items:end;margin-bottom:8px}
+    .masthead__left,.masthead__right{align-self:start}
+    .masthead .title{
+      font-family:"Merriweather", Georgia, serif;font-weight:900;text-align:center;margin:4px 0 0;
+      font-size:var(--title-size);border-top:var(--hairline) solid var(--hair);padding-top:6px
+    }
+    .masthead .gov,.masthead .office{font-size:var(--mini-size);text-align:center}
+    .masthead .mini{font-size:var(--mini-size)}
+
+    .meta-grid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:6px;border-top:var(--rule) solid var(--border);border-bottom:var(--rule) solid var(--border);
+      padding:6px 4px;margin-bottom:8px
+    }
+    .meta{border:var(--hairline) solid var(--hair);height:34px;padding:2px 6px;display:flex;flex-direction:column;justify-content:flex-end}
+    .meta label{font-size:var(--mini-size);color:var(--ink-faint);line-height:1}
+    .meta input{border:0;border-top:var(--hairline) solid transparent;outline:none;font-size:12px;padding:2px 0 0;min-height:16px;width:100%;}
+
+    @media (max-width:1024px){ .meta-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+    @media (max-width:700px){ .meta-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media (max-width:480px){ .meta-grid{grid-template-columns:1fr;} }
+
+    .twocol{display:grid;grid-template-columns:1fr;gap:8px}
+    @media (min-width:900px){ .twocol{grid-template-columns:1fr 1fr;} }
+
+    .panel{border:var(--rule) solid var(--border);padding:6px 8px;display:flex;flex-direction:column;gap:6px;min-height:100%}
+    .panel__title{font-weight:700;border-bottom:var(--rule) solid var(--border);padding:4px;text-align:center;background:#f7f7f7}
+    .registrar-note{border-bottom:var(--hairline) solid var(--hair);padding-bottom:6px}
+
+    .fieldset{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+    .row-title{font-weight:600;font-size:var(--label-size);margin-bottom:2px}
+    .grid-1,.grid-2,.grid-3,.grid-4{display:grid;gap:6px}
+    .grid-1{grid-template-columns:1fr}
+    .grid-2{grid-template-columns:1fr 1fr}
+    .grid-3{grid-template-columns:1fr 1fr 1fr}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+    .stack-on-mobile{grid-template-columns:1fr}
+    @media (min-width:640px){
+      .stack-on-mobile.grid-3{grid-template-columns:repeat(3,1fr)}
+      .stack-on-mobile.grid-4{grid-template-columns:repeat(4,1fr)}
+      .stack-on-mobile.grid-2{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* Field container */
+    .field{ position:relative; padding-bottom:8px; }
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%; border:var(--hairline) solid var(--hair);
+      height:28px; padding:4px 6px; font-size:12px; background:#fff; outline:none;
+    }
+    .field.small input, .field.small select{height:24px}
+
+    /* Bigger tap targets on mobile */
+    @media (max-width:640px){
+      .field input, .field select, .field textarea{ height:40px; font-size:14px; }
+      .field.small input, .field.small select{ height:36px; }
+    }
+
+    /* Hint labels */
+    .hint{
+      position:absolute; top:50%; left:8px; transform:translateY(-50%);
+      font-size:var(--mini-size); color:var(--ink-faint); pointer-events:none;
+      transition: top .15s ease, transform .15s ease, opacity .15s ease;
+      line-height:1; z-index:0;
+    }
+    .field.has-value .hint,
+    .field :is(input,textarea):focus + .hint{ top:100%; transform:translateY(3px); opacity:.85; }
+    .field:has(select) .hint{ top:100%; transform:translateY(3px); opacity:.85; }
+    .field select{ appearance:auto; line-height:1.2; }
+
+    /* Error styles */
+    .field.error input,
+    .field.error select,
+    .field.error textarea{
+      border-color:var(--err);
+      box-shadow:0 0 0 2px var(--err-bg) inset;
+    }
+    .err{
+      position:absolute; top:100%; left:0; transform:translateY(6px);
+      font-size:12px; color:var(--err);
+      display:flex; align-items:center; gap:6px;
+    }
+    .err::before{ content:"⚠"; font-size:14px; line-height:1; }
+
+    .subtle .row-title{font-weight:500}
+
+    .signature-block{margin-top:auto}
+    .sig-col{display:flex;flex-direction:column;gap:4px}
+    .line.signature{border-bottom:var(--hairline) solid var(--hair);height:28px}
+    .sig-label{color:var(--ink-faint);font-size:var(--mini-size)}
+    .oath{border-top:var(--rule) solid var(--border);padding-top:6px}
+    .sig-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end;margin-top:6px}
+    .stamp{border:var(--hairline) dashed var(--hair);padding:8px 6px;min-height:44px}
+    .line.registrar{border-bottom:var(--hairline) solid var(--hair);height:28px}
+
+    /* Actions */
+    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap;}
+    .actions button{padding:8px 14px;border:1px solid var(--border);font-size:13px;cursor:pointer;background:#f7f7f7;}
+    .actions .submit{background:#222;color:#fff}
+    @media (max-width:480px){ .actions button{flex:1; min-width:140px;} }
+
+    /* Print */
+    @media print{
+      :root{--title-size:22pt;--label-size:10pt;--mini-size:9pt;--body-size:11pt;--rule:.8pt;--hairline:.5pt;}
+      @page{ size:A4; margin:10mm; }
+      body{background:#fff;box-shadow:none}
+      .sheet{max-width:none;border:0;box-shadow:none;padding:0}
+      .panel__title{background:#f2f2f2}
+      .actions{display:none}
+      .A4{aspect-ratio:210/297;}
+    }
+  </style>
+</head>
+<body>
+<form id="marriageForm" class="sheet A4" role="main" novalidate>
+  <header class="masthead">
+    <div class="masthead__left">
+      <div class="mini smallcaps">Municipal Form 90 (Form No. 2)</div>
+      <div class="mini">Revised January 2007</div>
+    </div>
+    <div class="masthead__center">
+      <div class="gov smallcaps">Republic of the Philippines</div>
+      <div class="office smallcaps">OFFICE OF THE CIVIL REGISTRAR GENERAL</div>
+      <h1 class="title">APPLICATION FOR MARRIAGE LICENSE</h1>
+    </div>
+    <div class="masthead__right">
+      <div class="mini">To be accomplished in quadruplicate using black ink</div>
+    </div>
+  </header>
+
+  <!-- META -->
+  <section class="meta-grid" aria-label="Form metadata">
+    <div class="meta"><label for="province">Province</label><input id="province" name="province" required></div>
+    <div class="meta"><label for="citymun">City/Municipality</label><input id="citymun" name="citymun" required></div>
+    <div class="meta"><label for="receivedby">Received by</label><input id="receivedby" name="receivedby" required></div>
+    <div class="meta"><label for="dateofreceipt">Date of Receipt</label><input id="dateofreceipt" name="dateofreceipt" type="date" required></div>
+    <div class="meta"><label for="regno">Registry No.</label><input id="regno" name="regno" required></div>
+    <div class="meta"><label for="mlno">Marriage License No.</label><input id="mlno" name="mlno" required></div>
+    <div class="meta"><label for="issuedate">Date of Issuance of Marriage License</label><input id="issuedate" name="issuedate" type="date" required></div>
+  </section>
+
+  <section class="twocol" aria-label="Applicants">
+    <!-- GROOM PANEL -->
+    <div class="panel" aria-labelledby="groom-title">
+      <div id="groom-title" class="panel__title">GROOM</div>
+      <div class="registrar-note">
+        <div class="smallcaps">The Civil Registrar</div>
+        <p class="mini">Sir/Madam:</p>
+        <p class="mini just">
+          May I apply for a license to contract marriage with ______ and to this effect,
+          being duly sworn, I hereby depose and say that I have all the necessary
+          qualifications and none of the legal disqualifications to contract the said
+          marriage, and that the following data are true and correct to the best of my
+          knowledge and information:
+        </p>
+      </div>
+
+      <ol class="fieldset">
+        <li>
+          <div class="row-title">1. Name of Applicant</div>
+          <div class="grid-3 stack-on-mobile" aria-label="Name of Applicant">
+            <div class="field"><input type="text" name="g_first" required aria-label="Groom First name"><span class="hint">(First)</span></div>
+            <div class="field"><input type="text" name="g_middle" required aria-label="Groom Middle name"><span class="hint">(Middle)</span></div>
+            <div class="field"><input type="text" name="g_last" required aria-label="Groom Last name"><span class="hint">(Last)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">2. Date of Birth/ Age</div>
+          <div class="grid-4 stack-on-mobile" aria-label="Date of Birth and Age">
+            <div class="field small"><input type="number" min="1" max="31" name="g_dob_day" required aria-label="Groom Day of birth"><span class="hint">(Day)</span></div>
+            <div class="field small"><input type="text" name="g_dob_month" required aria-label="Groom Month of birth"><span class="hint">(Month)</span></div>
+            <div class="field small"><input type="number" min="1900" max="2100" name="g_dob_year" required aria-label="Groom Year of birth"><span class="hint">(Year)</span></div>
+            <div class="field small"><input type="number" min="1" max="150" name="g_age" required aria-label="Groom Age"><span class="hint">(Age)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">3. Place of Birth</div>
+          <div class="grid-3 stack-on-mobile" aria-label="Place of Birth">
+            <div class="field"><input type="text" name="g_pob_city" required><span class="hint">(City/Municipality)</span></div>
+            <div class="field"><input type="text" name="g_pob_province" required><span class="hint">(Province)</span></div>
+            <div class="field"><input type="text" name="g_pob_country" required><span class="hint">(Country)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">4. Sex/ Citizenship</div>
+          <div class="grid-2 stack-on-mobile" aria-label="Sex and Citizenship">
+            <div class="field small">
+              <select name="g_sex" required aria-label="Groom Sex">
+                <option value="" disabled selected>— Select —</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <span class="hint">(Male/Female)</span>
+            </div>
+            <div class="field"><input type="text" name="g_citizenship" required aria-label="Groom Citizenship"><span class="hint">(Citizenship)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">5. Residence</div>
+          <div class="grid-1" aria-label="Residence">
+            <div class="field"><input type="text" name="g_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">6. Religion/ Religious Sect</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_religion" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">7. Civil Status</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_civil_status" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">8. IF PREVIOUSLY MARRIED: How was it dissolved?</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_dissolution" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">9. Place where dissolved</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="g_diss_city" required><span class="hint">(City/Municipality)</span></div>
+            <div class="field"><input type="text" name="g_diss_province" required><span class="hint">(Province)</span></div>
+            <div class="field"><input type="text" name="g_diss_country" required><span class="hint">(Country)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">10. Date when dissolved</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field small"><input type="number" min="1" max="31" name="g_diss_day" required><span class="hint">(Day)</span></div>
+            <div class="field small"><input type="text" name="g_diss_month" required><span class="hint">(Month)</span></div>
+            <div class="field small"><input type="number" min="1900" max="2100" name="g_diss_year" required><span class="hint">(Year)</span></div>
+          </div>
+        </li>
+        <li class="subtle">
+          <div class="row-title">11. Degree of relationship of contracting parties</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_relationship_degree" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">12. Name of Father</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="g_father_first" required><span class="hint">(First)</span></div>
+            <div class="field"><input type="text" name="g_father_mid" required><span class="hint">(Middle)</span></div>
+            <div class="field"><input type="text" name="g_father_last" required><span class="hint">(Last)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">13. Citizenship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_father_citizenship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">14. Residence</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_father_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+        </li>
+        <li>
+          <div class="row-title">15. Maiden Name of Mother</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="g_mother_first" required><span class="hint">(First)</span></div>
+            <div class="field"><input type="text" name="g_mother_mid" required><span class="hint">(Middle)</span></div>
+            <div class="field"><input type="text" name="g_mother_last" required><span class="hint">(Last)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">16. Citizenship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_mother_citizenship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">17. Residence</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_mother_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+        </li>
+        <li>
+          <div class="row-title">18. Persons who gave consent or advice</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_consent_persons" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">19. Relationship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_consent_relationship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">20. Citizenship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_consent_citizenship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">21. Residence</div>
+          <div class="grid-1"><div class="field"><input type="text" name="g_consent_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+        </li>
+      </ol>
+
+      <div class="signature-block" aria-label="Signature section">
+        <div class="sig-col">
+          <div class="line signature"></div>
+          <div class="sig-label mini">Signature of Applicant</div>
+          <div class="oath">
+            <div class="smallcaps center">SUBSCRIBED AND SWORN</div>
+            <p class="mini just">
+              to before me this ______ day of ____________ at _____________, Philippines, affiant who
+              exhibited to me his Community Tax Cert. __________ issued on __________ at __________.
+            </p>
+            <div class="sig-pair">
+              <div class="stamp mini">Exempt from documentary stamp tax</div>
+              <div class="line registrar"></div>
+            </div>
+            <div class="sig-label mini right">(Signature Over Printed Name of the Civil Registrar)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRIDE PANEL -->
+    <div class="panel" aria-labelledby="bride-title">
+      <div id="bride-title" class="panel__title">BRIDE</div>
+      <div class="registrar-note">
+        <div class="smallcaps">The Civil Registrar</div>
+        <p class="mini">Sir/Madam:</p>
+        <p class="mini just">
+          May I apply for a license to contract marriage with ______ and to this effect,
+          being duly sworn, I hereby depose and say that I have all the necessary
+          qualifications and none of the legal disqualifications to contract the said
+          marriage, and that the following data are true and correct to the best of my
+          knowledge and information:
+        </p>
+      </div>
+
+      <ol class="fieldset">
+        <li>
+          <div class="row-title">1. Name of Applicant</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="b_first" required aria-label="Bride First name"><span class="hint">(First)</span></div>
+            <div class="field"><input type="text" name="b_middle" required aria-label="Bride Middle name"><span class="hint">(Middle)</span></div>
+            <div class="field"><input type="text" name="b_last" required aria-label="Bride Last name"><span class="hint">(Last)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">2. Date of Birth/ Age</div>
+          <div class="grid-4 stack-on-mobile">
+            <div class="field small"><input type="number" min="1" max="31" name="b_dob_day" required><span class="hint">(Day)</span></div>
+            <div class="field small"><input type="text" name="b_dob_month" required><span class="hint">(Month)</span></div>
+            <div class="field small"><input type="number" min="1900" max="2100" name="b_dob_year" required><span class="hint">(Year)</span></div>
+            <div class="field small"><input type="number" min="1" max="150" name="b_age" required><span class="hint">(Age)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">3. Place of Birth</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="b_pob_city" required><span class="hint">(City/Municipality)</span></div>
+            <div class="field"><input type="text" name="b_pob_province" required><span class="hint">(Province)</span></div>
+            <div class="field"><input type="text" name="b_pob_country" required><span class="hint">(Country)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">4. Sex/ Citizenship</div>
+          <div class="grid-2 stack-on-mobile">
+            <div class="field small">
+              <select name="b_sex" required aria-label="Bride Sex">
+                <option value="" disabled selected>— Select —</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+              <span class="hint">(Male/Female)</span>
+            </div>
+            <div class="field"><input type="text" name="b_citizenship" required><span class="hint">(Citizenship)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">5. Residence</div>
+          <div class="grid-1">
+            <div class="field"><input type="text" name="b_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">6. Religion/ Religious Sect</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_religion" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">7. Civil Status</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_civil_status" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">8. IF PREVIOUSLY MARRIED: How was it dissolved?</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_dissolution" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">9. Place where dissolved</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="b_diss_city" required><span class="hint">(City/Municipality)</span></div>
+            <div class="field"><input type="text" name="b_diss_province" required><span class="hint">(Province)</span></div>
+            <div class="field"><input type="text" name="b_diss_country" required><span class="hint">(Country)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">10. Date when dissolved</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field small"><input type="number" min="1" max="31" name="b_diss_day" required><span class="hint">(Day)</span></div>
+            <div class="field small"><input type="text" name="b_diss_month" required><span class="hint">(Month)</span></div>
+            <div class="field small"><input type="number" min="1900" max="2100" name="b_diss_year" required><span class="hint">(Year)</span></div>
+          </div>
+        </li>
+        <li class="subtle">
+          <div class="row-title">11. Degree of relationship of contracting parties</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_relationship_degree" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">12. Name of Father</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="b_father_first" required><span class="hint">(First)</span></div>
+            <div class="field"><input type="text" name="b_father_mid" required><span class="hint">(Middle)</span></div>
+            <div class="field"><input type="text" name="b_father_last" required><span class="hint">(Last)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">13. Citizenship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_father_citizenship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">14. Residence</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_father_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+        </li>
+        <li>
+          <div class="row-title">15. Maiden Name of Mother</div>
+          <div class="grid-3 stack-on-mobile">
+            <div class="field"><input type="text" name="b_mother_first" required><span class="hint">(First)</span></div>
+            <div class="field"><input type="text" name="b_mother_mid" required><span class="hint">(Middle)</span></div>
+            <div class="field"><input type="text" name="b_mother_last" required><span class="hint">(Last)</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="row-title">16. Citizenship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_mother_citizenship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">17. Residence</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_mother_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+        </li>
+        <li>
+          <div class="row-title">18. Persons who gave consent or advice</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_consent_persons" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">19. Relationship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_consent_relationship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">20. Citizenship</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_consent_citizenship" required></div></div>
+        </li>
+        <li>
+          <div class="row-title">21. Residence</div>
+          <div class="grid-1"><div class="field"><input type="text" name="b_consent_residence" required><span class="hint">(House No., St., Barangay, City/Municipality, Province, Country)</span></div></div>
+        </li>
+      </ol>
+
+      <div class="signature-block" aria-label="Signature section">
+        <div class="sig-col">
+          <div class="line signature"></div>
+          <div class="sig-label mini">Signature of Applicant</div>
+          <div class="oath">
+            <div class="smallcaps center">SUBSCRIBED AND SWORN</div>
+            <p class="mini just">
+              to before me this ______ day of ____________ at _____________, Philippines, affiant who
+              exhibited to me his Community Tax Cert. __________ issued on __________ at __________.
+            </p>
+            <div class="sig-pair">
+              <div class="stamp mini">Exempt from documentary stamp tax</div>
+              <div class="line registrar"></div>
+            </div>
+            <div class="sig-label mini right">(Signature Over Printed Name of the Civil Registrar)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buttons bottom-right -->
+  <div class="actions">
+    <button type="reset" class="reset">Reset</button>
+    <button type="submit" class="submit">Submit</button>
+  </div>
+</form>
+
+<script>
+  // --- Hint state toggling ---
+  function syncFieldState(el){
+    const field = el.closest('.field');
+    if(!field) return;
+    const val = (el.tagName === 'SELECT') ? (el.value || '') : (el.value || '').trim();
+    field.classList.toggle('has-value', val !== '');
+  }
+
+  // --- Error helpers ---
+  function clearError(field){
+    field.classList.remove('error');
+    const msg = field.querySelector('.err');
+    if(msg) msg.remove();
+    const ctl = field.querySelector('input,select,textarea');
+    if(ctl) ctl.removeAttribute('aria-invalid');
+  }
+
+  function showError(field, text='Fill this field'){
+    if(field.querySelector('.err')) return; // already has one
+    field.classList.add('error');
+    const ctl = field.querySelector('input,select,textarea');
+    if(ctl) ctl.setAttribute('aria-invalid','true');
+    const div = document.createElement('div');
+    div.className = 'err';
+    div.role = 'alert';
+    div.textContent = text;
+    field.appendChild(div);
+  }
+
+  function validateForm(form){
+    let firstInvalid = null;
+    // clear previous
+    form.querySelectorAll('.field').forEach(clearError);
+
+    // check required controls
+    const ctrls = form.querySelectorAll('.field input[required], .field select[required], .field textarea[required]');
+    ctrls.forEach(ctrl=>{
+      const field = ctrl.closest('.field');
+      const val = (ctrl.tagName === 'SELECT') ? (ctrl.value||'') : (ctrl.value||'').trim();
+      if(val === ''){
+        if(!firstInvalid) firstInvalid = ctrl;
+        showError(field);
+      }
+    });
+    return firstInvalid;
+  }
+
+  const form = document.getElementById('marriageForm');
+  const inputs = form.querySelectorAll('.field input, .field select, .field textarea');
+
+  inputs.forEach(el=>{
+    syncFieldState(el); // initial
+    el.addEventListener('input', ()=>{
+      syncFieldState(el);
+      // live clear errors when valid
+      const field = el.closest('.field');
+      const val = (el.tagName === 'SELECT') ? (el.value||'') : (el.value||'').trim();
+      if(val !== '') clearError(field);
+    });
+    el.addEventListener('change', ()=>{
+      syncFieldState(el);
+      const field = el.closest('.field');
+      const val = (el.tagName === 'SELECT') ? (el.value||'') : (el.value||'').trim();
+      if(val !== '') clearError(field);
+    });
+    el.addEventListener('blur',  ()=>syncFieldState(el));
+    el.addEventListener('focus', ()=>syncFieldState(el));
+  });
+
+  form.addEventListener('submit', (e)=>{
+    const firstInvalid = validateForm(form);
+    if(firstInvalid){
+      e.preventDefault();
+      firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+      firstInvalid.focus({preventScroll:true});
+    } else {
+      // form is complete; proceed (replace with your real submit if needed)
+      alert('All fields complete. Submitting form…');
+    }
+  });
+
+  form.addEventListener('reset', ()=>{
+    setTimeout(()=>{
+      form.querySelectorAll('.field').forEach(clearError);
+      inputs.forEach(syncFieldState);
+    },0);
+  });
+</script>
+</body>
+</html>
+
 </template>
 
 <script>

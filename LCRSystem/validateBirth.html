@@ -230,7 +230,7 @@
       <img src="image/LCRlogo.png" alt="LCR Logo">
     </div>
     <div class="name">
-      Shields<span class="accent">.Civil</span>
+      Civil<span class="accent">.Registry</span>
     </div>
     <p class="tagline">Civil Registry Management System</p>
   </div>
@@ -431,7 +431,7 @@
 
             <dialog id="reg-1" class="req-dialog">
               <header>
-                <h3>Validate Registration</h3>
+                <h3>Validate Birth Registration Form</h3>
                 <button class="icon ghost" data-close aria-label="Close">✕</button>
               </header>
 
@@ -444,7 +444,7 @@
 
                 <ul class="req-tbody">
                   <li class="req-tr">
-                    <span class="req-td req-title">Full Name: John Smith</span>
+                    <span class="req-td req-title">Birth Application Form: Birth Certificate Form</span>
                     <div class="req-td">
                       <div class="actions-inline">
                         <button class="btn sm success" data-approve>Approve</button>
@@ -459,37 +459,7 @@
                     </div>
                   </li>
 
-                  <li class="req-tr">
-                    <span class="req-td req-title">Date of Birth: 12/03/2023</span>
-                    <div class="req-td">
-                      <div class="actions-inline">
-                        <button class="btn sm success" data-approve>Approve</button>
-                        <button class="btn sm danger ghost" data-revise>Revise (with note)</button>
-                      </div>
-                    </div>
-                    <div class="req-td">
-                      <form class="note-form" hidden>
-                        <textarea class="note-input" rows="3" placeholder="Add note for revision..."></textarea>
-                        <button class="btn sm primary" data-send-revision>Send for Revision</button>
-                      </form>
-                    </div>
-                  </li>
-
-                  <li class="req-tr">
-                    <span class="req-td req-title">Place of Birth: General Hospital</span>
-                    <div class="req-td">
-                      <div class="actions-inline">
-                        <button class="btn sm success" data-approve>Approve</button>
-                        <button class="btn sm danger ghost" data-revise>Revise (with note)</button>
-                      </div>
-                    </div>
-                    <div class="req-td">
-                      <form class="note-form" hidden>
-                        <textarea class="note-input" rows="3" placeholder="Add note for revision..."></textarea>
-                        <button class="btn sm primary" data-send-revision>Send for Revision</button>
-                      </form>
-                    </div>
-                  </li>
+                
                 </ul>
               </div>
             </dialog>
@@ -537,7 +507,8 @@
     </div>
   </dialog>
 
-  <!-- ===== The full birth form HTML is stored in this template and injected into the iframe ===== -->
+  
+
   <template id="birth-form-template">
 <!DOCTYPE html>
 <html lang="en">
