@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="/LCRSystem/image/LCRlogo.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/LCRSystem/image/LCRlogo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <meta name="theme-color" content="#415D8A">
   <title>LCR System — Create Account</title>
   <style>
@@ -137,6 +139,36 @@
       background:linear-gradient(135deg,var(--blue-700),#2e4466); transition:transform .2s, box-shadow .2s }
     button:hover{ transform:scale(1.02); box-shadow:0 8px 18px rgba(65,93,138,.3) }
     .muted{ text-align:center; font-size:.85rem; color:#586a86; margin:14px 0 0 }
+
+      .password-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .password-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* space for icon */
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #415D8A;
+    font-size: 1rem;
+    transition: color 0.2s;
+  }
+
+  .toggle-password:hover {
+    color: #2e4466;
+  }
   </style>
 </head>
 <body>
@@ -176,24 +208,26 @@
           </div>
           
              <div>
-            <label for="phone">Phone Number (optional)</label>
+            <label for="phone">Phone Number</label>
             <input id="phone" name="phone" type="tel" placeholder="09xxxxxxxxx" />
           </div>
           <br>
-          <p class="muted"><b>Please input registered email address or already made email address</b></p>
+          <p class="muted"><b>NOTE: Please enter registered/valid email address or already made email address.</b></p>
            <br>
 
           <div>
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="username" required />
+            <input id="email" name="email" type="email" placeholder="juandelacruz@example.com" autocomplete="username" required />
           </div>
         
 
-          <div>
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="At least 8 characters" minlength="8" required />
-          </div>
-
+        <div class="password-container">
+  <label for="password">Password</label>
+  <div class="password-wrapper">
+    <input id="password" name="password" type="password" placeholder="*******" minlength="8" required />
+    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+  </div>
+</div>
 
                 <button type="submit">Create account</button>
 
@@ -214,6 +248,18 @@
         alert('Passwords do not match.');
       }
     });
+
+    const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword.addEventListener('click', () => {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+
+    // toggle icon between eye and eye-slash
+    togglePassword.classList.toggle('fa-eye');
+    togglePassword.classList.toggle('fa-eye-slash');
+  });
   </script>
 </body>
 </html>

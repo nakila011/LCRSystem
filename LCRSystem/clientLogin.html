@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="/LCRSystem/image/LCRlogo.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/LCRSystem/image/LCRlogo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <meta name="theme-color" content="#415D8A">
   <title>LCR System — Citizen Login</title>
   <style>
@@ -169,6 +170,37 @@
     0% { opacity: 0; transform: translateY(30px) scale(0.95); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
+  
+ .password-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .password-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* space for icon */
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #415D8A;
+    font-size: 1rem;
+    transition: color 0.2s;
+  }
+
+  .toggle-password:hover {
+    color: #2e4466;
+  }
+
   </style>
 </head>
 <body>
@@ -207,18 +239,19 @@
       <div class="hero"></div>
 
       <form id="citizenLoginForm" action="/login" method="post" novalidate>
-        <div class="input">
-          <label for="email">Fullname</label>
-          <input id="email" name="email" type="email" placeholder="Jouselo G. Nakila" autocomplete="username" required />
-        </div>
+       
         <div class="input">
           <label for="email">Email</label>
           <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="username" required />
         </div>
-        <div class="input">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" minlength="8" required />
-        </div>
+
+        <div class="password-container">
+  <label for="password">Password</label>
+  <div class="password-wrapper">
+    <input id="password" name="password" type="password" placeholder="*******" minlength="8" required />
+    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+  </div>
+</div>
 
         <div class="row">
           <label class="checkbox"><input type="checkbox" id="rememberMe" /> Remember me</label>
@@ -280,6 +313,18 @@
         });
       }
     });
+
+      const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword.addEventListener('click', () => {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+
+    // toggle icon between eye and eye-slash
+    togglePassword.classList.toggle('fa-eye');
+    togglePassword.classList.toggle('fa-eye-slash');
+  });
   </script>
 </body>
 </html>
