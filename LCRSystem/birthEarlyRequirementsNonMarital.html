@@ -339,7 +339,7 @@
     <div class="sheet">
       <div class="header">
         <h1>Local Civil Registry Office Buenavista, Agusan del Norte</h1>
-        <span class="badge">REGULAR FILING OF REQUIREMENTS FOR CERTIFICATE OF DEATH Timely Registration</span>
+        <span class="badge">REGULAR FILING OF REQUIREMENTS FOR CERTIFICATE OF BIRTH TIMELY REGISTRATION (NON-MARITAL)</span>
       </div>
 
       <div class="section" id="owner-section">
@@ -364,7 +364,7 @@
 
     <!-- Sheet 2 -->
     <div class="sheet" id="timely-section" style="margin-top:20px">
-      <div class="header"><h1>Timely (Regular) Registration of Birth</h1></div>
+      <div class="header"><h1>Timely (Non-Marital) Registration of Birth</h1></div>
 
       <label class="pill" style="margin:12px 22px 0;border-left:4px solid var(--blue-700)">
         Note: Upload the required documents (in any order). Each item is marked complete after a successful upload. The Proceed button is enabled only when all required uploads for your case are complete.
@@ -390,8 +390,8 @@
             <tr data-req="marriageCert" data-required-when="marital">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">1.Barangay Certification</div>
-                <div class="subtext">Required only if parents are married.</div>
+                <div class="req-title">1.Parents Certification of Marriage</div>
+                <div class="subtext">An official document or certification issued by the Local Civil Registry or the church (if married religiously) that confirms the parents’ lawful marriage.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -421,8 +421,8 @@
             <tr data-req="barangayCert" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">2.Police/NBI Report</div>
-                <div class="subtext">Residence/birth attestation as required by the LGU.</div>
+                <div class="req-title">2.Barangay Certification</div>
+                <div class="subtext">An official document issued by the Barangay Captain or Barangay Office certifying a person’s residency, identity, or good moral character.</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -451,8 +451,8 @@
             <tr data-req="parentIDs" data-always-required="true">
               <td><input type="checkbox" aria-label="Completed" disabled></td>
               <td>
-                <div class="req-title">3.Cause of Death issued by MHO</div>
-                <div class="subtext">Any government-issued ID of mother and/or father.</div>
+                <div class="req-title">3.Valid ID's</div>
+                <div class="subtext">Government-issued identification cards that serve as proof of identity (e.g., PhilID, Driver’s License, Passport, Postal ID, etc.).</div>
               </td>
               <td>
                 <div class="uploader" data-dropzone>
@@ -476,57 +476,10 @@
                 </div>
               </td>
             </tr>
-
-
-        
+   
           </tbody>
         </table>
       </div>
-
-
-     <div class="sheet" id="signoff" style="margin-top:20px">
-  <div class="section signoff">
-    <div class="sig-header">
-      <span>Checked and Verified by:</span>
-      <span class="date">Date: <span class="date-line" id="todayDate"></span></span>
-    </div>
-
-    <div class="sig-grid">
-      <!-- 1st signature block -->
-      <div class="sig-block" data-sig="joanne">
-        <div class="signature-line">
-          <img alt="Signature preview" id="sigImg-joanne">
-        </div>
-
-        <canvas class="sig-pad" id="sigPad-joanne"></canvas>
-        <div class="sig-tools">
-          <button type="button" class="sig-btn" data-clear="joanne">Clear</button>
-          <button type="button" class="sig-btn primary" data-accept="joanne">Use Signature</button>
-        </div>
-
-        <div class="sig-name">JOANNE A. PAL</div>
-        <div class="sig-title">Admin Officer V – LCRO – BTA. ADN</div>
-      </div>
-
-      <!-- 2nd signature block -->
-      <div class="sig-block" data-sig="teresita">
-        <div class="signature-line">
-          <img alt="Signature preview" id="sigImg-teresita">
-        </div>
-
-        <canvas class="sig-pad" id="sigPad-teresita"></canvas>
-        <div class="sig-tools">
-          <button type="button" class="sig-btn" data-clear="teresita">Clear</button>
-          <button type="button" class="sig-btn primary" data-accept="teresita">Use Signature</button>
-        </div>
-
-        <div class="sig-name">TERESITA K. VALDEHUEZA</div>
-        <div class="sig-title">Municipal Civil Registrar – LCRO – BTA. ADN</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 
 

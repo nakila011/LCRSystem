@@ -81,7 +81,7 @@
 
 <!-- Birth Records (DB-driven, with Edit/Delete + Search) -->
 <section id="birth-records" class="br-wrap">
-  <h2>Birth Records</h2>
+  <h2>Early Registration of Birth Non-Marital Records</h2>
 
   <!-- Right-aligned search -->
   <div class="br-toolbar">
@@ -98,7 +98,9 @@
     <table class="br-table" aria-label="Birth Records">
       <thead>
         <tr>
-          <th scope="col">Full name</th>
+          <th scope="col">Date of Registration</th>
+          <th scope="col">Name of Applicant</th>
+          <th scope="col">Child’s full name</th>
           <th scope="col">Sex</th>
           <th scope="col">Date of Birth</th>
           <th scope="col">Place of Birth</th>
@@ -108,9 +110,11 @@
       <tbody id="br-body">
         <!-- Seed rows (replace with server-rendered rows) -->
         <tr data-id="1">
+          <td data-label="Date">August 5, 2025</td>
+          <td data-label="Applicant">San Juan Dela Cruz</td>
           <td data-label="Full name">Juan Dela Cruz</td>
           <td data-label="Sex">Male</td>
-          <td data-label="Date of Birth">1995-06-12</td>
+          <td data-label="Date of Birth">August 3, 2025</td>
           <td data-label="Place of Birth">Quezon City, NCR</td>
           <td class="actions-cell" data-label="Actions">
             <button class="br-edit">Edit</button>
@@ -118,9 +122,11 @@
           </td>
         </tr>
         <tr data-id="2">
+          <td data-label="Date">September 5, 2025</td>
+           <td data-label="Applicant">San Francisco Santos</td>
           <td data-label="Full name">Maria Santos</td>
           <td data-label="Sex">Female</td>
-          <td data-label="Date of Birth">2001-02-01</td>
+          <td data-label="Date of Birth">September 4, 2025</td>
           <td data-label="Place of Birth">Davao City, Davao del Sur</td>
           <td class="actions-cell" data-label="Actions">
             <button class="br-edit">Edit</button>

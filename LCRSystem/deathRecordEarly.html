@@ -1,0 +1,334 @@
+<style>
+  .dr-wrap{--ink:#111;--hair:#c9c9c9;--border:#222;
+           font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+  .dr-wrap h2{margin:0 0 .4rem;font-size:20px}
+
+  /* toolbar (search on the right) */
+  .dr-toolbar{
+    display:flex; justify-content:flex-end; align-items:center;
+    gap:.6rem; margin:.35rem 0 .6rem;
+  }
+  .dr-search{ position:relative; width:min(360px, 100%); }
+  .dr-search input{
+    width:100%; height:2.2rem; padding:.45rem 2.2rem .45rem .65rem;
+    border:1px solid var(--hair); border-radius:4px; outline:none;
+  }
+  .dr-search svg{
+    position:absolute; right:.5rem; top:50%; transform:translateY(-50%);
+    width:18px; height:18px; opacity:.7; pointer-events:none;
+  }
+
+  .dr-table-wrap{border:1px solid var(--border);overflow:auto}
+  .dr-table{width:100%;border-collapse:collapse;min-width:1100px;background:#fff}
+  .dr-table thead{background:#f7f7f7}
+  .dr-table th,.dr-table td{padding:.55rem .65rem;text-align:left}
+  .dr-table th{border-bottom:1px solid var(--border);font-weight:600}
+  .dr-table td{border-top:1px solid var(--hair)}
+  .actions-col{width:170px}
+  .actions-cell{white-space:nowrap}
+  .actions-cell .dr-edit,
+  .actions-cell .dr-del,
+  .actions-cell .dr-save,
+  .actions-cell .dr-cancel{
+    padding:.35rem .6rem;border:1px solid var(--hair);background:#fff;cursor:pointer;margin-right:.35rem
+  }
+  .actions-cell .dr-del{border-color:#d5a3a3}
+  .actions-cell .dr-save{background:#222;color:#fff;border-color:#222}
+  .actions-cell .dr-cancel{background:#f7f7f7}
+
+  /* Inputs used in inline editing */
+  .dr-inline{
+    border:1px solid var(--hair); padding:.35rem .5rem; width:100%;
+    font:inherit; height:2.1rem;
+  }
+  .dr-inline-select{height:2.1rem}
+
+  /* Vertical column separators */
+  .dr-table th, .dr-table td{ border-right:1px solid var(--hair); }
+  .dr-table th:last-child, .dr-table td:last-child{ border-right:none; }
+
+  /* Mobile: stack rows and show labels */
+  @media (max-width:560px){
+    .dr-table{min-width:0}
+    .dr-table thead{display:none}
+    .dr-table tr{display:grid;grid-template-columns:1fr;gap:.45rem;
+      border-top:1px solid var(--hair);padding:.6rem .6rem}
+    .dr-table td{border:0;padding:0}
+    .dr-table td::before{
+      content: attr(data-label);
+      display:block; font-size:.8rem; color:#555; margin-bottom:.15rem; font-weight:600;
+      position:relative; padding-left:.6rem;
+    }
+    .dr-table td::before::after{
+      content:""; position:absolute; left:0; top:0.1rem; bottom:0.1rem;
+      width:2px; background:#e0e0e0;
+    }
+    .actions-cell{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.25rem}
+    .actions-cell button{flex:1;min-width:110px}
+  }
+
+  /* Print */
+  @media print{
+    .dr-toolbar{display:none}
+    .dr-table-wrap{border:1px solid #000}
+    .dr-table th{border-bottom:1px solid #000;background:#efefef}
+    .dr-table td{border-top:1px solid #999}
+    .dr-table th, .dr-table td{ border-right:1px solid #999; }
+    .dr-table th:last-child, .dr-table td:last-child{ border-right:none; }
+    .actions-col,.actions-cell{display:none}
+  }
+/* Vertical scrolling for long lists */
+.dr-table-wrap{
+  /* adjust the height you want for the viewport */
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;           /* keep horizontal scroll if columns overflow */
+  overscroll-behavior: contain;
+  background:#fff;
+}
+
+/* Keep the header visible while scrolling vertically */
+.dr-table{
+  border-collapse: separate;  /* needed for sticky header in some browsers */
+  border-spacing: 0;
+}
+.dr-table thead th{
+  position: sticky;
+  top: 0;
+  z-index: 2;                 /* above body cells */
+  background: #f7f7f7;        /* same as your thead background */
+}
+
+/* Print: show full table, no scrollbars */
+@media print{
+  .dr-table-wrap{
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+
+</style>
+
+<!-- Death Records (DB-driven, with Edit/Delete + Search) -->
+<section id="death-records" class="dr-wrap">
+  <h2>Death Registration Records of Early</h2>
+
+  <!-- Right-aligned search -->
+  <div class="dr-toolbar">
+    <label class="dr-search" aria-label="Search death records">
+      <input id="dr-search" type="search" placeholder="Search" />
+      <!-- magnifying glass icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+      </svg>
+    </label>
+  </div>
+
+  <div class="dr-table-wrap">
+    <table class="dr-table" aria-label="Death Records">
+      <thead>
+        <tr>
+          <th scope="col">Date of Registration</th>
+          <th scope="col">Name of Applicant</th>
+          <th scope="col">Departed’s name</th>
+          <th scope="col">Sex</th>
+          <th scope="col">Civil Status</th>
+          <th scope="col">Date of Death</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Religion</th>
+          <th scope="col">Citizenship</th>
+          <th scope="col">Residence</th>
+          <th scope="col" class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="dr-body">
+        <!-- Seed rows (replace with server-rendered rows) -->
+        <tr data-id="101">
+          <td data-label="Date">January 7, 2025</td>
+          <td data-label="Applicant">San Juan Dela Cruz</td>
+          <td data-label="Full Name">Pedro Dela Cruz</td>
+          <td data-label="Sex">Male</td>
+          <td data-label="Civil Status">Married</td>
+          <td data-label="Date of Death">2024-11-03</td>
+          <td data-label="Date of Birth">1965-05-21</td>
+          <td data-label="Religion">Roman Catholic</td>
+          <td data-label="Citizenship">Filipino</td>
+          <td data-label="Residence">Mandaue City, Cebu</td>
+          <td class="actions-cell" data-label="Actions">
+            <button class="dr-edit">Edit</button>
+            <button class="dr-del">Delete</button>
+          </td>
+        </tr>
+        <tr data-id="102">
+       <td data-label="Date">July 8, 2025</td>
+          <td data-label="Applicant">Miguel De Luna</td>
+          <td data-label="Full Name">Pedro De Luna</td>
+          <td data-label="Sex">Male</td>
+          <td data-label="Civil Status">Married</td>
+          <td data-label="Date of Death">2024-11-03</td>
+          <td data-label="Date of Birth">1965-05-21</td>
+          <td data-label="Religion">Roman Catholic</td>
+          <td data-label="Citizenship">Filipino</td>
+          <td data-label="Residence">Mandaue City, Cebu</td>
+          <td class="actions-cell" data-label="Actions">
+            <button class="dr-edit">Edit</button>
+            <button class="dr-del">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody id="dr-empty" style="display:none">
+        <tr><td colspan="10" style="padding:.8rem .65rem;color:#666">No matching records.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  // Inline edit / delete + search filter (Death Records)
+  (function(){
+    const tbody = document.getElementById('dr-body');
+    const empty = document.getElementById('dr-empty');
+    const search = document.getElementById('dr-search');
+
+    function escAttr(s){ return (s||'').replace(/"/g,'&quot;'); }
+
+    function rowToEdit(tr){
+      const [nameTd, sexTd, csTd, dodTd, dobTd, podTd, relTd, citTd, resTd, actTd] = tr.children;
+
+      // Save originals
+      tr.dataset.origName = nameTd.textContent.trim();
+      tr.dataset.origSex  = sexTd.textContent.trim();
+      tr.dataset.origCs   = csTd.textContent.trim();
+      tr.dataset.origDod  = dodTd.textContent.trim();
+      tr.dataset.origDob  = dobTd.textContent.trim();
+      tr.dataset.origPod  = podTd.textContent.trim();
+      tr.dataset.origRel  = relTd.textContent.trim();
+      tr.dataset.origCit  = citTd.textContent.trim();
+      tr.dataset.origRes  = resTd.textContent.trim();
+
+      // Build inputs
+      nameTd.innerHTML = `<input class="dr-inline" name="full_name" value="${escAttr(tr.dataset.origName)}" required>`;
+
+      sexTd.innerHTML  = `
+        <select class="dr-inline dr-inline-select" name="sex" required>
+          <option ${tr.dataset.origSex===''?'selected':''} value="" disabled>— Select —</option>
+          <option ${tr.dataset.origSex==='Male'?'selected':''}>Male</option>
+          <option ${tr.dataset.origSex==='Female'?'selected':''}>Female</option>
+        </select>`;
+
+      csTd.innerHTML   = `
+        <select class="dr-inline dr-inline-select" name="civil_status" required>
+          <option ${tr.dataset.origCs===''?'selected':''} value="" disabled>— Select —</option>
+          <option ${tr.dataset.origCs==='Single'?'selected':''}>Single</option>
+          <option ${tr.dataset.origCs==='Married'?'selected':''}>Married</option>
+          <option ${tr.dataset.origCs==='Widowed'?'selected':''}>Widowed</option>
+          <option ${tr.dataset.origCs==='Separated'?'selected':''}>Separated</option>
+          <option ${tr.dataset.origCs==='Divorced'?'selected':''}>Divorced</option>
+        </select>`;
+
+      dodTd.innerHTML  = `<input class="dr-inline" type="date" name="date_of_death" value="${escAttr(tr.dataset.origDod)}" required>`;
+      dobTd.innerHTML  = `<input class="dr-inline" type="date" name="date_of_birth" value="${escAttr(tr.dataset.origDob)}" required>`;
+      podTd.innerHTML  = `<input class="dr-inline" name="place_of_death" value="${escAttr(tr.dataset.origPod)}" required>`;
+      relTd.innerHTML  = `<input class="dr-inline" name="religion" value="${escAttr(tr.dataset.origRel)}" required>`;
+      citTd.innerHTML  = `<input class="dr-inline" name="citizenship" value="${escAttr(tr.dataset.origCit)}" required>`;
+      resTd.innerHTML  = `<input class="dr-inline" name="residence" value="${escAttr(tr.dataset.origRes)}" required>`;
+
+      actTd.innerHTML = `<button class="dr-save">Save</button><button class="dr-cancel">Cancel</button>`;
+      tr.classList.add('editing');
+      nameTd.querySelector('input').focus();
+    }
+
+    function rowCancelEdit(tr){
+      const [nameTd, sexTd, csTd, dodTd, dobTd, podTd, relTd, citTd, resTd, actTd] = tr.children;
+      nameTd.textContent = tr.dataset.origName;
+      sexTd.textContent  = tr.dataset.origSex;
+      csTd.textContent   = tr.dataset.origCs;
+      dodTd.textContent  = tr.dataset.origDod;
+      dobTd.textContent  = tr.dataset.origDob;
+      podTd.textContent  = tr.dataset.origPod;
+      relTd.textContent  = tr.dataset.origRel;
+      citTd.textContent  = tr.dataset.origCit;
+      resTd.textContent  = tr.dataset.origRes;
+      actTd.innerHTML    = `<button class="dr-edit">Edit</button><button class="dr-del">Delete</button>`;
+      tr.classList.remove('editing');
+    }
+
+    function rowSaveEdit(tr){
+      const id = tr.getAttribute('data-id');
+      const [nameTd, sexTd, csTd, dodTd, dobTd, podTd, relTd, citTd, resTd] = tr.children;
+
+      const payload = {
+        full_name: nameTd.querySelector('input').value.trim(),
+        sex:       sexTd.querySelector('select').value,
+        civil_status: csTd.querySelector('select').value,
+        date_of_death: dodTd.querySelector('input').value,
+        date_of_birth: dobTd.querySelector('input').value,
+        place_of_death: podTd.querySelector('input').value.trim(),
+        religion:   relTd.querySelector('input').value.trim(),
+        citizenship:citTd.querySelector('input').value.trim(),
+        residence:  resTd.querySelector('input').value.trim(),
+      };
+
+      if(Object.values(payload).some(v => !v)){
+        alert('Please fill all fields.');
+        return;
+      }
+
+      // TODO: call your backend update API, e.g.:
+      // fetch('/api/death-records/'+id, {
+      //   method:'PUT', headers:{'Content-Type':'application/json'},
+      //   body:JSON.stringify(payload)
+      // }).then(r => {
+      //   if(!r.ok) throw new Error('Save failed');
+      // });
+
+      // Update UI with saved values then exit edit mode
+      tr.dataset.origName = payload.full_name;
+      tr.dataset.origSex  = payload.sex;
+      tr.dataset.origCs   = payload.civil_status;
+      tr.dataset.origDod  = payload.date_of_death;
+      tr.dataset.origDob  = payload.date_of_birth;
+      tr.dataset.origPod  = payload.place_of_death;
+      tr.dataset.origRel  = payload.religion;
+      tr.dataset.origCit  = payload.citizenship;
+      tr.dataset.origRes  = payload.residence;
+      rowCancelEdit(tr);
+      runFilter();
+    }
+
+    function rowDelete(tr){
+      const id = tr.getAttribute('data-id');
+      if(confirm('Delete this record?')){
+        // TODO: fetch('/api/death-records/'+id, {method:'DELETE'}).then(()=> tr.remove());
+        tr.remove();
+        runFilter();
+      }
+    }
+
+    tbody.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const tr = e.target.closest('tr'); if(!tr) return;
+      if(btn.classList.contains('dr-edit')) rowToEdit(tr);
+      else if(btn.classList.contains('dr-cancel')) rowCancelEdit(tr);
+      else if(btn.classList.contains('dr-save')) rowSaveEdit(tr);
+      else if(btn.classList.contains('dr-del')) rowDelete(tr);
+    });
+
+    // ------- Live Search across first 9 columns -------
+    function runFilter(){
+      const q = (search.value || '').trim().toLowerCase();
+      let shown = 0;
+      [...tbody.querySelectorAll('tr')].forEach(tr=>{
+        const cells = [...tr.querySelectorAll('td')].slice(0,9);
+        const hay = cells.map(td=>td.textContent.toLowerCase()).join(' ');
+        const match = hay.includes(q);
+        tr.style.display = match ? '' : 'none';
+        if(match) shown++;
+      });
+      empty.style.display = shown === 0 ? '' : 'none';
+    }
+    search.addEventListener('input', runFilter);
+    runFilter(); // initial
+  })();
+</script>

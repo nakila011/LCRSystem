@@ -89,7 +89,7 @@
 
 <!-- Marriage Records (DB-driven, with Edit/Delete + Search) -->
 <section id="marriage-records" class="mr-wrap">
-  <h2>Marriage Records</h2>
+  <h2>Marriage Registration Records</h2>
 
   <!-- Right-aligned search -->
   <div class="mr-toolbar">
@@ -106,54 +106,69 @@
     <table class="mr-table" aria-label="Marriage Records">
       <thead>
         <tr>
+          <th>Date of Registration</th>
+          <th>Name of Applicant</th>
           <th>Full Name (Groom)</th>
+          <th>Date of Birth </th>
+          <th>Sex</th>
+          <th>Citizenship </th>
+          <th>Residence</th>
+          <th>Religion</th>
+
           <th>Full Name (Bride)</th>
-          <th>Date of Birth (Groom)</th>
-          <th>Date of Birth (Bride)</th>
-          <th>Sex (Groom)</th>
-          <th>Sex (Bride)</th>
-          <th>Citizenship (Groom)</th>
-          <th>Citizenship (Bride)</th>
-          <th>Residence (Groom)</th>
-          <th>Residence (Bride)</th>
-          <th>Religion (Groom)</th>
-          <th>Religion (Bride)</th>
+          <th>Date of Birth</th>   
+          <th>Sex</th>    
+          <th>Citizenship</th>         
+          <th>Residence</th>        
+          <th>Religion</th>
           <th class="actions-col">Actions</th>
         </tr>
       </thead>
       <tbody id="mr-body">
         <!-- Seed rows (replace with server-rendered rows) -->
         <tr data-id="801">
+          <td data-label="Date">September 10, 2025</td>
+          <td data-label="Applicant">Juan Dela Cruz</td>
           <td data-label="Full Name (Groom)">Juan Dela Cruz</td>
-          <td data-label="Full Name (Bride)">Maria Santos</td>
           <td data-label="Date of Birth (Groom)">1992-03-05</td>
-          <td data-label="Date of Birth (Bride)">1994-07-18</td>
           <td data-label="Sex (Groom)">Male</td>
-          <td data-label="Sex (Bride)">Female</td>
           <td data-label="Citizenship (Groom)">Filipino</td>
-          <td data-label="Citizenship (Bride)">Filipino</td>
           <td data-label="Residence (Groom)">Quezon City, NCR</td>
-          <td data-label="Residence (Bride)">Quezon City, NCR</td>
-          <td data-label="Religion (Groom)">Roman Catholic</td>
+          <td data-label="Religion (Groom)">Roman Catholic</td> 
+
+
+          <td data-label="Full Name (Bride)">Maria Santos</td>        
+          <td data-label="Date of Birth (Bride)">1994-07-18</td>          
+          <td data-label="Sex (Bride)">Female</td>        
+          <td data-label="Citizenship (Bride)">Filipino</td>        
+          <td data-label="Residence (Bride)">Quezon City, NCR</td>     
           <td data-label="Religion (Bride)">Roman Catholic</td>
+
+
           <td class="actions-cell" data-label="Actions">
             <button class="mr-edit">Edit</button>
             <button class="mr-del">Delete</button>
           </td>
         </tr>
         <tr data-id="802">
-          <td data-label="Full Name (Groom)">Ramon Ortega</td>
-          <td data-label="Full Name (Bride)">Lara Mendoza</td>
-          <td data-label="Date of Birth (Groom)">1988-11-22</td>
-          <td data-label="Date of Birth (Bride)">1990-01-09</td>
+          <td data-label="Date">December 15, 2025</td>
+          <td data-label="Applicant">Juana Delapena</td>
+          <td data-label="Full Name (Groom)">Pedro DelaRosa</td>
+          <td data-label="Date of Birth (Groom)">1992-03-05</td>
           <td data-label="Sex (Groom)">Male</td>
-          <td data-label="Sex (Bride)">Female</td>
           <td data-label="Citizenship (Groom)">Filipino</td>
-          <td data-label="Citizenship (Bride)">Filipino</td>
-          <td data-label="Residence (Groom)">Cebu City, Cebu</td>
-          <td data-label="Residence (Bride)">Cebu City, Cebu</td>
-          <td data-label="Religion (Groom)">Iglesia ni Cristo</td>
-          <td data-label="Religion (Bride)">Iglesia ni Cristo</td>
+          <td data-label="Residence (Groom)">Buenavista, Agusan del Norte</td>
+          <td data-label="Religion (Groom)">Roman Catholic</td> 
+
+
+          <td data-label="Full Name (Bride)">Juana Delapena</td>        
+          <td data-label="Date of Birth (Bride)">1994-07-18</td>          
+          <td data-label="Sex (Bride)">Female</td>        
+          <td data-label="Citizenship (Bride)">Filipino</td>        
+          <td data-label="Residence (Bride)">Nasipit, Agusan del Norte</td>     
+          <td data-label="Religion (Bride)">Roman Catholic</td>
+
+          
           <td class="actions-cell" data-label="Actions">
             <button class="mr-edit">Edit</button>
             <button class="mr-del">Delete</button>

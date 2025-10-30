@@ -1,0 +1,235 @@
+<style>
+  .br-wrap{--ink:#111;--hair:#c9c9c9;--border:#222;
+           font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+  .br-wrap h2{margin:0 0 .4rem;font-size:20px} /* ← 20px title */
+
+  /* toolbar (search on the right) */
+  .br-toolbar{
+    display:flex; justify-content:flex-end; align-items:center;
+    gap:.6rem; margin:.35rem 0 .6rem;
+  }
+  .br-search{ position:relative; width:min(320px, 100%); }
+  .br-search input{
+    width:100%; height:2.2rem; padding:.45rem 2.2rem .45rem .65rem;
+    border:1px solid var(--hair); border-radius:4px; outline:none;
+  }
+  .br-search svg{
+    position:absolute; right:.5rem; top:50%; transform:translateY(-50%);
+    width:18px; height:18px; opacity:.7; pointer-events:none;
+  }
+
+  .br-table-wrap{border:1px solid var(--border);overflow:auto}
+  .br-table{width:100%;border-collapse:collapse;min-width:720px;background:#fff}
+  .br-table thead{background:#f7f7f7}
+  .br-table th,.br-table td{padding:.55rem .65rem;text-align:left}
+  .br-table th{border-bottom:1px solid var(--border);font-weight:600}
+  .br-table td{border-top:1px solid var(--hair)}
+  .actions-col{width:160px}
+  .actions-cell{white-space:nowrap}
+  .actions-cell .br-edit,
+  .actions-cell .br-del,
+  .actions-cell .br-save,
+  .actions-cell .br-cancel{
+    padding:.35rem .6rem;border:1px solid var(--hair);background:#fff;cursor:pointer;margin-right:.35rem
+  }
+  .actions-cell .br-del{border-color:#d5a3a3}
+  .actions-cell .br-save{background:#222;color:#fff;border-color:#222}
+  .actions-cell .br-cancel{background:#f7f7f7}
+
+  /* Inputs used in inline editing */
+  .br-inline{
+    border:1px solid var(--hair); padding:.35rem .5rem; width:100%;
+    font:inherit; height:2.1rem;
+  }
+  .br-inline-select{height:2.1rem}
+
+  /* Vertical column separators */
+  .br-table th, .br-table td{ border-right:1px solid var(--hair); }
+  .br-table th:last-child, .br-table td:last-child{ border-right:none; }
+
+  /* Mobile: stack rows and show labels */
+  @media (max-width:560px){
+    .br-table{min-width:0}
+    .br-table thead{display:none}
+    .br-table tr{display:grid;grid-template-columns:1fr;gap:.45rem;
+      border-top:1px solid var(--hair);padding:.6rem .6rem}
+    .br-table td{border:0;padding:0}
+    .br-table td::before{
+      content: attr(data-label);
+      display:block; font-size:.8rem; color:#555; margin-bottom:.15rem; font-weight:600;
+      position:relative; padding-left:.6rem;
+    }
+    .br-table td::before::after{
+      content:""; position:absolute; left:0; top:0.1rem; bottom:0.1rem;
+      width:2px; background:#e0e0e0;
+    }
+    .actions-cell{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.25rem}
+    .actions-cell button{flex:1;min-width:110px}
+  }
+
+  /* Print */
+  @media print{
+    .br-toolbar{display:none}
+    .br-table-wrap{border:1px solid #000}
+    .br-table th{border-bottom:1px solid #000;background:#efefef}
+    .br-table td{border-top:1px solid #999}
+    .br-table th, .br-table td{ border-right:1px solid #999; }
+    .br-table th:last-child, .br-table td:last-child{ border-right:none; }
+    .actions-col,.actions-cell{display:none}
+  }
+</style>
+
+<!-- Birth Records (DB-driven, with Edit/Delete + Search) -->
+<section id="birth-records" class="br-wrap">
+  <h2>Delay Registration of Birth Records</h2>
+
+  <!-- Right-aligned search -->
+  <div class="br-toolbar">
+    <label class="br-search" aria-label="Search birth records">
+      <input id="br-search" type="search" placeholder="Search" />
+      <!-- magnifying glass icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+      </svg>
+    </label>
+  </div>
+
+  <div class="br-table-wrap">
+    <table class="br-table" aria-label="Birth Records">
+      <thead>
+        <tr>
+          <th scope="col">Date of Registration</th>
+          <th scope="col">Name of Applicant</th>
+          <th scope="col">Child’s full name</th>
+          <th scope="col">Sex</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Place of Birth</th>
+          <th scope="col" class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="br-body">
+        <!-- Seed rows (replace with server-rendered rows) -->
+        <tr data-id="1">
+          <td data-label="Date">August 5, 2025</td>
+          <td data-label="Applicant">San Juan Dela Cruz</td>
+          <td data-label="Full name">Juan Dela Cruz</td>
+          <td data-label="Sex">Male</td>
+          <td data-label="Date of Birth">July 26, 2025</td>
+          <td data-label="Place of Birth">Quezon City, NCR</td>
+          <td class="actions-cell" data-label="Actions">
+            <button class="br-edit">Edit</button>
+            <button class="br-del">Delete</button>
+          </td>
+        </tr>
+        <tr data-id="2">
+          <td data-label="Date">September 5, 2025</td>
+           <td data-label="Applicant">San Francisco Santos</td>
+          <td data-label="Full name">Maria Santos</td>
+          <td data-label="Sex">Female</td>
+          <td data-label="Date of Birth">Agust 26, 2025</td>
+          <td data-label="Place of Birth">Davao City, Davao del Sur</td>
+          <td class="actions-cell" data-label="Actions">
+            <button class="br-edit">Edit</button>
+            <button class="br-del">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody id="br-empty" style="display:none">
+        <tr><td colspan="5" style="padding:.8rem .65rem;color:#666">No matching records.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  // Inline edit / delete + search filter
+  (function(){
+    const tbody = document.getElementById('br-body');
+    const empty = document.getElementById('br-empty');
+    const search = document.getElementById('br-search');
+
+    function escAttr(s){ return (s||'').replace(/"/g,'&quot;'); }
+
+    function rowToEdit(tr){
+      const [nameTd, sexTd, dobTd, pobTd, actTd] = tr.children;
+      tr.dataset.origName = nameTd.textContent.trim();
+      tr.dataset.origSex  = sexTd.textContent.trim();
+      tr.dataset.origDob  = dobTd.textContent.trim();
+      tr.dataset.origPob  = pobTd.textContent.trim();
+
+      nameTd.innerHTML = `<input class="br-inline" name="full_name" value="${escAttr(tr.dataset.origName)}" required>`;
+      sexTd.innerHTML  = `
+        <select class="br-inline br-inline-select" name="sex" required>
+          <option ${tr.dataset.origSex===''?'selected':''} value="" disabled>— Select —</option>
+          <option ${tr.dataset.origSex==='Male'?'selected':''}>Male</option>
+          <option ${tr.dataset.origSex==='Female'?'selected':''}>Female</option>
+        </select>`;
+      dobTd.innerHTML  = `<input class="br-inline" type="date" name="dob" value="${escAttr(tr.dataset.origDob)}" required>`;
+      pobTd.innerHTML  = `<input class="br-inline" name="pob" value="${escAttr(tr.dataset.origPob)}" required>`;
+
+      actTd.innerHTML = `<button class="br-save">Save</button><button class="br-cancel">Cancel</button>`;
+      tr.classList.add('editing');
+      nameTd.querySelector('input').focus();
+    }
+    function rowCancelEdit(tr){
+      const [nameTd, sexTd, dobTd, pobTd, actTd] = tr.children;
+      nameTd.textContent = tr.dataset.origName;
+      sexTd.textContent  = tr.dataset.origSex;
+      dobTd.textContent  = tr.dataset.origDob;
+      pobTd.textContent  = tr.dataset.origPob;
+      actTd.innerHTML    = `<button class="br-edit">Edit</button><button class="br-del">Delete</button>`;
+      tr.classList.remove('editing');
+    }
+    function rowSaveEdit(tr){
+      const id = tr.getAttribute('data-id');
+      const [nameTd, sexTd, dobTd, pobTd] = tr.children;
+      const full_name = nameTd.querySelector('input').value.trim();
+      const sex       = sexTd.querySelector('select').value;
+      const dob       = dobTd.querySelector('input').value;
+      const pob       = pobTd.querySelector('input').value.trim();
+      if(!full_name || !sex || !dob || !pob){ alert('Please fill all fields.'); return; }
+
+      // TODO: fetch('/api/birth-records/'+id, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({full_name, sex, dob, pob})})
+      tr.dataset.origName = full_name;
+      tr.dataset.origSex  = sex;
+      tr.dataset.origDob  = dob;
+      tr.dataset.origPob  = pob;
+      rowCancelEdit(tr);
+      runFilter(); // keep filter consistent with new values
+    }
+    function rowDelete(tr){
+      const id = tr.getAttribute('data-id');
+      if(confirm('Delete this record?')){
+        // TODO: fetch('/api/birth-records/'+id, {method:'DELETE'}).then(()=> tr.remove());
+        tr.remove();
+        runFilter(); // re-check empty state
+      }
+    }
+    tbody.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const tr = e.target.closest('tr'); if(!tr) return;
+      if(btn.classList.contains('br-edit')) rowToEdit(tr);
+      else if(btn.classList.contains('br-cancel')) rowCancelEdit(tr);
+      else if(btn.classList.contains('br-save')) rowSaveEdit(tr);
+      else if(btn.classList.contains('br-del')) rowDelete(tr);
+    });
+
+    // ------- Live Search -------
+    function runFilter(){
+      const q = (search.value || '').trim().toLowerCase();
+      let shown = 0;
+      [...tbody.querySelectorAll('tr')].forEach(tr=>{
+        // build searchable text from first 4 cells (skip actions)
+        const cells = [...tr.querySelectorAll('td')].slice(0,4);
+        const hay = cells.map(td=>td.textContent.toLowerCase()).join(' ');
+        const match = hay.includes(q);
+        tr.style.display = match ? '' : 'none';
+        if(match) shown++;
+      });
+      empty.style.display = shown === 0 ? '' : 'none';
+    }
+    search.addEventListener('input', runFilter);
+    runFilter(); // initial
+
+  })();
+</script>

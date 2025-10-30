@@ -112,7 +112,7 @@
 
 <!-- Death Records (DB-driven, with Edit/Delete + Search) -->
 <section id="death-records" class="dr-wrap">
-  <h2>Death Records</h2>
+  <h2>Death Registration Records of Delay</h2>
 
   <!-- Right-aligned search -->
   <div class="dr-toolbar">
@@ -129,12 +129,13 @@
     <table class="dr-table" aria-label="Death Records">
       <thead>
         <tr>
-          <th scope="col">Full Name</th>
+          <th scope="col">Date of Registration</th>
+          <th scope="col">Name of Applicant</th>
+          <th scope="col">Departed’s name</th>
           <th scope="col">Sex</th>
           <th scope="col">Civil Status</th>
           <th scope="col">Date of Death</th>
           <th scope="col">Date of Birth</th>
-          <th scope="col">Place of Death</th>
           <th scope="col">Religion</th>
           <th scope="col">Citizenship</th>
           <th scope="col">Residence</th>
@@ -144,12 +145,13 @@
       <tbody id="dr-body">
         <!-- Seed rows (replace with server-rendered rows) -->
         <tr data-id="101">
+          <td data-label="Date">January 7, 2025</td>
+          <td data-label="Applicant">San Juan Dela Cruz</td>
           <td data-label="Full Name">Pedro Dela Cruz</td>
           <td data-label="Sex">Male</td>
           <td data-label="Civil Status">Married</td>
           <td data-label="Date of Death">2024-11-03</td>
           <td data-label="Date of Birth">1965-05-21</td>
-          <td data-label="Place of Death">Cebu City, Cebu</td>
           <td data-label="Religion">Roman Catholic</td>
           <td data-label="Citizenship">Filipino</td>
           <td data-label="Residence">Mandaue City, Cebu</td>
@@ -159,15 +161,16 @@
           </td>
         </tr>
         <tr data-id="102">
-          <td data-label="Full Name">Rosa Villanueva</td>
-          <td data-label="Sex">Female</td>
-          <td data-label="Civil Status">Widowed</td>
-          <td data-label="Date of Death">2025-01-18</td>
-          <td data-label="Date of Birth">1948-08-09</td>
-          <td data-label="Place of Death">Taguig, NCR</td>
-          <td data-label="Religion">Iglesia ni Cristo</td>
+       <td data-label="Date">July 8, 2025</td>
+          <td data-label="Applicant">Miguel De Luna</td>
+          <td data-label="Full Name">Pedro De Luna</td>
+          <td data-label="Sex">Male</td>
+          <td data-label="Civil Status">Married</td>
+          <td data-label="Date of Death">2024-11-03</td>
+          <td data-label="Date of Birth">1965-05-21</td>
+          <td data-label="Religion">Roman Catholic</td>
           <td data-label="Citizenship">Filipino</td>
-          <td data-label="Residence">Taguig, NCR</td>
+          <td data-label="Residence">Mandaue City, Cebu</td>
           <td class="actions-cell" data-label="Actions">
             <button class="dr-edit">Edit</button>
             <button class="dr-del">Delete</button>
