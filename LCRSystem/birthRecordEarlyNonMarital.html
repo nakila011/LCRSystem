@@ -77,6 +77,28 @@
     .br-table th:last-child, .br-table td:last-child{ border-right:none; }
     .actions-col,.actions-cell{display:none}
   }
+
+  .actions-cell .dr-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--hair);
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  margin-right: .35rem;
+  transition: background 0.2s ease;
+}
+.actions-cell .dr-view:hover {
+  background: #f0f0f0;
+}
+.actions-cell .dr-view svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+}
 </style>
 
 <!-- Birth Records (DB-driven, with Edit/Delete + Search) -->
@@ -104,6 +126,7 @@
           <th scope="col">Sex</th>
           <th scope="col">Date of Birth</th>
           <th scope="col">Place of Birth</th>
+          <th scope="col" class="actions-col">View Final Document</th>
           <th scope="col" class="actions-col">Actions</th>
         </tr>
       </thead>
@@ -117,6 +140,13 @@
           <td data-label="Date of Birth">August 3, 2025</td>
           <td data-label="Place of Birth">Quezon City, NCR</td>
           <td class="actions-cell" data-label="Actions">
+          <span class="dr-view" title="View Attachment">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17.657 6.343a4 4 0 0 0-5.657 0l-6 6a4 4 0 1 0 5.657 5.657l1.829-1.828a1 1 0 1 0-1.414-1.415l-1.829 1.829a2 2 0 1 1-2.829-2.829l6-6a2 2 0 0 1 2.829 0 2 2 0 0 1 0 2.829l-2.121 2.121a1 1 0 0 0 1.414 1.415l2.121-2.122a4 4 0 0 0 0-5.657z"/>
+          </svg>
+          </span>
+          </td>
+          <td class="actions-cell" data-label="Actions">
             <button class="br-edit">Edit</button>
             <button class="br-del">Delete</button>
           </td>
@@ -128,6 +158,13 @@
           <td data-label="Sex">Female</td>
           <td data-label="Date of Birth">September 4, 2025</td>
           <td data-label="Place of Birth">Davao City, Davao del Sur</td>
+          <td class="actions-cell" data-label="Actions">
+          <span class="dr-view" title="View Attachment">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17.657 6.343a4 4 0 0 0-5.657 0l-6 6a4 4 0 1 0 5.657 5.657l1.829-1.828a1 1 0 1 0-1.414-1.415l-1.829 1.829a2 2 0 1 1-2.829-2.829l6-6a2 2 0 0 1 2.829 0 2 2 0 0 1 0 2.829l-2.121 2.121a1 1 0 0 0 1.414 1.415l2.121-2.122a4 4 0 0 0 0-5.657z"/>
+          </svg>
+          </span>
+          </td>
           <td class="actions-cell" data-label="Actions">
             <button class="br-edit">Edit</button>
             <button class="br-del">Delete</button>
@@ -142,7 +179,16 @@
 </section>
 
 <script>
-  // Inline edit / delete + search filter
+ tbody.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button, .dr-view'); if(!btn) return;
+  const tr = e.target.closest('tr'); if(!tr) return;
+  if(btn.classList.contains('dr-edit')) rowToEdit(tr);
+  else if(btn.classList.contains('dr-cancel')) rowCancelEdit(tr);
+  else if(btn.classList.contains('dr-save')) rowSaveEdit(tr);
+  else if(btn.classList.contains('dr-del')) rowDelete(tr);
+  else if(btn.classList.contains('dr-view')) alert('View attachment for record ID ' + tr.dataset.id);
+});
+
   (function(){
     const tbody = document.getElementById('br-body');
     const empty = document.getElementById('br-empty');
