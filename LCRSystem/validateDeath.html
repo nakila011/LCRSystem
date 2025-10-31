@@ -213,43 +213,6 @@
   width:18px; height:18px; opacity:.7; pointer-events:none;
 }
 
-/* Print: hide toolbar */
-@media print{
-  .val-toolbar{ display:none; }
-}
-
-
-  .action-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-}
-
-.dr-view {
-  width: 80px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  border: 2px dashed #ccc;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dr-view:hover {
-  background: #f5f5f5;
-  border-color: #888;
-}
-
-.dr-view svg {
-  width: 45px;
-  height: 45px;
-  fill: #333;
-  opacity: 0.85;
-}
   </style>
 </head>
 
@@ -311,8 +274,8 @@
 
 <div class="val-toolbar">
   <label class="val-search" aria-label="Search registrations">
-    <input id="val-search" type="search" placeholder="Search" />
-    <!-- magnifying glass icon -->
+    <input id="val-search" type="search" placeholder="Search"/>
+
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16a6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
     </svg>
@@ -320,14 +283,15 @@
 </div>
          
   <div class="table-wrap">
+
     <table class="reg-table">
       <colgroup>
-        <col style="width: 16%">
+            <col style="width: 16%">
             <col style="width: 15%">
             <col style="width: 12%">
             <col style="width: 15%">
             <col style="width: 13%">
-            <col style="width: 15%">
+            <col style="width: 18%">
             <col style="width: 17%">
       </colgroup>
       <thead>
@@ -337,8 +301,8 @@
           <th>Status</th>
           <th>Validate Registration</th>
           <th>Final Status</th>
-          <th>Attach File/Upload File</th>
-          <th>View Attachment</th>  
+          <th>Attach File/Scan QR CODE</th>
+          <th>View Final Attachment</th>  
         </tr>
       </thead>
 
@@ -491,22 +455,115 @@
               <span class="badge pending">Pending</span>
             </div>
           </td>
+           
 
-          <td>
-             <div class="action-links">
-             <input type="file" id="fileInput" accept="image/*,.pdf" capture="environment" style="display: none;">
-               <span class="dr-view" title="Attach File or Take Picture" onclick="document.getElementById('fileInput').click();">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm5.5-10h-1.379l-.724-1.447A1 1 0 0 0 14.5 3h-5a1 1 0 0 0-.897.553L7.879 5.5H6.5A2.5 2.5 0 0 0 4 8v9.5A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V8a2.5 2.5 0 0 0-2.5-2.5zM18 17.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V8a.5.5 0 0 1 .5-.5h1.879a1 1 0 0 0 .894-.553L10 4.618h4l1.227 2.329a1 1 0 0 0 .894.553H18a.5.5 0 0 1 .5.5v9.5z"/>
-          </svg>
-               </span>
-          </div>
-         </td>
+<td>
+  <div class="action-links">
+    <span id="qrText" class="qr-text">Tap to Capture Document</span>
+    <div id="qrPopup" class="qr-popup">
+      <canvas id="qrCode" class="qr-canvas"></canvas>
+      <button id="closeBtn">Close</button>
+    </div>
+  </div>
+</td>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+  const recordId = "LCR-001";
+  const uploadURL = `https://example.com/upload?id=${recordId}`;
+
+  const qrCanvas = document.getElementById("qrCode");
+  const qrText = document.getElementById("qrText");
+  const qrPopup = document.getElementById("qrPopup");
+  const closeBtn = document.getElementById("closeBtn");
+
+  // Generate QR
+  QRCode.toCanvas(qrCanvas, uploadURL, {
+    width: 220,
+    margin: 2,
+    color: { dark: "#000", light: "#fff" }
+  });
+
+  // Show QR popup
+  qrText.addEventListener("click", () => {
+    qrPopup.classList.add("active");
+  });
+
+  // Close popup
+  closeBtn.addEventListener("click", () => {
+    qrPopup.classList.remove("active");
+  });
+</script>
+
+<style>
+  .qr-text {
+    font-size: 15px;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+
+  .qr-text:hover {
+    color: #0056b3;
+  }
+
+  /* Popup overlay */
+  .qr-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+  }
+
+  .qr-popup.active {
+    display: flex;
+  }
+
+  .qr-canvas {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+
+  #closeBtn {
+    margin-top: 20px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  #closeBtn:hover {
+    background: #c82333;
+  }
+
+  .action-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+
+
+
+
+
 
           <td>
             <div class="action-links">
               <a href="#" class="action violet" data-open-form="form-1">
-                <span class="action-icon">📝</span> View Registration Form
+                <span class="action-icon">📝</span> View Attachment Form
               </a>
             </div>
           </td>
@@ -1091,15 +1148,6 @@
 
   <script>
      
-    document.addEventListener('click', (e)=>{
-  const cam = e.target.closest('.dr-view');
-  if(cam){
-    e.preventDefault();
-    // Future logic here — e.g., open file input or camera API
-    alert('Open camera or attach file here');
-  }
-});
-
 
     document.addEventListener('click', (e) => {
       const openBtn = e.target.closest('[data-open]');

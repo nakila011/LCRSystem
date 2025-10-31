@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="/LCRSystem/image/LCRlogo.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/LCRSystem/image/LCRlogo.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 <meta name="theme-color" content="#415D8A">
   <title>LCR System — Staff/Admin Login</title>
@@ -163,35 +163,7 @@
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-   .password-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
 
-  .password-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .password-wrapper input {
-    width: 100%;
-    padding-right: 40px; /* space for icon */
-  }
-
-  .toggle-password {
-    position: absolute;
-    right: 12px;
-    cursor: pointer;
-    color: #415D8A;
-    font-size: 1rem;
-    transition: color 0.2s;
-  }
-
-  .toggle-password:hover {
-    color: #2e4466;
-  }
   </style>
 </head>
 <body>
@@ -240,7 +212,6 @@
   <label for="password">Password</label>
   <div class="password-wrapper">
     <input id="password" name="password" type="password" placeholder="*******" minlength="8" required />
-    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
   </div>
 </div>
 
